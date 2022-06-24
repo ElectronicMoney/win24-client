@@ -1,10 +1,17 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import CssBaseline from '@mui/material/CssBaseline';
 import AppLayout from "../layouts/AppLayout"
 import Typography from '@mui/material/Typography';
+import { AppContext } from '../contexts';
+import Dialogue from '../components/Feedback/Dialogue'
+
 
 
 function App() {
+
+  const {counter, dialogue} = useContext(AppContext)
+
+    
   return ( 
     <React.Fragment>
       <CssBaseline />
@@ -35,6 +42,22 @@ function App() {
           tristique sollicitudin nibh sit. Ornare aenean euismod elementum nisi quis
           eleifend. Commodo viverra maecenas accumsan lacus vel facilisis.
         </Typography>
+
+        <div>
+          Count: {counter.count}
+
+          <Dialogue title="Test Dialogue">
+            <span>Testing the Dialogue</span>
+          </Dialogue>
+
+          <button onClick={() => dialogue.openDialogue()}>Dialogue</button>
+
+        </div>
+
+        <button onClick={() => counter.resetCounter(0)}> Reset</button>
+        <button onClick={() => counter.incrementCounter()}>+</button>
+        <button onClick={() => counter.decrementCounter()}>-</button>
+
 
       </AppLayout>
     </React.Fragment>

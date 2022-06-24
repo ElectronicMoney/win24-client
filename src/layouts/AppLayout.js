@@ -11,14 +11,15 @@ export default function AppLayout(props) {
     <React.Fragment>
       <CssBaseline />
       <Container maxWidth="xl" disableGutters ={true}>
-        <Box sx={{ height: '100vh'}}>
+        <Box sx={{ height: '100vh', marginBottom: 40}}>
             <Drawer>
                 {props.children}
             </Drawer>
             
-            {/* Bottom Navigation */}
-            <BottomNav />
         </Box>
+        {/* Bottom Navigation */}
+        <BottomNav />
+
       </Container>
 
 
