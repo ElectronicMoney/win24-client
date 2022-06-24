@@ -3,4 +3,3 @@ export const COUNTER_DECREMENT = 'COUNTERDECREMENT';
 export const COUNTER_RESET     = 'COUNTER RESET';
 export const OPEN_DIALOGUE     = 'OPEN DIALOGUE';
 export const CLOSE_DIALOGUE    = 'CLOSE DIALOGUE';
-

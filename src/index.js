@@ -2,9 +2,8 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import { ThemeProvider } from '@mui/material/styles';
 import theme from "./theme"
-import App from './containers/App';
+import App from './App';
 import AppProvider from './store';
-// import Home from './containers/Home'
 import * as serviceWorkerRegistration from './serviceWorkerRegistration';
 import reportWebVitals from './reportWebVitals';
 
