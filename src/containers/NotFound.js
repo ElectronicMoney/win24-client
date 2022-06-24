@@ -1,9 +1,10 @@
 import React from 'react';
 import { styled } from '@mui/material/styles';
 import { keyframes } from '@mui/system';
-import {ErrorBoundary} from '../errors/ErrorBandary'
 import HomeLayout from '../layouts/HomeLayout'
 import Button from "../components/Inputs/Button"
+import {ErrorBoundary} from '../errors/ErrorBandary'
+
 
 const moveInLeft = keyframes`
   0% {
@@ -64,37 +65,30 @@ const HeadingPrimarySub = styled("span")(({theme}) => ({
   }));
 
 
-  const LoginButton = styled(Button)(() => ({
-    animation: `${moveInRight} 2s ease-out`
-  }));
-
-  const RegisterButton = styled(Button)(() => ({
+  const HomeLink = styled(Button)(() => ({
     animation: `${moveInLeft} 2s ease-out`
   }));
 
 
 
 
-function Home() {
+function NotFound() {
     return ( 
       <ErrorBoundary>
-        <HomeLayout>
+           <HomeLayout>
             <div>
                 <img src='images/icon_activi.19e63e6b.png' alt='Title' loading="lazy" width={100}/>
                 <HeadingPrimary>
-                    <HeadingPrimaryMain>Maganda Bet</HeadingPrimaryMain>
-                    <HeadingPrimarySub>The Easiest way to earn money from your phone</HeadingPrimarySub> 
+                    <HeadingPrimaryMain>OOPS! Error 404</HeadingPrimaryMain>
+                    <HeadingPrimarySub>Page Not Found!</HeadingPrimarySub> 
                 </HeadingPrimary>
-                <LoginButton variant="contained" color="secondary"
-               style={{marginRight: "25px"}}
-                >
-                    Login</LoginButton>
-                <RegisterButton variant="contained" color="primary">Register</RegisterButton>
+                
+                <HomeLink variant="contained" color="primary">Go Home</HomeLink>
             </div>
         </HomeLayout>
-
       </ErrorBoundary>
+       
      );
 }
 
-export default Home;
+export default NotFound;

@@ -4,6 +4,8 @@ import Box from '@mui/material/Box';
 import Container from '@mui/material/Container';
 import Drawer from "../components/Navigation/Drawer"
 import BottomNav from '../components/Navigation/BottomNav';
+import {ErrorBoundary} from '../errors/ErrorBandary'
+
 
 
 export default function AppLayout(props) {
@@ -12,14 +14,17 @@ export default function AppLayout(props) {
       <CssBaseline />
       <Container maxWidth="xl" disableGutters ={true}>
         <Box sx={{ height: '100vh', marginBottom: 40}}>
-            <Drawer>
-                {props.children}
-            </Drawer>
-            
+
+            <ErrorBoundary>
+              <Drawer>
+                  {props.children}
+              </Drawer>
+            </ErrorBoundary>
         </Box>
         {/* Bottom Navigation */}
-        <BottomNav />
-
+        <ErrorBoundary>
+          <BottomNav />
+        </ErrorBoundary>
       </Container>
 
 

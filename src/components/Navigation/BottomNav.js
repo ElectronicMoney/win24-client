@@ -1,36 +1,47 @@
 import * as React from 'react';
 import CssBaseline from '@mui/material/CssBaseline';
-import BottomNavigation from '@mui/material/BottomNavigation';
-import BottomNavigationAction from '@mui/material/BottomNavigationAction';
 import HomeIcon from '@mui/icons-material/Home';
 import InsertInvitationIcon from '@mui/icons-material/InsertInvitation';
 import AccountBalanceWalletIcon from '@mui/icons-material/AccountBalanceWallet';
 import SportsEsportsIcon from '@mui/icons-material/SportsEsports';
-import LocalPoliceIcon from '@mui/icons-material/LocalPolice';
+import { styled } from '@mui/material/styles';
 import Paper from '@mui/material/Paper';
+import Tabs from '@mui/material/Tabs';
+import Tab from '@mui/material/Tab';
+import { Link } from "react-router-dom";
+
+
+const Div = styled("div")(() => ({
+    display: 'flex',
+    height: '100%',
+    justifyContent: 'center',
+    alignItems: 'center',
+    textAlign: 'center',
+  }));
+  
 
 
 function BottomNav() {
+
     const [value, setValue] = React.useState(0);
 
+    const handleChange = (event, newValue) => {
+      setValue(newValue);
+    };
+  
+  
     return (  
         <React.Fragment>
             <CssBaseline />
             <Paper sx={{ position: 'fixed', bottom: 0, left: 0, right: 0 }} elevation={3}>
-                <BottomNavigation
-                    showLabels
-                    value={value}
-                    onChange={(event, newValue) => {
-                    setValue(newValue);
-                    }}
-                >
-                    <BottomNavigationAction label="HOME" icon={<HomeIcon />} />
-                    <BottomNavigationAction label="GAME" icon={<SportsEsportsIcon />} />
-                    <BottomNavigationAction label="INVITE" icon={<InsertInvitationIcon />} />
-                    <BottomNavigationAction label="WALLET" icon={<AccountBalanceWalletIcon />} />
-                    <BottomNavigationAction label="RULES" icon={<LocalPoliceIcon />} />
-
-                </BottomNavigation>
+                <Div>
+                    <Tabs value={value} onChange={handleChange} aria-label="bottom nav tabs">
+                        <Tab icon={<HomeIcon />} label="HOME" to="/" component={Link} />
+                        <Tab icon={<SportsEsportsIcon />} label="GAME" to="/games" component={Link}/>
+                        <Tab icon={<InsertInvitationIcon />} label="INVITE" to="/invites" component={Link}/>
+                        <Tab icon={<AccountBalanceWalletIcon />} label="WALLET" to="wallets" component={Link}/>
+                    </Tabs>
+                </Div>
             </Paper>
         </React.Fragment>     
     );      
