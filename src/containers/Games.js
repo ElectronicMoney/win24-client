@@ -1,6 +1,5 @@
 import React, { useContext } from 'react';
 import CssBaseline from '@mui/material/CssBaseline';
-import AppLayout from "../layouts/AppLayout"
 import Typography from '@mui/material/Typography';
 import { AppContext } from '../contexts';
 import Dialogue from '../components/Feedback/Dialogue'
@@ -17,7 +16,7 @@ function App() {
     <React.Fragment>
       <CssBaseline />
         <ErrorBoundary>
-            <AppLayout>
+            <div>
                 <Typography paragraph>
                     Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
                     tempor incididunt ut labore et dolore magna aliqua. Rhoncus dolor purus non
@@ -59,7 +58,7 @@ function App() {
                 <button onClick={() => counter.resetCounter(0)}> Reset</button>
                 <button onClick={() => counter.incrementCounter()}>+</button>
                 <button onClick={() => counter.decrementCounter()}>-</button>
-            </AppLayout>
+            </div>
         </ErrorBoundary>
       </React.Fragment>
    );

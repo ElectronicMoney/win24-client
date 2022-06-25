@@ -4,6 +4,7 @@ import { keyframes } from '@mui/system';
 import Stack from '@mui/material/Stack';
 import LinearProgress from '@mui/material/LinearProgress';
 import {ErrorBoundary} from '../errors/ErrorBandary'
+import Logo  from '../assets/images/logo.png'
 
 const HeartBeat = keyframes`
     0% {opacity: 0.25; transform: scale(1);}
@@ -39,7 +40,7 @@ function Loading() {
             <LinearProgress color="success" />
         </Stack>
         <Div>
-            <Image src='images/logo.png' alt='Title' loading="lazy" width={50}/>
+            <Image src={Logo} alt='Title' loading="lazy" width={50}/>
         </Div>
       </ErrorBoundary>
      );

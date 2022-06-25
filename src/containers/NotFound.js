@@ -1,9 +1,9 @@
 import React from 'react';
 import { styled } from '@mui/material/styles';
 import { keyframes } from '@mui/system';
-import HomeLayout from '../layouts/HomeLayout'
 import Button from "../components/Inputs/Button"
 import {ErrorBoundary} from '../errors/ErrorBandary'
+import Animate from '../assets/images/animate.png'
 
 
 const moveInLeft = keyframes`
@@ -75,17 +75,15 @@ const HeadingPrimarySub = styled("span")(({theme}) => ({
 function NotFound() {
     return ( 
       <ErrorBoundary>
-           <HomeLayout>
-            <div>
-                <img src='images/icon_activi.19e63e6b.png' alt='Title' loading="lazy" width={100}/>
-                <HeadingPrimary>
-                    <HeadingPrimaryMain>OOPS! Error 404</HeadingPrimaryMain>
-                    <HeadingPrimarySub>Page Not Found!</HeadingPrimarySub> 
-                </HeadingPrimary>
-                
-                <HomeLink variant="contained" color="primary">Go Home</HomeLink>
-            </div>
-        </HomeLayout>
+          <div>
+              <img src={Animate} alt='Title' loading="lazy" width={100}/>
+              <HeadingPrimary>
+                  <HeadingPrimaryMain>OOPS! Error 404</HeadingPrimaryMain>
+                  <HeadingPrimarySub>Page Not Found!</HeadingPrimarySub> 
+              </HeadingPrimary>
+              
+              <HomeLink variant="contained" color="primary">Go Home</HomeLink>
+          </div>
       </ErrorBoundary>
        
      );

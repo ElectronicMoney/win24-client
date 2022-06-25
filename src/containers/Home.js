@@ -3,8 +3,9 @@ import { styled } from '@mui/material/styles';
 import { keyframes } from '@mui/system';
 import { Link } from "react-router-dom";
 import {ErrorBoundary} from '../errors/ErrorBandary'
-import HomeLayout from '../layouts/HomeLayout'
 import Button from "../components/Inputs/Button"
+import Animate from '../assets/images/animate.png'
+
 
 const moveInLeft = keyframes`
   0% {
@@ -79,9 +80,8 @@ const HeadingPrimarySub = styled("span")(({theme}) => ({
 function Home() {
     return ( 
       <ErrorBoundary>
-        <HomeLayout>
             <div>
-                <img src='images/icon_activi.19e63e6b.png' alt='Title' loading="lazy" width={100}/>
+                <img src={Animate} alt='Title' loading="lazy" width={100}/>
                 <HeadingPrimary>
                     <HeadingPrimaryMain>Maganda Bet</HeadingPrimaryMain>
                     <HeadingPrimarySub>The Easiest way to earn money from your phone</HeadingPrimarySub> 
@@ -103,8 +103,6 @@ function Home() {
                   Register
                 </RegisterButton>
             </div>
-        </HomeLayout>
-
       </ErrorBoundary>
      );
 }

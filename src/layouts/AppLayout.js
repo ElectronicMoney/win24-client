@@ -2,6 +2,7 @@ import * as React from 'react';
 import CssBaseline from '@mui/material/CssBaseline';
 import Box from '@mui/material/Box';
 import Container from '@mui/material/Container';
+import { Outlet } from "react-router-dom";
 import Drawer from "../components/Navigation/Drawer"
 import BottomNav from '../components/Navigation/BottomNav';
 import {ErrorBoundary} from '../errors/ErrorBandary'
@@ -13,11 +14,12 @@ export default function AppLayout(props) {
     <React.Fragment>
       <CssBaseline />
       <Container maxWidth="xl" disableGutters ={true}>
-        <Box sx={{ height: '100vh', mb: 65}}>
+        <Box sx={{ height: '100vh', mb:65}}>
 
             <ErrorBoundary>
               <Drawer>
                   {props.children}
+                  <Outlet />
               </Drawer>
             </ErrorBoundary>
         </Box>

@@ -5,7 +5,6 @@ import CardMedia from '@mui/material/CardMedia';
 import Typography from '@mui/material/Typography';
 import { CardActions } from '@mui/material';
 import { styled } from '@mui/material/styles';
-import HomeLayout from '../layouts/HomeLayout';
 import {ErrorBoundary} from '../errors/ErrorBandary'
 import InputAdornment from '@mui/material/InputAdornment';
 import FormControl from '@mui/material/FormControl';
@@ -17,7 +16,7 @@ import VisibilityOff from '@mui/icons-material/VisibilityOff';
 import Button from "../components/Inputs/Button"
 import AccountBoxIcon from '@mui/icons-material/AccountBox';
 import LockIcon from '@mui/icons-material/Lock';
-
+import Logo  from '../assets/images/logo.png'
 
 
 
@@ -58,70 +57,72 @@ function Login() {
 
       
     return ( 
-      <ErrorBoundary>
-        <HomeLayout>
-            <Div>
-                <Card sx={{ maxWidth: 345 }} raised>
-                    <CardMedia
-                    component="img"
-                    height="140"
-                    image="/images/logo.png"
-                    alt="Logo"
-                    />
-                    <CardContent>
-                        <Typography gutterBottom variant="h5" component="div">
-                            Maganda Bet Admin Panel!
-                        </Typography>
+      <React.Fragment>
+          
+        <ErrorBoundary>
+              <Div>
+                  <Card sx={{ maxWidth: 345 }} raised>
+                      <CardMedia
+                      component="img"
+                      height="140"
+                      image={Logo}
+                      alt="Logo"
+                      />
+                      <CardContent>
+                          <Typography gutterBottom variant="h5" component="div">
+                              Maganda Bet Admin Panel!
+                          </Typography>
 
-                        <FormControl fullWidth sx={{ my: 5 }} variant="standard">
-                            <InputLabel htmlFor="standard-adornment-username">Username</InputLabel>
-                            <Input
-                                id="username"
-                                value={values.username}
-                                onChange={handleChange('username')}
-                                startAdornment={
-                                    <InputAdornment position="start">
-                                        <AccountBoxIcon color='primary'/>
-                                    </InputAdornment>
-                                }
-                            />
-                        </FormControl>
-
-                        <FormControl fullWidth sx={{ mb: 5 }} variant="standard">
-                            <InputLabel htmlFor="standard-adornment-password">Password</InputLabel>
-                            <Input
-                                id="password"
-                                type={values.showPassword ? 'text' : 'password'}
-                                value={values.password}
-                                onChange={handleChange('password')}
-                                startAdornment={
-                                    <InputAdornment position="start">
-                                        <LockIcon color='primary' />
-                                    </InputAdornment>
-                                }
-                                endAdornment={
-                                    <InputAdornment position="end">
-                                      <IconButton
-                                        aria-label="toggle password visibility"
-                                        onClick={handleClickShowPassword}
-                                        onMouseDown={handleMouseDownPassword}
-                                      >
-                                        {values.showPassword ? <VisibilityOff color='primary' /> : <Visibility color='primary' />}
-                                      </IconButton>
-                                    </InputAdornment>
+                          <FormControl fullWidth sx={{ my: 5 }} variant="standard">
+                              <InputLabel htmlFor="standard-adornment-username">Username</InputLabel>
+                              <Input
+                                  id="username"
+                                  value={values.username}
+                                  onChange={handleChange('username')}
+                                  startAdornment={
+                                      <InputAdornment position="start">
+                                          <AccountBoxIcon color='primary'/>
+                                      </InputAdornment>
                                   }
-                            />
+                              />
+                          </FormControl>
 
-                        </FormControl>
+                          <FormControl fullWidth sx={{ mb: 5 }} variant="standard">
+                              <InputLabel htmlFor="standard-adornment-password">Password</InputLabel>
+                              <Input
+                                  id="password"
+                                  type={values.showPassword ? 'text' : 'password'}
+                                  value={values.password}
+                                  onChange={handleChange('password')}
+                                  startAdornment={
+                                      <InputAdornment position="start">
+                                          <LockIcon color='primary' />
+                                      </InputAdornment>
+                                  }
+                                  endAdornment={
+                                      <InputAdornment position="end">
+                                        <IconButton
+                                          aria-label="toggle password visibility"
+                                          onClick={handleClickShowPassword}
+                                          onMouseDown={handleMouseDownPassword}
+                                        >
+                                          {values.showPassword ? <VisibilityOff color='primary' /> : <Visibility color='primary' />}
+                                        </IconButton>
+                                      </InputAdornment>
+                                    }
+                              />
 
-                    </CardContent>
-                    <CardActions>
-                        <Button fullWidth variant="contained" color="primary">Admin Login!</Button>
-                    </CardActions>
-                </Card>
-            </Div>
-        </HomeLayout>
-      </ErrorBoundary>
+                          </FormControl>
+
+                      </CardContent>
+                      <CardActions>
+                          <Button fullWidth variant="contained" color="primary">Admin Login!</Button>
+                      </CardActions>
+                  </Card>
+              </Div>
+        </ErrorBoundary>
+      </React.Fragment>
+
      );
 }
 

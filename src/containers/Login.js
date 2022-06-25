@@ -5,7 +5,6 @@ import CardMedia from '@mui/material/CardMedia';
 import Typography from '@mui/material/Typography';
 import { CardActions } from '@mui/material';
 import { styled } from '@mui/material/styles';
-import HomeLayout from '../layouts/HomeLayout';
 import {ErrorBoundary} from '../errors/ErrorBandary'
 import InputAdornment from '@mui/material/InputAdornment';
 import FormControl from '@mui/material/FormControl';
@@ -17,6 +16,7 @@ import VisibilityOff from '@mui/icons-material/VisibilityOff';
 import Button from "../components/Inputs/Button"
 import ContactPhoneIcon from '@mui/icons-material/ContactPhone';
 import LockIcon from '@mui/icons-material/Lock';
+import Logo  from '../assets/images/logo.png'
 
 
 
@@ -59,13 +59,12 @@ function Login() {
       
     return ( 
       <ErrorBoundary>
-        <HomeLayout>
             <Div>
                 <Card sx={{ maxWidth: 345 }} raised>
                     <CardMedia
                     component="img"
-                    height="140"
-                    image="/images/logo.png"
+                    height="250"
+                    image={Logo}
                     alt="Logo"
                     />
                     <CardContent>
@@ -73,7 +72,7 @@ function Login() {
                             Maganda Bet Secure Login!
                         </Typography>
 
-                        <FormControl fullWidth sx={{ my: 5 }} variant="standard">
+                        <FormControl fullWidth sx={{ mb: 5, mt: 3 }} variant="standard">
                             <InputLabel htmlFor="standard-adornment-username">Phone Number</InputLabel>
                             <Input
                                 id="username"
@@ -120,7 +119,6 @@ function Login() {
                     </CardActions>
                 </Card>
             </Div>
-        </HomeLayout>
       </ErrorBoundary>
      );
 }

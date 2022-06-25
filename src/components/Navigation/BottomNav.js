@@ -13,7 +13,7 @@ import { Link } from "react-router-dom";
 
 const Div = styled("div")(() => ({
     display: 'flex',
-    height: '100%',
+    height: '10%',
     justifyContent: 'center',
     alignItems: 'center',
     textAlign: 'center',
@@ -33,13 +33,13 @@ function BottomNav() {
     return (  
         <React.Fragment>
             <CssBaseline />
-            <Paper sx={{ position: 'fixed', bottom: 0, left: 0, right: 0 }} elevation={3}>
+            <Paper sx={{ position: 'fixed', bottom: 0, left: 0, right: 0}} elevation={3}>
                 <Div>
                     <Tabs value={value} onChange={handleChange} aria-label="bottom nav tabs">
                         <Tab icon={<HomeIcon />} label="HOME" to="/" component={Link} />
-                        <Tab icon={<SportsEsportsIcon />} label="GAME" to="/games" component={Link}/>
-                        <Tab icon={<InsertInvitationIcon />} label="INVITE" to="/invites" component={Link}/>
-                        <Tab icon={<AccountBalanceWalletIcon />} label="WALLET" to="wallets" component={Link}/>
+                        <Tab icon={<SportsEsportsIcon />} label="GAME" to="/app/games" component={Link}/>
+                        <Tab icon={<InsertInvitationIcon />} label="INVITE" to="/app/invites" component={Link}/>
+                        <Tab icon={<AccountBalanceWalletIcon />} label="WALLET" to="/app/wallets" component={Link}/>
                     </Tabs>
                 </Div>
             </Paper>
