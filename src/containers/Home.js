@@ -1,6 +1,7 @@
 import React from 'react';
 import { styled } from '@mui/material/styles';
 import { keyframes } from '@mui/system';
+import { Link } from "react-router-dom";
 import {ErrorBoundary} from '../errors/ErrorBandary'
 import HomeLayout from '../layouts/HomeLayout'
 import Button from "../components/Inputs/Button"
@@ -85,11 +86,22 @@ function Home() {
                     <HeadingPrimaryMain>Maganda Bet</HeadingPrimaryMain>
                     <HeadingPrimarySub>The Easiest way to earn money from your phone</HeadingPrimarySub> 
                 </HeadingPrimary>
-                <LoginButton variant="contained" color="secondary"
-               style={{marginRight: "25px"}}
+                <LoginButton 
+                  variant="contained" 
+                  color="secondary"
+                  style={{marginRight: "25px"}}
+                  to="/login" component={Link}
                 >
-                    Login</LoginButton>
-                <RegisterButton variant="contained" color="primary">Register</RegisterButton>
+                    Login
+                </LoginButton>
+                <RegisterButton 
+                  variant="contained" 
+                  color="primary" 
+                  to="/register" 
+                  component={Link}
+                >
+                  Register
+                </RegisterButton>
             </div>
         </HomeLayout>
 

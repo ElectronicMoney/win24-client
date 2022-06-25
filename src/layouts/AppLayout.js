@@ -13,7 +13,7 @@ export default function AppLayout(props) {
     <React.Fragment>
       <CssBaseline />
       <Container maxWidth="xl" disableGutters ={true}>
-        <Box sx={{ height: '100vh', marginBottom: 40}}>
+        <Box sx={{ height: '100vh', mb: 65}}>
 
             <ErrorBoundary>
               <Drawer>
