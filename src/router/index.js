@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 
 import Loading from '../containers/Loading';
 
@@ -19,18 +19,15 @@ const NotFound = React.lazy(() => import("../containers/NotFound"));
 
 export default function AppRouter() {
     return (
-        <React.Suspense fallback={<Loading />}>
-            <BrowserRouter>
+        <Router>
+            <React.Suspense fallback={<Loading />}>
                 <Routes>
-                    <Route path="loading" element={<Loading />} />
-
                     {/* Home Layout Routes */}
                     <Route path="/" element={<HomeLayout />}>
                         <Route index element={<Home />} />
                         <Route path="login" element={<Login />} />
                         <Route path="register" element={<Register />} />
                         <Route path="admins" element={<Admins />} />
-                        <Route path="*" element={<NotFound />} />
                     </Route>
 
                     {/* App Layout Routes */}
@@ -40,7 +37,6 @@ export default function AppRouter() {
                         <Route path="invites" element={<Games />} />
                         <Route path="wallets" element={<Games />} />
                         <Route path="centers" element={<Games />} />
-                        <Route path="*" element={<NotFound />} />
                     </Route>
 
                     {/* Admin Layout Routes */}
@@ -54,11 +50,12 @@ export default function AppRouter() {
                         <Route path="supports" element={<Dashboard />} />
                         <Route path="settings" element={<Dashboard />} />
                         <Route path="logout" element={<Dashboard />} />
-                        <Route path="*" element={<NotFound />} />
                     </Route>
+                    {/* Not Found Page */}
+                    <Route path="*" element={<NotFound />} />
                 </Routes>
-            </BrowserRouter>
-        </React.Suspense>
+            </React.Suspense>
+        </Router>
     );
   }
   

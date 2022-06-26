@@ -1,9 +1,14 @@
-import React from 'react';
+import * as React from 'react';
 import { styled } from '@mui/material/styles';
 import { keyframes } from '@mui/system';
-import Button from "../components/Inputs/Button"
-import {ErrorBoundary} from '../errors/ErrorBandary'
+import CssBaseline from '@mui/material/CssBaseline';
+import Box from '@mui/material/Box';
+import Container from '@mui/material/Container';
 import Animate from '../assets/images/animate.png'
+import Button from "../components/Inputs/Button"
+import HomeBg from '../assets/images/bg.jpg'
+
+
 
 
 const moveInLeft = keyframes`
@@ -71,22 +76,41 @@ const HeadingPrimarySub = styled("span")(({theme}) => ({
 
 
 
+const Div = styled("div")(() => ({
+  display: 'flex',
+  flexDirection: "column",
+  height: '100%',
+  justifyContent: 'center',
+  alignItems: 'center',
+  textAlign: 'center',
+}));
 
-function NotFound() {
-    return ( 
-      <ErrorBoundary>
-          <div>
+
+export default function NotFound(props) {
+  return (
+    <React.Fragment>
+      <CssBaseline />
+      <Container maxWidth="xl" disableGutters={true}>
+        <Box
+          sx={{
+            height: '100vh',
+            backgroundImage: `linear-gradient(to left top, rgba(27, 94, 237, 0.5), rgba(237, 27, 83, 0.25)), url(${HomeBg})`,
+            backgroundSize: 'cover',
+            backgroundPosition: 'center',
+            width: `100%`,
+    
+          }}
+        >
+          <Div>
               <img src={Animate} alt='Title' loading="lazy" width={100}/>
               <HeadingPrimary>
                   <HeadingPrimaryMain>OOPS! Error 404</HeadingPrimaryMain>
                   <HeadingPrimarySub>Page Not Found!</HeadingPrimarySub> 
               </HeadingPrimary>
-              
-              <HomeLink variant="contained" color="primary">Go Home</HomeLink>
-          </div>
-      </ErrorBoundary>
-       
-     );
+              <HomeLink variant="contained" color="primary">Go Home</HomeLink>          
+          </Div>
+        </Box>
+      </Container>
+    </React.Fragment>
+  );
 }
-
-export default NotFound;
