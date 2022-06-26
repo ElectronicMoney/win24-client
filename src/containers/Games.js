@@ -1,67 +1,263 @@
-import React, { useContext } from 'react';
-import CssBaseline from '@mui/material/CssBaseline';
+import React from 'react';
+import { styled } from '@mui/material/styles';
+import Grid from '@mui/material/Grid';
+import Paper from '@mui/material/Paper';
 import Typography from '@mui/material/Typography';
-import { AppContext } from '../contexts';
-import Dialogue from '../components/Feedback/Dialogue'
-import {ErrorBoundary} from '../errors/ErrorBandary'
+import Fab from '@mui/material/Fab';
+import Button from '@mui/material/Button';
+import ButtonGroup from '@mui/material/ButtonGroup';
 
 
 
-function App() {
 
-  const {counter, dialogue} = useContext(AppContext)
+const Item = styled(Paper)(({ theme }) => ({
+    backgroundColor: theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
+    ...theme.typography.body2,
+    padding: theme.spacing(1),
+    color: theme.palette.text.secondary,
+}));
 
-    
-  return ( 
+const GameItem = styled("div")(() => ({
+    textAlign: 'center',
+    padding: 0,
+    margin:0
+}));
+
+
+const SingleColorCircle = styled("div")(({color}) => ({
+    display: "inline-flex;",
+    alignItems: "center;" ,
+    justifyContent: "center;",
+    fontSize: "24px",
+    fontWeight: 600,
+    borderRadius: "100%",
+    background :`${color}`,
+    width: "50px",
+    height: "50px",
+    border: `2px solid white`
+}));
+
+
+const DoubleColorCircle = styled("span")(({color}) => ({
+    display: "inline-flex;",
+    alignItems: "center;" ,
+    justifyContent: "center;",
+    fontSize: "24px",
+    fontWeight: 600,
+    borderRadius: "23px;",
+    borderRightColor: "#b518c4",
+    borderTopColor:  color,    
+    borderBottomColor: "#b518c4",
+    borderLeftColor: color,
+    borderWidth: "23px;",
+    borderStyle: "solid;",
+    height: "0;",
+    width:"0",
+}));
+
+
+
+
+
+
+function ColorGamePad() {
+  return (
     <React.Fragment>
-      <CssBaseline />
-        <ErrorBoundary>
-            <div>
-                <Typography paragraph>
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
-                    tempor incididunt ut labore et dolore magna aliqua. Rhoncus dolor purus non
-                    enim praesent elementum facilisis leo vel. Risus at ultrices mi tempus
-                    imperdiet. Semper risus in hendrerit gravida rutrum quisque non tellus.
-                    Convallis convallis tellus id interdum velit laoreet id donec ultrices.
-                    Odio morbi quis commodo odio aenean sed adipiscing. Amet nisl suscipit
-                    adipiscing bibendum est ultricies integer quis. Cursus euismod quis viverra
-                    nibh cras. Metus vulputate eu scelerisque felis imperdiet proin fermentum
-                    leo. Mauris commodo quis imperdiet massa tincidunt. Cras tincidunt lobortis
-                    feugiat vivamus at augue. At augue eget arcu dictum varius duis at
-                    consectetur lorem. Velit sed ullamcorper morbi tincidunt. Lorem donec massa
-                    sapien faucibus et molestie ac.
-                </Typography>
-                <Typography paragraph>
-                    Consequat mauris nunc congue nisi vitae suscipit. Fringilla est ullamcorper
-                    eget nulla facilisi etiam dignissim diam. Pulvinar elementum integer enim
-                    neque volutpat ac tincidunt. Ornare suspendisse sed nisi lacus sed viverra
-                    tellus. Purus sit amet volutpat consequat mauris. Elementum eu facilisis
-                    sed odio morbi. Euismod lacinia at quis risus sed vulputate odio. Morbi
-                    tincidunt ornare massa eget egestas purus viverra accumsan in. In hendrerit
-                    gravida rutrum quisque non tellus orci ac. Pellentesque nec nam aliquam sem
-                    et tortor. Habitant morbi tristique senectus et. Adipiscing elit duis
-                    tristique sollicitudin nibh sit. Ornare aenean euismod elementum nisi quis
-                    eleifend. Commodo viverra maecenas accumsan lacus vel facilisis.
-                </Typography>
+      <Grid item xs={4}>
+        <GameItem>
+            <Fab 
+                variant="extended" 
+                color="success" 
+                aria-label="add" 
+                sx={{pl:3, pr:3, fontWeight: 600}} 
+                onClick={()=>console.log("GREEN")}
+            >
+                Green
+            </Fab>
+        </GameItem>
+      </Grid>
+      <Grid item xs={4}>
+        <GameItem>
+            <Fab 
+                variant="extended" 
+                color="primary" 
+                aria-label="add" 
+                sx={{pl:3, pr:3, fontWeight: 600, backgroundColor: "#b518c4"}} 
+                onClick={()=>console.log("VIOLET")}>
+                Violet
+            </Fab>
 
-                <div>
-                    Count: {counter.count}
+        </GameItem>
+      </Grid>
+      <Grid item xs={4}>
+        <GameItem>
+            <Fab 
+                variant="extended" 
+                color="error" 
+                aria-label="add" 
+                sx={{pl:4.5, pr:4.5, fontWeight: 600}} 
+                onClick={()=>console.log("RED")}>
+                Red
+            </Fab>
+        </GameItem>
+      </Grid>
 
-                    <Dialogue title="Test Dialogue">
-                        <span>Testing the Dialogue</span>
-                    </Dialogue>
-
-                    <button onClick={() => dialogue.openDialogue()}>Dialogue</button>
-
-                </div>
-
-                <button onClick={() => counter.resetCounter(0)}> Reset</button>
-                <button onClick={() => counter.incrementCounter()}>+</button>
-                <button onClick={() => counter.decrementCounter()}>-</button>
-            </div>
-        </ErrorBoundary>
-      </React.Fragment>
-   );
+    </React.Fragment>
+  );
 }
 
-export default App;
+
+function ColorGameNumberPadOne() {
+    return (
+      <React.Fragment>
+        <Grid item xs={2.4}>
+          <GameItem>
+            <Fab color="error"  onClick={() => console.log(0)}>
+                <SingleColorCircle color='#fff'>
+                    <DoubleColorCircle color={"#d32f2f"}>0</DoubleColorCircle>
+                </SingleColorCircle>
+            </Fab>
+          </GameItem>
+        </Grid>
+        <Grid item xs={2.4}>
+          <GameItem>
+            <Fab color="success"  onClick={() => console.log(1)} >
+                <SingleColorCircle color={"#2e7d32"}>1</SingleColorCircle>
+            </Fab>
+          </GameItem>
+        </Grid>
+        <Grid item xs={2.4}>
+          <GameItem>
+            <Fab color="error"  onClick={() => console.log(2)} >
+                <SingleColorCircle color={"#d32f2f"}>2</SingleColorCircle>
+            </Fab>
+          </GameItem>
+        </Grid>
+        <Grid item xs={2.4}>
+          <GameItem>
+            <Fab color="success"  onClick={() => console.log(3)} >
+                <SingleColorCircle color={"#2e7d32"}>3</SingleColorCircle>
+            </Fab>
+          </GameItem>
+        </Grid>
+        <Grid item xs={2.4}>
+          <GameItem>
+            <Fab color="error"  onClick={() => console.log(4)} >
+                <SingleColorCircle color={"#d32f2f"}>4</SingleColorCircle>
+            </Fab>
+          </GameItem>
+        </Grid>
+  
+      </React.Fragment>
+    );
+}
+  
+function ColorGameNumberPadTwo() {
+    return (
+      <React.Fragment>
+        <Grid item xs={2.4}>
+          <GameItem>
+            <Fab color="success" onClick={() => console.log(5)}>
+                <SingleColorCircle color='#fff'>
+                    <DoubleColorCircle color={"#2e7d32"}> 5 </DoubleColorCircle>
+                </SingleColorCircle>
+            </Fab>
+          </GameItem>
+        </Grid>
+        <Grid item xs={2.4}>
+          <GameItem>
+            <Fab color="error"  onClick={() => console.log(6)} >
+                <SingleColorCircle color={"#d32f2f"}>6</SingleColorCircle>
+            </Fab>
+          </GameItem>
+        </Grid>
+        <Grid item xs={2.4}>
+          <GameItem>
+            <Fab color="success"  onClick={() => console.log(7)} >
+                <SingleColorCircle color={"#2e7d32"}>7</SingleColorCircle>
+            </Fab>
+          </GameItem>
+        </Grid>
+        <Grid item xs={2.4}>
+          <GameItem>
+            <Fab color="error"  onClick={() => console.log(8)} >
+                <SingleColorCircle color={"#d32f2f"}>8</SingleColorCircle>
+            </Fab>
+          </GameItem>
+        </Grid>
+        <Grid item xs={2.4}>
+          <GameItem>
+            <Fab color="success"  onClick={() => console.log(9)} >
+                <SingleColorCircle color={"#2e7d32"}>9</SingleColorCircle>
+            </Fab>
+          </GameItem>
+        </Grid>
+  
+      </React.Fragment>
+    );
+}
+
+function ColorGameNumberPadSize() {
+    return (
+      <React.Fragment>
+        <Grid item xs={12}>
+          <GameItem>
+            <ButtonGroup variant="contained" aria-label="outlined primary button group">
+                <Button
+                sx={{px:7.5, py:1.5, fontWeight: 600, backgroundColor: "#e6ce1c"}} 
+                onClick={()=>console.log("BIG")}
+                >
+                Big
+                </Button>
+
+                <Button
+                    sx={{px:7.5, py:1.5, fontWeight: 600,  backgroundColor: "#2e7d32"}} 
+                    onClick={()=>console.log("SMALL")}
+                >
+                    Small
+                </Button>
+            </ButtonGroup>
+          </GameItem>
+        </Grid>
+      </React.Fragment>
+    );
+}
+
+
+
+export default function Games() {
+    return ( 
+        <React.Fragment>
+            <Grid container spacing={2}>
+                <Grid item xs={12}>
+                    <Item elevation={3}>
+                        <Typography component={"h1"}>Game Sliders Images here!</Typography>
+                    </Item>
+                </Grid>
+
+                <Grid container item columnSpacing={2} rowSpacing={4}>
+                    <ColorGamePad />
+                </Grid>
+
+                <Grid container item columnSpacing={2} rowSpacing={4}>
+                    <ColorGameNumberPadOne />
+                </Grid>
+
+                <Grid container item columnSpacing={2} rowSpacing={4}>
+                    <ColorGameNumberPadTwo />
+                </Grid>
+
+                <Grid container item columnSpacing={2} rowSpacing={4}>
+                    <ColorGameNumberPadSize />
+                </Grid>
+
+                <Grid item xs={12}>
+                    <Item elevation={3}>
+                        <Typography component={"h2"}>Game Ressults and History!</Typography>
+                    </Item>
+                </Grid>
+
+            </Grid>
+        </React.Fragment>
+    );
+}

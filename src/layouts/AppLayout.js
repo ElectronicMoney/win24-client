@@ -1,35 +1,33 @@
 import * as React from 'react';
-import CssBaseline from '@mui/material/CssBaseline';
 import Box from '@mui/material/Box';
+import CssBaseline from '@mui/material/CssBaseline';
 import Container from '@mui/material/Container';
+import AppBar from '../components/Surfaces/AppBar';
 import { Outlet } from "react-router-dom";
-import Drawer from "../components/Navigation/Drawer"
-import BottomNav from '../components/Navigation/BottomNav';
 import {ErrorBoundary} from '../errors/ErrorBandary'
+import BottomNavBar from '../components/Navigation/BottomNavBar';
 
 
 
 export default function AppLayout(props) {
+
   return (
     <React.Fragment>
       <CssBaseline />
-      <Container maxWidth="xl" disableGutters ={true}>
-        <Box sx={{ height: '100vh', mb:65}}>
-
-            <ErrorBoundary>
-              <Drawer>
-                  {props.children}
-                  <Outlet />
-              </Drawer>
-            </ErrorBoundary>
+      {/* AppBar */}
+      <AppBar /> 
+      {/* The main app contents goes here */}
+      <Container maxWidth="xl">
+        <Box>
+          <ErrorBoundary>
+              {props.children}
+              <Outlet />
+          </ErrorBoundary>
         </Box>
-        {/* Bottom Navigation */}
-        <ErrorBoundary>
-          <BottomNav />
-        </ErrorBoundary>
       </Container>
-
-
+      {/* BottomNavBar */}
+      <BottomNavBar />
     </React.Fragment>
   );
 }
+

@@ -13,6 +13,7 @@ const Login = React.lazy(() => import("../containers/Login"));
 const Register = React.lazy(() => import("../containers/Register"));
 const Admins = React.lazy(() => import("../containers/Admins"));
 const Dashboard = React.lazy(() => import("../containers/Dashboard"));
+const AppHome = React.lazy(() => import("../containers/AppHome"));
 const NotFound = React.lazy(() => import("../containers/NotFound"));
 
 
@@ -34,9 +35,11 @@ export default function AppRouter() {
 
                     {/* App Layout Routes */}
                     <Route path="/app" element={<AppLayout />}>
+                        <Route index element={<AppHome />} />
                         <Route path="games" element={<Games />} />
                         <Route path="invites" element={<Games />} />
                         <Route path="wallets" element={<Games />} />
+                        <Route path="centers" element={<Games />} />
                         <Route path="*" element={<NotFound />} />
                     </Route>
 
@@ -48,7 +51,7 @@ export default function AppRouter() {
                         <Route path="bets" element={<Dashboard />} />
                         <Route path="payments" element={<Dashboard />} />
                         <Route path="news" element={<Dashboard />} />
-                        <Route path="support" element={<Dashboard />} />
+                        <Route path="supports" element={<Dashboard />} />
                         <Route path="settings" element={<Dashboard />} />
                         <Route path="logout" element={<Dashboard />} />
                         <Route path="*" element={<NotFound />} />

@@ -1,83 +1,32 @@
 import * as React from 'react';
-import PropTypes from 'prop-types';
 import AppBar from '@mui/material/AppBar';
+import Box from '@mui/material/Box';
 import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
-import CssBaseline from '@mui/material/CssBaseline';
-import useScrollTrigger from '@mui/material/useScrollTrigger';
-import Box from '@mui/material/Box';
-import Container from '@mui/material/Container';
-import Fab from '@mui/material/Fab';
-import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
-import Fade from '@mui/material/Fade';
+import Button from '@mui/material/Button';
+import IconButton from '@mui/material/IconButton';
+import MenuIcon from '@mui/icons-material/Menu';
 
-function ScrollTop(props) {
-  const { children, window } = props;
-  // Note that you normally won't need to set the window ref as useScrollTrigger
-  // will default to window.
-  // This is only being set here because the demo is in an iframe.
-  const trigger = useScrollTrigger({
-    target: window ? window() : undefined,
-    disableHysteresis: true,
-    threshold: 100,
-  });
-
-  const handleClick = (event) => {
-    const anchor = (event.target.ownerDocument || document).querySelector(
-      '#back-to-top-anchor',
-    );
-
-    if (anchor) {
-      anchor.scrollIntoView({
-        block: 'center',
-      });
-    }
-  };
-
+export default function MainAppBar() {
   return (
-    <Fade in={trigger}>
-      <Box
-        onClick={handleClick}
-        role="presentation"
-        sx={{ position: 'fixed', bottom: 16, right: 16 }}
-      >
-        {children}
-      </Box>
-    </Fade>
-  );
-}
-
-ScrollTop.propTypes = {
-  children: PropTypes.element.isRequired,
-  /**
-   * Injected by the documentation to work in an iframe.
-   * You won't need it on your project.
-   */
-  window: PropTypes.func,
-};
-
-export default function BackToTop(props) {
-  return (
-    <React.Fragment>
-      <CssBaseline />
-      <AppBar>
+    <Box sx={{ flexGrow: 1, mb: 10 }}>
+      <AppBar position="fixed">
         <Toolbar>
-          <Typography variant="h6" component="div">
-            Scroll to see button
+          <IconButton
+            size="large"
+            edge="start"
+            color="inherit"
+            aria-label="menu"
+            sx={{ mr: 2 }}
+          >
+            <MenuIcon />
+          </IconButton>
+          <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
+            MagandaBet
           </Typography>
+          <Button color="inherit">Lang</Button>
         </Toolbar>
       </AppBar>
-      <Toolbar id="back-to-top-anchor" />
-      <Container>
-        <Box sx={{ my: 2 }}>
-          {props.children}
-        </Box>
-      </Container>
-      <ScrollTop {...props}>
-        <Fab size="small" aria-label="scroll back to top">
-          <KeyboardArrowUpIcon />
-        </Fab>
-      </ScrollTop>
-    </React.Fragment>
+    </Box>
   );
 }

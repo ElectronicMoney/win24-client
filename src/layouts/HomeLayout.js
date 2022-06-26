@@ -21,14 +21,14 @@ export default function AppLayout(props) {
   return (
     <React.Fragment>
       <CssBaseline />
-      <Container maxWidth="xl" disableGutters	={true}>
+      <Container maxWidth="xl" disableGutters={true}>
         <Box
           sx={{
             height: '100vh',
             backgroundImage: `linear-gradient(to left top, rgba(27, 94, 237, 0.5), rgba(237, 27, 83, 0.25)), url(${HomeBg})`,
             backgroundSize: 'cover',
             backgroundPosition: 'center',
-            width: `100vw`,
+            width: `100%`,
     
           }}
         >

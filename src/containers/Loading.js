@@ -1,9 +1,7 @@
 import React from 'react';
 import { styled } from '@mui/material/styles';
 import { keyframes } from '@mui/system';
-import Stack from '@mui/material/Stack';
-import LinearProgress from '@mui/material/LinearProgress';
-import {ErrorBoundary} from '../errors/ErrorBandary'
+import CssBaseline from '@mui/material/CssBaseline';
 import Logo  from '../assets/images/logo.png'
 
 const HeartBeat = keyframes`
@@ -18,7 +16,9 @@ const HeartBeat = keyframes`
 const Div = styled("div")(({theme}) => ({
     display: 'flex',
     height: '100vh',
-    width: '100%',
+    width: '100vw',
+    padding: 0,
+    margin: 0,
     justifyContent: 'center',
     alignItems: 'center',
     textAlign: 'center',
@@ -32,17 +32,14 @@ const Div = styled("div")(({theme}) => ({
   }));
 
 
-
 function Loading() {
     return ( 
-      <ErrorBoundary>
-        <Stack sx={{ width: '100%', color: 'grey.500'}}>
-            <LinearProgress color="success" />
-        </Stack>
-        <Div>
-            <Image src={Logo} alt='Title' loading="lazy" width={50}/>
-        </Div>
-      </ErrorBoundary>
+      <React.Fragment>
+        <CssBaseline />
+          <Div>
+              <Image src={Logo} alt='Title' loading="lazy" width={50}/>
+          </Div>
+      </React.Fragment>
      );
 }
 

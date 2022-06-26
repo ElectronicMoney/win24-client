@@ -26,8 +26,7 @@ import AnnouncementIcon from '@mui/icons-material/Announcement';
 import SupportIcon from '@mui/icons-material/Support';
 import SettingsIcon from '@mui/icons-material/Settings';
 import LogoutIcon from '@mui/icons-material/Logout';
-import BottomNav from '../components/Navigation/BottomNav';
-import {ErrorBoundary} from '../errors/ErrorBandary'
+import BottomNavBar from '../components/Navigation/BottomNavBar';
 import { Link, Outlet } from "react-router-dom";
 
 
@@ -51,7 +50,7 @@ const sideBarListItem = {
 
       thirdtItems:[
         {name: 'Manage News', icon: <AnnouncementIcon />, path: '/admins/news'},
-        {name: 'Manage Support', icon: <SupportIcon />, path: '/admins/support'},
+        {name: 'Manage Supports', icon: <SupportIcon />, path: '/admins/supports'},
         {name: 'Settings', icon: <SettingsIcon />, path: '/admins/settings'},
         {name: 'Logout', icon: <LogoutIcon />, path: '/admins/logout'},
       ],
@@ -136,6 +135,7 @@ export default function AdminLayout(props) {
   };
 
   return (
+    <React.Fragment>
     <Box sx={{ display: 'flex' }}>
       <CssBaseline />
       <AppBar position="fixed" open={open}>
@@ -246,16 +246,16 @@ export default function AdminLayout(props) {
       
       </Drawer>
 
-      <Box component="main" sx={{ flexGrow: 1, p: 3, mb:7.5 }}>
+      <Box component="main" sx={{ flexGrow: 1, p: 3}}>
         <DrawerHeader />
         {props.children}
         <Outlet />
       </Box>
-
-        {/* Bottom Navigation */}
-        <ErrorBoundary>
-          <BottomNav />
-        </ErrorBoundary>
     </Box>
+
+      {/* Bottom Navigation */}
+      <BottomNavBar />
+    </React.Fragment>
+
   );
 }

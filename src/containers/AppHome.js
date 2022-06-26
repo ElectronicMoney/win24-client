@@ -14,7 +14,7 @@ const Item = styled(Paper)(({ theme }) => ({
   }));
   
 
-export default function Dashboard() {
+export default function AppHome() {
     return ( 
         <React.Fragment>
             <Grid container spacing={2}>
