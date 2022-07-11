@@ -71,9 +71,17 @@ export default function FullWidthTabs(props) {
         </Tabs>
       </AppBar>
         <TabPanel value={value} index={0} dir={theme.direction}>
-            <Table games={props.games} />
+            <Table games={props.games || []} isGames={true} />
            
-            <Paper elevation={3} sx={{mt:5}}>
+            <Paper elevation={3}
+                sx={{
+                    display:"flex", 
+                    alignItems:"center", 
+                    justifyContent:"center", 
+                    mt:5, 
+                    p:2
+                }}
+            >
                 <Pagination />
             </Paper>
         </TabPanel>
@@ -81,9 +89,17 @@ export default function FullWidthTabs(props) {
           Item Two
         </TabPanel>
         <TabPanel value={value} index={2} dir={theme.direction}>
-          <Table games={props.games} />
+          <Table bets={props.bets || []}  isGames={false} />
 
-            <Paper elevation={3} sx={{mt:5}}>
+            <Paper elevation={3}
+                sx={{
+                    display:"flex", 
+                    alignItems:"center", 
+                    justifyContent:"center", 
+                    mt:5, 
+                    p:2
+                }}
+            >
                 <Pagination />
             </Paper>
         </TabPanel>

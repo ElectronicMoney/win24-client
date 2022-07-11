@@ -7,6 +7,8 @@ import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
+import Alert from '@mui/material/Alert';
+import { Box } from '@mui/system';
 
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
@@ -79,33 +81,88 @@ const FormatNumber = (props) => {
 }
 
 
+const GamesTable = ({games}) => {
+  if (games.length >= 1) {
+      return (
+        <TableContainer component={Paper}>
+          <Table>
+            <TableHead>
+              <TableRow>
+                <StyledTableCell>Period</StyledTableCell>
+                <StyledTableCell align="right">Number</StyledTableCell>
+                <StyledTableCell align="right">Size</StyledTableCell>
+                <StyledTableCell align="right">Color</StyledTableCell>
+              </TableRow>
+            </TableHead>
+            <TableBody>
+              {games.map((game) => (
+                <StyledTableRow key={game.period}>
+                  <StyledTableCell>
+                    {game.period}
+                  </StyledTableCell>
+                  <StyledTableCell align="right"> 
+                    <FormatNumber color={game.color} number={game.number} /> 
+                  </StyledTableCell>
+                  <StyledTableCell align="right">{game.size}</StyledTableCell>
+                  <StyledTableCell align="right"> <CreateCircle color={game.color} /> </StyledTableCell>
+                </StyledTableRow>
+              ))}
+            </TableBody>
+          </Table>
+        </TableContainer>
+      );
+  } else {
+    return  (
+      <Box sx={{mt:5}}>
+          <Alert severity="info">No game records found!</Alert>
+      </Box>
+    )
+  }
+}
+
+const BetsTable = ({bets}) => {
+  if (bets.length >= 1) {
+      return (
+        <TableContainer component={Paper}>
+          <Table>
+            <TableHead>
+              <TableRow>
+                <StyledTableCell>Period</StyledTableCell>
+                <StyledTableCell align="right">Number</StyledTableCell>
+                <StyledTableCell align="right">Size</StyledTableCell>
+                <StyledTableCell align="right">Color</StyledTableCell>
+              </TableRow>
+            </TableHead>
+            <TableBody>
+              {bets.map((bet) => (
+                <StyledTableRow key={bet.period}>
+                  <StyledTableCell>
+                    {bet.period}
+                  </StyledTableCell>
+                  <StyledTableCell align="right"> 
+                    <FormatNumber color={bet.color} number={bet.number} /> 
+                  </StyledTableCell>
+                  <StyledTableCell align="right">{bet.size}</StyledTableCell>
+                  <StyledTableCell align="right"> <CreateCircle color={bet.color} /> </StyledTableCell>
+                </StyledTableRow>
+              ))}
+            </TableBody>
+          </Table>
+        </TableContainer>
+      );
+  } else {
+    return  (
+      <Box sx={{mt:5}}>
+        <Alert severity="info">You don't have any bet record yet!</Alert>
+      </Box>
+    )
+  }
+}
+
 export default function CustomizedTables(props) {
-  return (
-    <TableContainer component={Paper}>
-      <Table>
-        <TableHead>
-          <TableRow>
-            <StyledTableCell>Period</StyledTableCell>
-            <StyledTableCell align="right">Number</StyledTableCell>
-            <StyledTableCell align="right">Size</StyledTableCell>
-            <StyledTableCell align="right">Color</StyledTableCell>
-          </TableRow>
-        </TableHead>
-        <TableBody>
-          {props.games.map((game) => (
-            <StyledTableRow key={game.period}>
-              <StyledTableCell>
-                {game.period}
-              </StyledTableCell>
-              <StyledTableCell align="right"> 
-                <FormatNumber color={game.color} number={game.number} /> 
-              </StyledTableCell>
-              <StyledTableCell align="right">{game.size}</StyledTableCell>
-              <StyledTableCell align="right"> <CreateCircle color={game.color} /> </StyledTableCell>
-            </StyledTableRow>
-          ))}
-        </TableBody>
-      </Table>
-    </TableContainer>
-  );
+   if (props.isGames) {
+    return <GamesTable games={props.games} />
+   } else{
+      return <BetsTable bets={props.bets} />
+   }
 }

@@ -98,18 +98,19 @@ export default function Games() {
     }
 
     const games = [
-    { period: 2022071011032, number: 2, size: "SMALL", color: "RED"},
-    { period: 2022071011031, number: 5, size: "BIG", color: "VIOLET,GREEN"},
-    { period: 2022071011030, number: 8, size: "BIG", color: "GREEN"},
-    { period: 2022071011029, number: 3, size: "SMALL", color: "RED"},
-    { period: 2022071011028, number: 2, size: "SMALL", color: "RED"},
-    { period: 2022071011027, number: 4, size: "SMALL", color: "RED"},
-    { period: 2022071011026, number: 8, size: "BIG", color: "GREEN"},
-    { period: 2022071011025, number: 0, size: "SMALL", color: "VIOLET,RED"},
-    { period: 2022071011024, number: 3, size: "SMALL", color: "RED"},
-    { period: 2022071011023, number: 3, size: "SMALL", color: "RED"},
-];
+        { period: 2022071011032, number: 2, size: "SMALL", color: "RED"},
+        { period: 2022071011031, number: 5, size: "BIG", color: "VIOLET,GREEN"},
+        { period: 2022071011030, number: 8, size: "BIG", color: "GREEN"},
+        { period: 2022071011029, number: 3, size: "SMALL", color: "RED"},
+        { period: 2022071011028, number: 2, size: "SMALL", color: "RED"},
+        { period: 2022071011027, number: 4, size: "SMALL", color: "RED"},
+        { period: 2022071011026, number: 8, size: "BIG", color: "GREEN"},
+        { period: 2022071011025, number: 0, size: "SMALL", color: "VIOLET,RED"},
+        { period: 2022071011024, number: 3, size: "SMALL", color: "RED"},
+        { period: 2022071011023, number: 3, size: "SMALL", color: "RED"},
+    ];
 
+    const bets = []
 
     function ColorGamePad() {
       return (
@@ -284,13 +285,21 @@ export default function Games() {
           <React.Fragment>
             <Grid item xs={12}>
               <GameItem>
-                <ButtonGroup variant="contained" aria-label="outlined primary button group">
+                <ButtonGroup variant="contained" aria-label="outlined primary button group"
+                 sx={{ 
+                      borderRadius: "30px"
+                    }}
+                >
                     <CustomButton
                     bg={green[800]} 
                     hover={green[900]} 
                     onClick={e=>handleClick(e)}
-                    pl={60}
-                    pr={60}
+                    pl={65}
+                    pr={65}
+                    sx={{ 
+                      borderTopLeftRadius: "30px",
+                      borderBottomLeftRadius: "30px",
+                    }}
                     >
                     Big
                     </CustomButton>
@@ -301,6 +310,10 @@ export default function Games() {
                       onClick={e=>handleClick(e)}
                       pl={50}
                       pr={50}
+                      sx={{ 
+                      borderTopRightRadius: "30px",
+                      borderBottomRightRadius: "30px",
+                    }}
                     >
                         Small
                     </CustomButton>
@@ -342,7 +355,7 @@ export default function Games() {
           </Item>
 
            <div style={{marginTop:20}}>
-              <Tab games={games} />
+              <Tab games={games} bets={bets} />
             </div>
 
         </React.Fragment>
