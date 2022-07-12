@@ -98,19 +98,25 @@ export default function Games() {
     }
 
     const games = [
-        { period: 2022071011032, number: 2, size: "SMALL", color: "RED"},
-        { period: 2022071011031, number: 5, size: "BIG", color: "VIOLET,GREEN"},
-        { period: 2022071011030, number: 8, size: "BIG", color: "GREEN"},
-        { period: 2022071011029, number: 3, size: "SMALL", color: "RED"},
-        { period: 2022071011028, number: 2, size: "SMALL", color: "RED"},
-        { period: 2022071011027, number: 4, size: "SMALL", color: "RED"},
-        { period: 2022071011026, number: 8, size: "BIG", color: "GREEN"},
-        { period: 2022071011025, number: 0, size: "SMALL", color: "VIOLET,RED"},
-        { period: 2022071011024, number: 3, size: "SMALL", color: "RED"},
-        { period: 2022071011023, number: 3, size: "SMALL", color: "RED"},
+        { period: 2022071011032, winning_number: 2, winning_size: "SMALL", winning_color: "RED"},
+        { period: 2022071011031, winning_number: 5, winning_size: "BIG", winning_color: "VIOLET,GREEN"},
+        { period: 2022071011030, winning_number: 8, winning_size: "BIG", winning_color: "GREEN"},
+        { period: 2022071011029, winning_number: 3, winning_size: "SMALL", winning_color: "RED"},
+        { period: 2022071011028, winning_number: 2, winning_size: "SMALL", winning_color: "RED"},
+        { period: 2022071011027, winning_number: 4, winning_size: "SMALL", winning_color: "RED"},
+        { period: 2022071011026, winning_number: 8, winning_size: "BIG", winning_color: "GREEN"},
+        { period: 2022071011025, winning_number: 0, winning_size: "SMALL", winning_color: "VIOLET,RED"},
+        { period: 2022071011024, winning_number: 3, winning_size: "SMALL", winning_color: "RED"},
+        { period: 2022071011023, winning_number: 3, winning_size: "SMALL", winning_color: "RED"},
     ];
 
-    const bets = []
+    const bets = [
+       { created_at: 2022071011032, bet_amount: 200.00, status: "PENDING"},
+       { created_at: 2022071011032, bet_amount: 250.00, status: "WIN"},
+       { created_at: 2022071011032, bet_amount: 100.00, status: "WIN"},
+       { created_at: 2022071011032, bet_amount: 1500.00, status: "LOSS"},
+       { created_at: 2022071011032, bet_amount: 3000.00, status: "LOSS"},
+    ]
 
     function ColorGamePad() {
       return (

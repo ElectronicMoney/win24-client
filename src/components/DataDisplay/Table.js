@@ -9,7 +9,7 @@ import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 import Alert from '@mui/material/Alert';
 import { Box } from '@mui/system';
-
+import { formatMoney } from '../../utils';
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
   [`&.${tableCellClasses.head}`]: {
@@ -40,6 +40,74 @@ const Circle = styled("span")(({color}) => ({
     height: "10px;",
     width:"10px;",
 }));
+
+const SingleColorCircle = styled("span")(({color, bg}) => ({
+    display: "inline-flex;",
+    alignItems: "center;" ,
+    justifyContent: "center;",
+    fontSize: "14px",
+    fontWeight: 500,
+    background: `${bg}`,
+    color: `${color}`,
+    borderRadius: "100%",
+    width: "18px",
+    height: "18px",
+    border: `0.5px solid #333`,
+}));
+
+const SingleColor = styled("span")(({color, bg}) => ({
+    display: "inline-flex;",
+    alignItems: "center;" ,
+    justifyContent: "center;",
+    fontSize: "14px",
+    fontWeight: 500,
+    background: `${bg}`,
+    color: `${color}`,
+    borderRadius: "100%",
+    width: "18px",
+    height: "18px",
+    border: `0.5px solid ${bg}`,
+}));
+
+
+const DoubleColorCircle = styled("span")(({color}) => ({
+    display: "inline-flex;",
+    alignItems: "center;" ,
+    justifyContent: "center;",
+    fontSize: "14px",
+    fontWeight: 500,
+    borderRadius: "10px;",
+    borderRightColor: "#b518c4",
+    borderTopColor:  color,    
+    borderBottomColor: "#b518c4",
+    borderLeftColor: color,
+    borderWidth: "10px;",
+    borderStyle: "solid;",
+    color:"#fff",
+    height: "0;",
+    width:"0",
+}));
+
+const FormatSpan = styled("span")(({color, bg}) => ({
+    fontSize: "14px",
+    fontWeight: 500,
+    background: `${bg}`,
+    color: `${color}`,
+    padding: '5px',
+    borderRadius: "5px"
+}));
+
+
+
+const FormatStatus = (props) => {
+  if (props.status === "PENDING") {
+    return <FormatSpan color="#333" bg="#cfd8dc">{props.children}</FormatSpan>
+  } else if (props.status === "WIN") {
+    return <FormatSpan color="#33691e" bg="#c5e1a5">{props.children}</FormatSpan>
+  } else {
+    return <FormatSpan color="#b71c1c" bg="#ef9a9a">{props.children}</FormatSpan>
+  }
+}
 
 
 const CreateCircle = (props) => {
@@ -81,6 +149,43 @@ const FormatNumber = (props) => {
 }
 
 
+const FormatChartData = ({game}) => {
+  return (
+    <React.Fragment>
+      {
+        [0,1,2,3,4,5,6,7,8,9].map(number => {
+          if (game.winning_number === number) {
+            if (number === 0 ) {
+              return  <DoubleColorCircle key={number}  color={"red"}>0</DoubleColorCircle>
+            }
+            
+            if (number === 5 ) {
+              return  <DoubleColorCircle key={number} color={"green"}>5</DoubleColorCircle>
+            }
+            
+            if (number <= 4 ) {
+              return <SingleColor key={number} bg={"red"} color={"#fff"}>{number}</SingleColor>
+            } else {
+              return <SingleColor key={number} bg={"green"} color={"#fff"}>{number}</SingleColor>
+            }
+          }else {
+            return <SingleColorCircle key={number}>{number}</SingleColorCircle>
+          }
+         
+        })
+      }
+    
+      {
+      game.winning_size === "SMALL" ? (<SingleColor bg="yellow" color="#333" sx={{ml:1}}>S</SingleColor>):
+      (<SingleColor bg="green" color="#fff" sx={{ml:1}}>B</SingleColor>)
+    
+      }
+      
+    </React.Fragment>
+  )
+
+}
+
 const GamesTable = ({games}) => {
   if (games.length >= 1) {
       return (
@@ -101,10 +206,45 @@ const GamesTable = ({games}) => {
                     {game.period}
                   </StyledTableCell>
                   <StyledTableCell align="right"> 
-                    <FormatNumber color={game.color} number={game.number} /> 
+                    <FormatNumber color={game.winning_color} number={game.winning_number} /> 
                   </StyledTableCell>
-                  <StyledTableCell align="right">{game.size}</StyledTableCell>
-                  <StyledTableCell align="right"> <CreateCircle color={game.color} /> </StyledTableCell>
+                  <StyledTableCell align="right">{game.winning_size}</StyledTableCell>
+                  <StyledTableCell align="right"> <CreateCircle color={game.winning_color} /> </StyledTableCell>
+                </StyledTableRow>
+              ))}
+            </TableBody>
+          </Table>
+        </TableContainer>
+      );
+  } else {
+    return  (
+      <Box sx={{mt:5}}>
+          <Alert severity="info">No game records found!</Alert>
+      </Box>
+    )
+  }
+}
+
+const ChartTable = ({games}) => {
+  if (games.length >= 1) {
+      return (
+        <TableContainer component={Paper}>
+          <Table>
+            <TableHead>
+              <TableRow>
+                <StyledTableCell>Period</StyledTableCell>
+                <StyledTableCell align="right">Number</StyledTableCell>
+              </TableRow>
+            </TableHead>
+            <TableBody>
+              {games.map((game, index) => (
+                <StyledTableRow key={game.period}>
+                  <StyledTableCell>
+                    {game.period}
+                  </StyledTableCell>
+                  <StyledTableCell align="right"> 
+                    <FormatChartData game={game} key={index} />
+                  </StyledTableCell>
                 </StyledTableRow>
               ))}
             </TableBody>
@@ -127,23 +267,24 @@ const BetsTable = ({bets}) => {
           <Table>
             <TableHead>
               <TableRow>
-                <StyledTableCell>Period</StyledTableCell>
-                <StyledTableCell align="right">Number</StyledTableCell>
-                <StyledTableCell align="right">Size</StyledTableCell>
-                <StyledTableCell align="right">Color</StyledTableCell>
+                <StyledTableCell>Date</StyledTableCell>
+                <StyledTableCell align="right">Bet Amount</StyledTableCell>
+                <StyledTableCell align="right">Status</StyledTableCell>
               </TableRow>
             </TableHead>
             <TableBody>
-              {bets.map((bet) => (
-                <StyledTableRow key={bet.period}>
+              {bets.map((bet, index) => (
+                <StyledTableRow key={index}>
                   <StyledTableCell>
-                    {bet.period}
+                    {bet.created_at}
                   </StyledTableCell>
+                  <StyledTableCell align="right">
+                    <FormatStatus status={bet.status}n> {formatMoney(bet.bet_amount)}
+                    </FormatStatus>
+                    </StyledTableCell>
                   <StyledTableCell align="right"> 
-                    <FormatNumber color={bet.color} number={bet.number} /> 
+                    <FormatStatus status={bet.status}> {bet.status} </FormatStatus> 
                   </StyledTableCell>
-                  <StyledTableCell align="right">{bet.size}</StyledTableCell>
-                  <StyledTableCell align="right"> <CreateCircle color={bet.color} /> </StyledTableCell>
                 </StyledTableRow>
               ))}
             </TableBody>
@@ -162,7 +303,10 @@ const BetsTable = ({bets}) => {
 export default function CustomizedTables(props) {
    if (props.isGames) {
     return <GamesTable games={props.games} />
-   } else{
-      return <BetsTable bets={props.bets} />
+   }else if (props.isBet) {
+    return <BetsTable bets={props.bets} />
+   } 
+   else{
+      return <ChartTable games={props.games} />
    }
 }
