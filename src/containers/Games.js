@@ -6,11 +6,15 @@ import Typography from '@mui/material/Typography';
 import Fab from '@mui/material/Fab';
 import Button from '@mui/material/Button';
 import ButtonGroup from '@mui/material/ButtonGroup';
+import ListItemText from '@mui/material/ListItemText';
+import AccountBalanceWalletIcon from '@mui/icons-material/AccountBalanceWallet';
 import { purple, red, green, yellow } from '@mui/material/colors';
+import Marquee from "react-fast-marquee";
+import AnnouncementIcon from '@mui/icons-material/Announcement';
 import kickAudio from '../assets/audios/kick3.mp3'
 import Tab from '../components/Navigation/Tab'
-
-
+import { formatMoney } from '../utils';
+import Bg from "../assets/images/3.png"
 
 
 const Item = styled(Paper)(({ theme }) => ({
@@ -40,6 +44,18 @@ const SingleColorCircle = styled("div")(({color}) => ({
     border: `2px solid white`
 }));
 
+
+
+const SpanTimmer = styled("span")(() => ({
+  display:"inline-block",
+  paddingRight: "4px",
+  paddingLeft: "4px",
+  backgroundColor: "green",
+  borderRadius: "2px",
+  marginRight: "4px",
+  fontSize: "24px",
+  fontWeight: 600
+}));
 
 const DoubleColorCircle = styled("span")(({color}) => ({
     display: "inline-flex;",
@@ -333,11 +349,101 @@ export default function Games() {
     return ( 
         <React.Fragment>
           <Grid container spacing={2} sx={{mb:5}}>
-             <Grid item xs={12}>
-                    <Item elevation={3}>
-                        <Typography component={"h1"}>Game Sliders Images here!</Typography>
-                    </Item>
-                </Grid>
+              <Grid item xs={12} md={4}>
+                <Item elevation={3}>
+                  <Grid container spacing={2}>
+
+                    <Grid item xs={7}>
+                       <AccountBalanceWalletIcon color="primary"
+                          sx={{fontSize: "46px"}}
+                        /> 
+                        <ListItemText primary="Total Wallet Balance:"/> 
+                    </Grid>
+
+                    <Grid item xs={5} sx={{textAlign: "right"}}>
+                        <Typography variant="h5" component={"h2"} sx={{fontWeight: 600, color:"green", ml:2}}>
+                          {formatMoney(25000.50)}
+                        </Typography>
+                    </Grid>
+
+                    <Grid item xs={6}>
+                        <Fab variant="extended" size="small" color="warning" aria-label="withdraw"
+                        sx={{px: 4}}>
+                          Withdraw
+                        </Fab>
+                    </Grid>
+
+                    <Grid item xs={6} sx={{textAlign: "right"}}>
+                         <Fab variant="extended" size="small" color="primary" aria-label="recharge"
+                         sx={{px: 4}}>
+                          Recharge
+                        </Fab>
+                    </Grid>
+
+                  </Grid>
+                </Item>
+               
+              </Grid>
+
+              <Grid item xs={12} md={4}>
+                  <Item elevation={3}>
+                      <Typography variant="h5" component={"h5"} sx={{textAlign: "center", fontWeight:500, color:"green"}}>
+                        <AnnouncementIcon color="primary" /> LATEST ANNOUNCEMENT!
+                      </Typography>
+                      <Typography component={"div"}>
+                        
+                        <Marquee>
+                            Invite your friends and Get 5% of their initial deposit!
+                        </Marquee>
+                      </Typography>
+                  </Item>
+              </Grid>
+
+              <Grid item xs={12} md={4}>
+                <Item elevation={3} 
+                sx={{
+                  backgroundImage: `linear-gradient(to left top, rgba(125, 22, 116, 0.90), rgba(41, 125, 22, 0.75)), url(${Bg})`,
+                  // backgroundSize: 'cover',
+                  backgroundPosition: 'center',
+                  backgroundRepeat: "no-repeat",
+                  width: `100%`,
+                  color: "#fff",
+                  fontWeight: 600,
+                }}
+                >
+                  <Grid container spacing={2}>
+
+                    <Grid item xs={7}>
+                        <Typography variant="p" component={"p"}>
+                          3 Minutes
+                        </Typography>
+                    </Grid>
+
+                    <Grid item xs={5} sx={{textAlign: "right"}}>
+                        <Typography component={"p"}>
+                          Left Time To Buy
+                        </Typography>
+                    </Grid>
+
+                    <Grid item xs={6}>
+                        <Typography component={"h2"}>
+                          202245958686
+                        </Typography>
+                    </Grid>
+
+                    <Grid item xs={6} sx={{textAlign: "right"}}>
+                         <Typography component={"h2"}>                       
+                          <SpanTimmer>0</SpanTimmer>                        
+                          <SpanTimmer>2</SpanTimmer>                                                
+                          <SpanTimmer>:</SpanTimmer>                        
+                          <SpanTimmer>5</SpanTimmer>                        
+                          <SpanTimmer>8</SpanTimmer>                        
+                        </Typography>
+                    </Grid>
+
+                  </Grid>
+                </Item>
+              </Grid>
           </Grid>
           <Item elevation={3}>
               <Grid container spacing={2}>
