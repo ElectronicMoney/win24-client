@@ -18,8 +18,14 @@ const initialDialogue = {
 const countReducer = (state, action) => {
     switch (action.type) {
       case COUNTER_INCREMENT:
+        if (state.count === 1000) {
+          return state
+        }
         return {...state, count: state.count + 1};
       case COUNTER_DECREMENT:
+        if (state.count === 1) {
+          return state
+        }
         return {...state, count: state.count - 1};
       case COUNTER_RESET:
         return {...state, count: init(action.payload) };
@@ -31,7 +37,7 @@ const countReducer = (state, action) => {
 
 // Initial state
 const initialCounter = {
-  count: 0,
+  count: 1,
 };
 
 const dialogReducer = (state, action) => {

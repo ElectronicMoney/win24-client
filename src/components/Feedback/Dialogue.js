@@ -3,8 +3,6 @@ import Dialog from '@mui/material/Dialog';
 import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
 import DialogTitle from '@mui/material/DialogTitle';
-import Fab from '@mui/material/Fab';
-import CloseIcon from '@mui/icons-material/Close';
 import { AppContext } from '../../contexts';
 
 
@@ -32,15 +30,29 @@ export default function PaperDialog(props) {
         scroll={"paper"}
         aria-labelledby="scroll-dialog-title"
         aria-describedby="scroll-dialog-description"
+        fullWidth
+        disableEscapeKeyDown
       >
-        <DialogTitle id="scroll-dialog-title">{props.title}</DialogTitle>
+        <DialogTitle id="scroll-dialog-title"
+        sx={{
+          background:`${props.color}`, 
+          textAlign:"center", 
+          color:"#fff", 
+          fontWeight:600,
+          textTransform:"uppercase",
+          fontSize: "18px"
+        }}
+        >
+          {props.title}
+        </DialogTitle>
         <DialogContent dividers={true}>
             {props.children}
         </DialogContent>
         <DialogActions>
-          <Fab onClick={dialogue.closeDialogue} size="medium" color="primary" aria-label="cancel">
+          {/* <Fab onClick={dialogue.closeDialogue} size="medium" color="primary" aria-label="cancel">
             <CloseIcon />
-          </Fab>
+          </Fab> */}
+          {props.dialogActions()}
 
         </DialogActions>
       </Dialog>

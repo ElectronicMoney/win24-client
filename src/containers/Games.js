@@ -8,13 +8,21 @@ import Button from '@mui/material/Button';
 import ButtonGroup from '@mui/material/ButtonGroup';
 import ListItemText from '@mui/material/ListItemText';
 import AccountBalanceWalletIcon from '@mui/icons-material/AccountBalanceWallet';
-import { purple, red, green, yellow } from '@mui/material/colors';
+import { purple, red, green, lime } from '@mui/material/colors';
 import Marquee from "react-fast-marquee";
 import AnnouncementIcon from '@mui/icons-material/Announcement';
+import TextField from '@mui/material/TextField';
+import ToggleButton from '@mui/material/ToggleButton';
+import ToggleButtonGroup from '@mui/material/ToggleButtonGroup';
+import AddIcon from '@mui/icons-material/Add';
+import RemoveIcon from '@mui/icons-material/Remove';
 import kickAudio from '../assets/audios/kick3.mp3'
 import Tab from '../components/Navigation/Tab'
 import { formatMoney } from '../utils';
 import Bg from "../assets/images/3.png"
+import { AppContext } from '../contexts';
+import Dialogue from "../components/Feedback/Dialogue"
+
 
 
 const Item = styled(Paper)(({ theme }) => ({
@@ -105,12 +113,206 @@ const CustomButton = styled(Button)(({ theme, bg, pl, pr, hover }) => ({
 
 
 export default function Games() {
+
+    const [bet, setBet] = React.useState({
+      duration : 3,
+      bet_amount: 1,
+      is_color: false,
+      is_number: false,
+      is_size: false,
+      color: "",
+      number: null,
+      size: ""
+    });
+
+    const [values, setValues] = React.useState({
+      amount: 1,
+      multiplier: 1,
+      betAmount: 1,
+    });
+
+    const [display, setDisplay] = React.useState({
+     color: "#4a148c",
+     title: "Color Prediction Game"
+    });
+
+
+     const [amountStatus, setAmountStatus] = React.useState({
+      1: true,
+      2: false,
+      10: false,
+      50: false,
+      100: false,
+      1000: false,
+      10000: false,
+    });
+
+
+    const [multiplierStatus, setMultiplierStatus] = React.useState({
+        1: true,
+        2: false,
+        5: false,
+        10: false,
+        20: false,
+        50: false,
+        100: false,
+        1000: false,
+    });
+
+
+    const updateAmountStatus = (value) => {
+        let newStatus = {
+        1: false,
+        2: false,
+        10: false,
+        50: false,
+        100: false,
+        1000: false,
+        10000: false,
+      }
+      newStatus[value] = true
+        setAmountStatus(newStatus)
+    }
+
+    const updateMultiplierStatus = (value) => {
+        let newStatus = {
+        1: false,
+        2: false,
+        5: false,
+        10: false,
+        20: false,
+        50: false,
+        100: false,
+        1000: false,
+
+      }
+      newStatus[value] = true
+        setMultiplierStatus(newStatus)
+    }
+
+    const handleDisplay = (data) => {
+
+      let newColor = ""
+      let newTitle = ""
+
+      let newBet = {
+          duration : 3,
+          bet_amount: 1,
+          is_color: false,
+          is_number: false,
+          is_size: false,
+          color: "",
+          number: null,
+          size: ""
+      }
+
+      if (parseInt(data) === 0 || parseInt(data) === 5) {
+        newColor = "#ab47bc"
+        newTitle = `Your Prediction is Number: ${data}`
+        newBet.is_number = true
+        newBet.number = parseInt(data)
+        setBet(newBet)
+      }
+      
+      if ( [1,3,7,9].includes( parseInt(data))) {
+        newColor = "#43a047"
+        newTitle = `Your Prediction is Number: ${data}`
+        newBet.is_number = true
+        newBet.number = parseInt(data)
+        setBet(newBet)
+      }
+
+      if ( [2,4,6,8].includes( parseInt(data))) {
+        newColor = "#e53935"
+        newTitle = `Your Prediction is Number: ${data}`
+        newBet.is_number = true
+        newBet.number = parseInt(data)
+        setBet(newBet)
+      }
+
+      if (data === "GREEN") {
+        newColor = "#43a047"
+        newTitle = `Your Prediction is Color: ${data}`
+        newBet.is_color = true
+        newBet.color = data
+        setBet(newBet)
+      }
+
+      if (data === "RED") {
+        newColor = "#e53935"
+        newTitle = `Your Prediction is Color: ${data}`
+        newBet.is_color = true
+        newBet.color = data
+        setBet(newBet)
+      }
+
+      if (data === "VIOLET") {
+        newColor = "#ab47bc"
+        newTitle = `Your Prediction is Color: ${data}`
+        newBet.is_color = true
+        newBet.color = data
+        setBet(newBet)
+      }
+
+
+      if (data === "BIG") {
+        newColor = "#43a047"
+        newTitle = `Your Prediction is Size: ${data}`
+        newBet.is_size = true
+        newBet.size = data
+        setBet(newBet)
+      }
+
+      if (data === "SMALL") {
+        newColor = "#827717"
+        newTitle = `Your Prediction is Size: ${data}`
+        newBet.is_size = true
+        newBet.size = data
+        setBet(newBet)
+      }
+
+      setDisplay({
+        color: newColor,
+        title: newTitle
+      })
+    }
+
+    const handleAmountChange = (e) => {
+      setValues({...values, amount: e.target.value});
+      setBet({...bet, bet_amount: e.target.value *  values.multiplier });
+      updateAmountStatus(e.target.value)
+    }
+
+    const handleMultiplierChange = (e) => {
+      setValues({...values, multiplier: e.target.value});
+      setBet({...bet, bet_amount: e.target.value *  values.amount });
+      updateMultiplierStatus(e.target.value)
+    }
+  
+
+    const incrementCount = () => {
+      if (parseFloat(values.multiplier) < 1000) {
+        setValues({...values, multiplier:  parseFloat(values.multiplier) + 1});
+        setBet({...bet, bet_amount: values.amount *  values.multiplier });
+      }  
+    };
+
+    const decrementCount = () => {
+      if (parseFloat(values.multiplier) > 1) {
+        setValues({...values, multiplier: parseFloat(values.multiplier) - 1 });
+        setBet({...bet, bet_amount: values.amount *  values.multiplier });
+      }      
+    };
+
+
+    const { dialogue } = React.useContext(AppContext)
   
     const handleClick = (event) => {
       const audio = new Audio(kickAudio);
       audio.play();
       const value = event.target.innerText
-      console.log(value)
+      handleDisplay(value)
+      dialogue.openDialogue()
     }
 
     const games = [
@@ -133,6 +335,170 @@ export default function Games() {
        { created_at: 2022071011032, bet_amount: 1500.00, status: "LOSS"},
        { created_at: 2022071011032, bet_amount: 3000.00, status: "LOSS"},
     ]
+
+
+  const placeBet = () => {
+    console.log(bet)
+  }
+
+
+  function ToggleButtons() {
+    const [alignment, setAlignment] = React.useState('left');
+
+    const handleAlignment = (event, newAlignment) => {
+      setAlignment(newAlignment);
+    };
+
+    return (
+      <ToggleButtonGroup
+        value={alignment}
+        exclusive
+        onChange={handleAlignment}
+        aria-label="text alignment"
+        size="small"
+        color="primary"
+      >
+        <ToggleButton value={1} aria-label="left aligned" 
+        onClick={(e) => handleAmountChange(e)}
+        selected={amountStatus[1]}
+        >
+          1
+        </ToggleButton>
+        <ToggleButton value={10}  aria-label="centered" selected={amountStatus[10]}
+        onClick={(e) => handleAmountChange(e)}
+        >
+          10
+        </ToggleButton>
+        <ToggleButton value={50}  aria-label="justified"
+        onClick={(e) => handleAmountChange(e)}
+        selected={amountStatus[50]}
+        >
+        50
+        </ToggleButton>
+        <ToggleButton value={100}  aria-label="justified"
+          onClick={(e) => handleAmountChange(e)}
+          selected={amountStatus[100]}
+        >
+        100
+        </ToggleButton>
+        <ToggleButton value={1000}  aria-label="justified"
+           onClick={(e) => handleAmountChange(e)}
+           selected={amountStatus[1000]}
+        >
+        1,000
+        </ToggleButton>
+        <ToggleButton value={10000}  aria-label="justified"
+         onClick={(e) => handleAmountChange(e)}
+         selected={amountStatus[10000]}
+        >
+        10,000
+        </ToggleButton>
+            
+      </ToggleButtonGroup>
+    );
+  }
+
+
+  function ToggleButtonsMultiply() {
+    const [alignment, setAlignment] = React.useState('left');
+
+    const handleAlignment = (event, newAlignment) => {
+      setAlignment(newAlignment);
+    };
+
+    return (
+      <ToggleButtonGroup
+        value={alignment}
+        exclusive
+        onChange={handleAlignment}
+        aria-label="text alignment"
+        size="small"
+        color="primary"
+      >
+        <ToggleButton value={1} aria-label="left aligned"
+         onClick={e => handleMultiplierChange(e)}
+          selected={multiplierStatus[1]}
+         >
+          X1
+        </ToggleButton>
+        <ToggleButton value={2} aria-label="left aligned"
+         onClick={e => handleMultiplierChange(e)}
+          selected={multiplierStatus[2]}
+        >
+          X2
+        </ToggleButton>
+        <ToggleButton value={5}  aria-label="centered"
+         onClick={e => handleMultiplierChange(e)}
+          selected={multiplierStatus[5]}
+        >
+          X5
+        </ToggleButton>
+        <ToggleButton value={10} aria-label="justified"
+          selected={multiplierStatus[10]}
+         onClick={e => handleMultiplierChange(e)}
+        >
+        X10
+        </ToggleButton>
+        <ToggleButton value={20}  aria-label="justified"
+         onClick={e => handleMultiplierChange(e)}
+          selected={multiplierStatus[20]}
+        >
+        X20
+        </ToggleButton>
+        <ToggleButton value={50}  aria-label="justified"
+         onClick={e => handleMultiplierChange(e)}
+         selected={multiplierStatus[50]}
+        >
+        X50
+        </ToggleButton>
+        <ToggleButton value={100}  aria-label="justified"
+         onClick={e => handleMultiplierChange(e)}
+          selected={multiplierStatus[100]}
+        >
+          X100
+        </ToggleButton>
+        <ToggleButton value={1000}  aria-label="justified"
+         onClick={e => handleMultiplierChange(e)}
+          selected={multiplierStatus[1000]}
+        >
+          X1000
+        </ToggleButton>
+            
+      </ToggleButtonGroup>
+    );
+  }
+
+  const dialogActions = () => {
+    return (
+        <Grid container spacing={2} sx={{my:2}}>
+          <Grid item xs={6} >
+              <Fab 
+                variant="extended" 
+                size="small" 
+                color="error" 
+                aria-label="bet"
+                sx={{px:3}}
+                onClick={() => dialogue.closeDialogue()}
+                >
+                  Cancel Bet
+                </Fab>
+          </Grid>
+          <Grid item xs={6} >
+              <Fab 
+                variant="extended" 
+                size="small" 
+                color="primary" 
+                aria-label="bet"
+                sx={{px:5}}
+                onClick={() => placeBet()}
+                >
+                  Place Bet
+                </Fab>
+          </Grid>
+      </Grid>
+    )
+  }
+
 
     function ColorGamePad() {
       return (
@@ -327,8 +693,8 @@ export default function Games() {
                     </CustomButton>
 
                     <CustomButton
-                      bg={yellow[800]} 
-                      hover={yellow[900]} 
+                      bg={lime[800]} 
+                      hover={lime[900]} 
                       onClick={e=>handleClick(e)}
                       pl={50}
                       pr={50}
@@ -345,6 +711,8 @@ export default function Games() {
           </React.Fragment>
         );
     }
+
+    
 
     return ( 
         <React.Fragment>
@@ -469,6 +837,53 @@ export default function Games() {
            <div style={{marginTop:20}}>
               <Tab games={games} bets={bets} />
             </div>
+
+            <Dialogue 
+            color={display.color}
+            title={display.title}
+            dialogActions={dialogActions}
+            >
+
+              <Grid container spacing={2} >
+                <Grid item xs={3} >
+                    Amount:
+                </Grid>
+                <Grid item xs={9} >
+                    <ToggleButtons />
+                </Grid>
+
+                <Grid item xs={3} >
+                    Multiply:
+                </Grid>
+                <Grid item xs={9} >
+                    <Button variant="contained" onClick={() => decrementCount()}>
+                      <RemoveIcon /> 
+                    </Button>
+                    <TextField 
+                      size="small" 
+                      id="outlined-basic" 
+                      variant="outlined" 
+                      sx={{width: "62px", mx:2}}
+                      value={values.multiplier}                  
+                    />
+                    <Button variant="contained" onClick={() => incrementCount()}>
+                      <AddIcon /> 
+                      </Button>
+                </Grid>
+
+                 <Grid item xs={12} >
+                    <ToggleButtonsMultiply />
+                </Grid>
+
+                <Grid item xs={6} >
+                    Total Bet Amount:
+                </Grid>
+                
+                <Grid item xs={6} >
+                    <strong style={{color:"green", fontSize:"24px"}}>{formatMoney(bet.bet_amount)}</strong>
+                </Grid>
+              </Grid>
+            </Dialogue>
 
         </React.Fragment>
     );
