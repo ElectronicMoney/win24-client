@@ -4,6 +4,7 @@ import { keyframes } from '@mui/system';
 import CssBaseline from '@mui/material/CssBaseline';
 import Box from '@mui/material/Box';
 import Container from '@mui/material/Container';
+import { Link } from "react-router-dom";
 import Animate from '../assets/images/animate.png'
 import Button from "../components/Inputs/Button"
 import HomeBg from '../assets/images/bg.jpg'
@@ -107,7 +108,7 @@ export default function NotFound(props) {
                   <HeadingPrimaryMain>OOPS! Error 404</HeadingPrimaryMain>
                   <HeadingPrimarySub>Page Not Found!</HeadingPrimarySub> 
               </HeadingPrimary>
-              <HomeLink variant="contained" color="primary">Go Home</HomeLink>          
+              <HomeLink variant="contained" color="primary" to="/app" component={Link} >Go Home</HomeLink>          
           </Div>
         </Box>
       </Container>

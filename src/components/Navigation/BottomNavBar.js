@@ -5,7 +5,7 @@ import BottomNavigationAction from '@mui/material/BottomNavigationAction';
 import HomeIcon from '@mui/icons-material/Home';
 import InsertInvitationIcon from '@mui/icons-material/InsertInvitation';
 import AccountBalanceWalletIcon from '@mui/icons-material/AccountBalanceWallet';
-import PersonIcon from '@mui/icons-material/Person';
+import SportsEsportsIcon from '@mui/icons-material/SportsEsports';
 import { Link } from "react-router-dom";
 import Paper from '@mui/material/Paper';
 
@@ -29,7 +29,7 @@ export default function BottomNavBar() {
                 <BottomNavigationAction label="HOME" icon={<HomeIcon />} to="/app" component={Link}/>
                 <BottomNavigationAction label="INVITE" icon={<InsertInvitationIcon />} to="/app/invites" component={Link} />
                 <BottomNavigationAction label="WALLET" icon={<AccountBalanceWalletIcon />} to="/app/wallets" component={Link} />
-                <BottomNavigationAction label="CENTER" icon={<PersonIcon />} to="/app/centers" component={Link} />
+                <BottomNavigationAction label="GAMES" icon={<SportsEsportsIcon />} to="/app/games" component={Link} />
               </BottomNavigation>
             </Paper>
           </Box>
