@@ -8,7 +8,6 @@ import Marquee from "react-fast-marquee";
 import {sliderItems} from '../utils'
 import Card from '../components/Surfaces/Card'
 
-
 const Item = styled(Paper)(({ theme }) => ({
     backgroundColor: theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
     ...theme.typography.body2,
@@ -46,62 +45,6 @@ export default function AppHome() {
                     ))
                 }
 
-                <Grid item xs={12} md={6} lg={4}>
-                    <Item elevation={3}>
-                        <Typography paragraph>
-                            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
-                            tempor incididunt ut labore et dolore magna aliqua. Rhoncus dolor purus non
-                            enim praesent elementum facilisis leo vel. Risus at ultrices mi tempus
-                            imperdiet. Semper risus in hendrerit gravida rutrum quisque non tellus.
-                            Convallis convallis tellus id interdum velit laoreet id donec ultrices.
-                            Odio morbi quis commodo odio aenean sed adipiscing. Amet nisl suscipit
-                            adipiscing bibendum est ultricies integer quis. Cursus euismod quis viverra
-                            nibh cras. Metus vulputate eu scelerisque felis imperdiet proin fermentum
-                            leo. Mauris commodo quis imperdiet massa tincidunt. Cras tincidunt lobortis
-                            feugiat vivamus at augue. At augue eget arcu dictum varius duis at
-                            consectetur lorem. Velit sed ullamcorper morbi tincidunt. Lorem donec massa
-                            sapien faucibus et molestie ac.Odio morbi quis commodo odio aenean sed adipiscing. 
-                        </Typography>
-                    </Item>
-                </Grid>
-
-                <Grid item xs={12} md={6} lg={4}>
-                    <Item elevation={3}>
-                        <Typography paragraph>
-                            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
-                            tempor incididunt ut labore et dolore magna aliqua. Rhoncus dolor purus non
-                            enim praesent elementum facilisis leo vel. Risus at ultrices mi tempus
-                            imperdiet. Semper risus in hendrerit gravida rutrum quisque non tellus.
-                            Convallis convallis tellus id interdum velit laoreet id donec ultrices.
-                            Odio morbi quis commodo odio aenean sed adipiscing. Amet nisl suscipit
-                            adipiscing bibendum est ultricies integer quis. Cursus euismod quis viverra
-                            nibh cras. Metus vulputate eu scelerisque felis imperdiet proin fermentum
-                            leo. Mauris commodo quis imperdiet massa tincidunt. Cras tincidunt lobortis
-                            feugiat vivamus at augue. At augue eget arcu dictum varius duis at
-                            consectetur lorem. Velit sed ullamcorper morbi tincidunt. Lorem donec massa
-                            sapien faucibus et molestie ac.Odio morbi quis commodo odio aenean sed adipiscing. 
-                        </Typography>
-                    </Item>
-                </Grid>
-
-                <Grid item xs={12} md={6} lg={4}>
-                    <Item elevation={3}>
-                        <Typography paragraph>
-                            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
-                            tempor incididunt ut labore et dolore magna aliqua. Rhoncus dolor purus non
-                            enim praesent elementum facilisis leo vel. Risus at ultrices mi tempus
-                            imperdiet. Semper risus in hendrerit gravida rutrum quisque non tellus.
-                            Convallis convallis tellus id interdum velit laoreet id donec ultrices.
-                            Odio morbi quis commodo odio aenean sed adipiscing. Amet nisl suscipit
-                            adipiscing bibendum est ultricies integer quis. Cursus euismod quis viverra
-                            nibh cras. Metus vulputate eu scelerisque felis imperdiet proin fermentum
-                            leo. Mauris commodo quis imperdiet massa tincidunt. Cras tincidunt lobortis
-                            feugiat vivamus at augue. At augue eget arcu dictum varius duis at
-                            consectetur lorem. Velit sed ullamcorper morbi tincidunt. Lorem donec massa
-                            sapien faucibus et molestie ac.Odio morbi quis commodo odio aenean sed adipiscing. 
-                        </Typography>
-                    </Item>
-                </Grid>
             </Grid>
         </React.Fragment>
     );
