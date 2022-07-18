@@ -16,6 +16,7 @@ import ToggleButton from '@mui/material/ToggleButton';
 import ToggleButtonGroup from '@mui/material/ToggleButtonGroup';
 import AddIcon from '@mui/icons-material/Add';
 import RemoveIcon from '@mui/icons-material/Remove';
+import { Link } from "react-router-dom";
 import kickAudio from '../assets/audios/kick3.mp3'
 import Tab from '../components/Navigation/Tab'
 import { formatMoney } from '../utils';
@@ -736,14 +737,14 @@ export default function Games() {
 
                     <Grid item xs={6}>
                         <Fab variant="extended" size="small" color="warning" aria-label="withdraw"
-                        sx={{px: 4}}>
+                        sx={{px: 4}}  to="/app/withdraw" component={Link}>
                           Withdraw
                         </Fab>
                     </Grid>
 
                     <Grid item xs={6} sx={{textAlign: "right"}}>
                          <Fab variant="extended" size="small" color="primary" aria-label="recharge"
-                         sx={{px: 4}}>
+                         sx={{px: 4}} to="/app/recharge" component={Link}>
                           Recharge
                         </Fab>
                     </Grid>

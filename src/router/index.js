@@ -36,8 +36,9 @@ export default function AppRouter() {
                         <Route index element={<AppHome />} />
                         <Route path="about-us" element={<AppHome />} />
                         <Route path="customer-service" element={<AppHome />} />
-                        <Route path="account-security" element={<AppHome />} />
                         <Route path="game-rules" element={<Games />} />
+                        <Route path="withdraw" element={<AppHome />} />
+                        <Route path="recharge" element={<AppHome />} />
                         <Route path="games" element={<Games />} />
                         <Route path="invites" element={<Games />} />
                         <Route path="wallets" element={<Games />} />
