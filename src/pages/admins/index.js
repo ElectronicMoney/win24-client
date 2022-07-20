@@ -5,7 +5,6 @@ import CardMedia from '@mui/material/CardMedia';
 import Typography from '@mui/material/Typography';
 import { CardActions } from '@mui/material';
 import { styled } from '@mui/material/styles';
-import {ErrorBoundary} from '../errors/ErrorBandary'
 import InputAdornment from '@mui/material/InputAdornment';
 import FormControl from '@mui/material/FormControl';
 import InputLabel from '@mui/material/InputLabel';
@@ -13,10 +12,11 @@ import Input from '@mui/material/Input';
 import IconButton from '@mui/material/IconButton';
 import Visibility from '@mui/icons-material/Visibility';
 import VisibilityOff from '@mui/icons-material/VisibilityOff';
-import Button from "../components/Inputs/Button"
 import AccountBoxIcon from '@mui/icons-material/AccountBox';
 import LockIcon from '@mui/icons-material/Lock';
-import Logo  from '../assets/images/logo.png'
+import {ErrorBoundary} from '../../errors/ErrorBandary'
+import Button from "../../components/Inputs/Button"
+import Logo  from '../../assets/images/logo.png'
 
 
 

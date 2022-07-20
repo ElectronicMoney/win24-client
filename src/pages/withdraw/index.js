@@ -10,10 +10,13 @@ import TextField from '@mui/material/TextField';
 import MenuItem from '@mui/material/MenuItem';
 import InputAdornment from '@mui/material/InputAdornment';
 import PointOfSaleIcon from '@mui/icons-material/PointOfSale';
+import AccountBoxIcon from '@mui/icons-material/AccountBox';
+import ContactsIcon from '@mui/icons-material/Contacts';
+import PublicIcon from '@mui/icons-material/Public';
 import FormControl from '@mui/material/FormControl';
 import currency from "currency.js"
-import { formatMoney } from '../utils';
-import Table from '../components/DataDisplay/Table.js'
+import { formatMoney } from '../../utils';
+import Table from '../../components/DataDisplay/Table.js'
 
 
 const Item = styled(Paper)(({ theme }) => ({
@@ -28,21 +31,33 @@ export default function Recharge() {
     const [values, setValues] = React.useState({
         type: "",
         amount: '',
+        accountName: '',
+        accountNumber: '',
+        bankName: '',
     });
 
     const [errors, setErrors] = React.useState({
         amount: '',
+        accountName: '',
+        accountNumber: '',
+        bankName: '',
     });
 
     const [type, setType] = React.useState("GCash");
 
     const handleChange = (prop) => (event) => {
+        setValues({ ...values, [prop]: event.target.value, type: type });
+        handleValidation()
+    };
+
+    const handleAmountChange = (prop) => (event) => {
         if ( Number.isNaN(Number(event.target.value))) {
             return
         }
         setValues({ ...values, [prop]: event.target.value, type: type });
         handleValidation()
     };
+
 
     const handleSelectChange = (event) => {
         setType(event.target.value);
@@ -58,25 +73,25 @@ export default function Recharge() {
     }
 
     const handleBlur = () => {
-        if (handleValidation()) {
-            setValues({...values, amount: formatMoney(values.amount) })
-        }
-
+        setValues({...values, amount: formatMoney(values.amount) })
     }
 
 
     const handleValidation = () => {
          let temErrors = {}
         if ( values.amount === "") {
-            temErrors.amount = "Please Enter the exact Amount you want to Recharge!"
+            temErrors.amount = "Please Enter the exact Amount you want to Withdraw!"
          } else if (Number(values.amount) < 100 ) {
-            temErrors.amount = `The lowest amount you can Recharge is ${formatMoney(100)}!`
+            temErrors.amount = `The lowest amount you can Withdraw is ${formatMoney(100)}!`
          }
+        temErrors.accountName = values.accountName ? "": "The Account Name is Required!"
+        temErrors.accountNumber = values.accountNumber ? "": "The Account Number is Required!"
+        temErrors.bankName = values.bankName ? "": "The Bank Name is Required!"
          setErrors({...temErrors})
          return Object.values(temErrors).every(err => err === "")
     }
 
-    const handleRechargePost = (event) => {
+    const handleWithdrawPost = (event) => {
         event.preventDefault()
         //Check for valition handler 
         if (handleValidation()) {
@@ -138,14 +153,14 @@ export default function Recharge() {
                         </Typography>
                     </Grid>
                     <Grid item xs={12}>
-                        <form autoComplete='off' onSubmit={handleRechargePost}>
+                        <form autoComplete='off' onSubmit={handleWithdrawPost}>
                             <Grid container spacing={2}>
 
                                 <Grid item xs={6}>
                                     <FormControl fullWidth variant="standard">
                                         <TextField
                                             id="outlined-adornment-type"
-                                            label="Select Recharge Type"
+                                            label="Select Withdrawal Type"
                                             name="type"
                                             select
                                             fullWidth
@@ -169,7 +184,7 @@ export default function Recharge() {
                                             label="Enter Amount"
                                             value={values.amount}
                                             name="amount"
-                                            onChange={handleChange('amount')}
+                                            onChange={handleAmountChange('amount')}
                                             placeholder="Enter Amount"
                                             error={errors.amount ? true: false}
                                             helperText={errors.amount}
@@ -185,10 +200,73 @@ export default function Recharge() {
                                     </FormControl>
                                 </Grid>
 
-                                <Grid item xs={12}>
-                                    <Fab type="submit" variant="extended" size="small" color="primary" aria-label="recharge"
+                                <Grid item xs={6}>
+                                    <FormControl fullWidth variant="standard">
+                                        <TextField
+                                            id="outlined-adornment-accountName"
+                                            label="Account Name"
+                                            value={values.accountName}
+                                            name="accountName"
+                                            onChange={handleChange('accountName')}
+                                            placeholder="Account Name"
+                                            error={errors.accountName ? true: false}
+                                            helperText={errors.accountName}
+                                            InputProps={{
+                                            startAdornment: (
+                                                <InputAdornment position="start"> 
+                                                    <AccountBoxIcon color="primary" />
+                                                </InputAdornment>)
+                                            }}
+                                        />
+                                    </FormControl>
+                                </Grid>
+
+                                <Grid item xs={6}>
+                                    <FormControl fullWidth variant="standard">
+                                        <TextField
+                                            id="outlined-adornment-accountNumber"
+                                            label="Account Number"
+                                            value={values.accountNumber}
+                                            name="accountNumber"
+                                            onChange={handleChange('accountNumber')}
+                                            placeholder="Account Number"
+                                            error={errors.accountNumber ? true: false}
+                                            helperText={errors.accountNumber}
+                                            InputProps={{
+                                            startAdornment: (
+                                                <InputAdornment position="start"> 
+                                                    <ContactsIcon color="primary" />
+                                                </InputAdornment>)
+                                            }}
+                                        />
+                                    </FormControl>
+                                </Grid>
+
+                                <Grid item xs={6}>
+                                    <FormControl fullWidth variant="standard">
+                                        <TextField
+                                            id="outlined-adornment-bankName"
+                                            label="Bank Name"
+                                            value={values.bankName}
+                                            name="bankName"
+                                            onChange={handleChange('bankName')}
+                                            placeholder="Bank Name"
+                                            error={errors.bankName ? true: false}
+                                            helperText={errors.bankName}
+                                            InputProps={{
+                                            startAdornment: (
+                                                <InputAdornment position="start"> 
+                                                    <PublicIcon color="primary" />
+                                                </InputAdornment>)
+                                            }}
+                                        />
+                                    </FormControl>
+                                </Grid>
+
+                                <Grid item xs={6}>
+                                    <Fab type="submit" variant="extended" size="large" color="primary" aria-label="recharge"
                                     sx={{px: 6}}>
-                                    Recharge
+                                    Withdraw
                                     </Fab>                             
                                 </Grid>
                             </Grid>
@@ -201,7 +279,7 @@ export default function Recharge() {
 
                 <Grid item xs={12}>
                     <Item elevation={3}>
-                        <Typography variant="h5" component="h2" sx={{textAlign:"center"}}>Recharge History!</Typography>
+                        <Typography variant="h5" component="h2" sx={{textAlign:"center"}}>Withdraw History!</Typography>
                     </Item>
                 </Grid>
 

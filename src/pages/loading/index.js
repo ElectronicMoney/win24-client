@@ -2,7 +2,7 @@ import React from 'react';
 import { styled } from '@mui/material/styles';
 import { keyframes } from '@mui/system';
 import CssBaseline from '@mui/material/CssBaseline';
-import Logo  from '../assets/images/logo.png'
+import Logo  from '../../assets/images/logo.png'
 
 const HeartBeat = keyframes`
     0% {opacity: 0.25; transform: scale(1);}

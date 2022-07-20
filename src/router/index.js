@@ -1,23 +1,23 @@
 import * as React from 'react';
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 
-import Loading from '../containers/Loading';
+import Loading from '../pages/loading';
 
 const HomeLayout  = React.lazy(() => import('../layouts/HomeLayout'));
 const AppLayout   = React.lazy(() => import('../layouts/AppLayout'));
 const AdminLayout = React.lazy(() => import('../layouts/AdminLayout'));
 
-const Home  = React.lazy(() => import("../containers/Home"));
-const Games = React.lazy(() => import("../containers/Games"));
-const Login = React.lazy(() => import("../containers/Login"));
-const Register = React.lazy(() => import("../containers/Register"));
-const Admins = React.lazy(() => import("../containers/Admins"));
-const Dashboard = React.lazy(() => import("../containers/Dashboard"));
-const AppHome = React.lazy(() => import("../containers/AppHome"));
-const Wallet = React.lazy(() => import("../containers/Wallet"));
-const Recharge = React.lazy(() => import("../containers/Recharge"));
-const Withdraw = React.lazy(() => import("../containers/Withdraw"));
-const NotFound = React.lazy(() => import("../containers/NotFound"));
+const Home = React.lazy(() => import("../pages"));
+const AppHome  = React.lazy(() => import("../pages/home"));
+const Games = React.lazy(() => import("../pages/games"));
+const Login = React.lazy(() => import("../pages/auth"));
+const Register = React.lazy(() => import("../pages/auth/Register"));
+const Admins = React.lazy(() => import("../pages/admins"));
+const Dashboard = React.lazy(() => import("../pages/admins/Dashboard"));
+const Wallet = React.lazy(() => import("../pages/wallets"));
+const Recharge = React.lazy(() => import("../pages/recharge"));
+const Withdraw = React.lazy(() => import("../pages/withdraw"));
+const NotFound = React.lazy(() => import("../pages/notfound"));
 
 
 
