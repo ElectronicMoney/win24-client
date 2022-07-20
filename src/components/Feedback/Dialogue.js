@@ -3,6 +3,7 @@ import Dialog from '@mui/material/Dialog';
 import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
 import DialogTitle from '@mui/material/DialogTitle';
+import { purple } from '@mui/material/colors';
 import { AppContext } from '../../contexts';
 
 
@@ -35,7 +36,7 @@ export default function PaperDialog(props) {
       >
         <DialogTitle id="scroll-dialog-title"
         sx={{
-          background:`${props.color}`, 
+          background:`${props.color}` || `${purple[900]}`, 
           textAlign:"center", 
           color:"#fff", 
           fontWeight:600,
@@ -49,11 +50,7 @@ export default function PaperDialog(props) {
             {props.children}
         </DialogContent>
         <DialogActions>
-          {/* <Fab onClick={dialogue.closeDialogue} size="medium" color="primary" aria-label="cancel">
-            <CloseIcon />
-          </Fab> */}
           {props.dialogActions()}
-
         </DialogActions>
       </Dialog>
     </div>

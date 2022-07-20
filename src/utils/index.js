@@ -57,16 +57,19 @@ export const sliderItems = [
 
 ]
 
-
-export const formatMoney = (amount, locale='fil-PH') => {
+const getCurrencyByLocale = (locale) => {
     let currency = "";
-
     if (locale === "fil-PH") {
         currency ='PHP';
     }
-  const formattedAmount = new Intl.NumberFormat(
-        locale, 
-        { style: 'currency', currency: currency}
+    return currency
+}
+
+
+export const formatMoney = (amount, locale='fil-PH') => {
+    const formattedAmount = new Intl.NumberFormat(
+      locale, 
+      { style: 'currency', currency: getCurrencyByLocale(locale)}
     ).format(amount);
     return formattedAmount
 }

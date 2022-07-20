@@ -14,6 +14,9 @@ const Register = React.lazy(() => import("../containers/Register"));
 const Admins = React.lazy(() => import("../containers/Admins"));
 const Dashboard = React.lazy(() => import("../containers/Dashboard"));
 const AppHome = React.lazy(() => import("../containers/AppHome"));
+const Wallet = React.lazy(() => import("../containers/Wallet"));
+const Recharge = React.lazy(() => import("../containers/Recharge"));
+const Withdraw = React.lazy(() => import("../containers/Withdraw"));
 const NotFound = React.lazy(() => import("../containers/NotFound"));
 
 
@@ -37,11 +40,11 @@ export default function AppRouter() {
                         <Route path="about-us" element={<AppHome />} />
                         <Route path="customer-service" element={<AppHome />} />
                         <Route path="game-rules" element={<Games />} />
-                        <Route path="withdraw" element={<AppHome />} />
-                        <Route path="recharge" element={<AppHome />} />
+                        <Route path="withdraw" element={<Withdraw />} />
+                        <Route path="recharge" element={<Recharge />} />
                         <Route path="games" element={<Games />} />
                         <Route path="invites" element={<Games />} />
-                        <Route path="wallets" element={<Games />} />
+                        <Route path="wallets" element={<Wallet />} />
                         <Route path="settings" element={<AppHome />} />
                     </Route>
 
