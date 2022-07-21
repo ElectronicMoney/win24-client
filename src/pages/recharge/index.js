@@ -5,15 +5,9 @@ import Paper from '@mui/material/Paper';
 import Typography from '@mui/material/Typography';
 import AccountBalanceWalletIcon from '@mui/icons-material/AccountBalanceWallet';
 import ListItemText from '@mui/material/ListItemText';
-import Fab from '@mui/material/Fab';
-import TextField from '@mui/material/TextField';
-import MenuItem from '@mui/material/MenuItem';
-import InputAdornment from '@mui/material/InputAdornment';
-import PointOfSaleIcon from '@mui/icons-material/PointOfSale';
-import FormControl from '@mui/material/FormControl';
-import currency from "currency.js"
 import { formatMoney } from '../../utils';
 import Table from '../../components/DataDisplay/Table.js'
+import Form from "./Form"
 
 
 const Item = styled(Paper)(({ theme }) => ({
@@ -25,89 +19,6 @@ const Item = styled(Paper)(({ theme }) => ({
   
 
 export default function Recharge() {
-    const [values, setValues] = React.useState({
-        type: "",
-        amount: '',
-    });
-
-    const [errors, setErrors] = React.useState({
-        amount: '',
-    });
-
-    const [type, setType] = React.useState("GCash");
-
-    const handleChange = (prop) => (event) => {
-        if ( Number.isNaN(Number(event.target.value))) {
-            return
-        }
-        setValues({ ...values, [prop]: event.target.value, type: type });
-        handleValidation()
-    };
-
-    const handleSelectChange = (event) => {
-        setType(event.target.value);
-        setValues({ ...values, type: event.target.value });
-    };
-
-
-
-    const handleFocucs = () => {
-        if (values.amount) {
-            setValues({...values, amount: currency(values.amount) })
-        }
-    }
-
-    const handleBlur = () => {
-        if (handleValidation()) {
-            setValues({...values, amount: formatMoney(values.amount) })
-        }
-
-    }
-
-
-    const handleValidation = () => {
-         let temErrors = {}
-        if ( values.amount === "") {
-            temErrors.amount = "Please Enter the exact Amount you want to Recharge!"
-         } else if (Number(values.amount) < 100 ) {
-            temErrors.amount = `The lowest amount you can Recharge is ${formatMoney(100)}!`
-         }
-         setErrors({...temErrors})
-         return Object.values(temErrors).every(err => err === "")
-    }
-
-    const handleRechargePost = (event) => {
-        event.preventDefault()
-        //Check for valition handler 
-        if (handleValidation()) {
-            console.log(values)
-        }
-
-    }
-
-    const types = [
-  {
-    value: 'GCash',
-    label: 'GCash',
-  },
-  {
-    value: 'PayMaya',
-    label: 'PayMaya',
-  },
-  {
-    value: 'CoinPH',
-    label: 'CoinPH',
-  },
-  {
-    value: 'UPI',
-    label: 'UPI',
-  },
-  {
-    value: 'Bank Transfer',
-    label: 'Bank Transfer',
-  },
-];
-
 
     const transactions = [
        { id: 1, created_at: "2022-07-10 11:32", type: "GCash", amount: 200.00, status: "PENDING"},
@@ -138,61 +49,7 @@ export default function Recharge() {
                         </Typography>
                     </Grid>
                     <Grid item xs={12}>
-                        <form autoComplete='off' onSubmit={handleRechargePost}>
-                            <Grid container spacing={2}>
-
-                                <Grid item xs={6}>
-                                    <FormControl fullWidth variant="standard">
-                                        <TextField
-                                            id="outlined-adornment-type"
-                                            label="Select Recharge Type"
-                                            name="type"
-                                            select
-                                            fullWidth
-                                            value={type}
-                                            onChange={handleSelectChange}
-                                        >
-                                            {types.map((option) => (
-                                                <MenuItem key={option.value} value={option.value}>
-                                                {option.label}
-                                                </MenuItem>
-                                            ))}
-
-                                        </TextField>
-                                    </FormControl>
-                                </Grid>
-
-                                <Grid item xs={6}>
-                                    <FormControl fullWidth variant="standard">
-                                        <TextField
-                                            id="outlined-adornment-amount"
-                                            label="Enter Amount"
-                                            value={values.amount}
-                                            name="amount"
-                                            onChange={handleChange('amount')}
-                                            placeholder="Enter Amount"
-                                            error={errors.amount ? true: false}
-                                            helperText={errors.amount}
-                                            onBlur={() => handleBlur()}
-                                            onFocus={() => handleFocucs()}
-                                            InputProps={{
-                                            startAdornment: (
-                                                <InputAdornment position="start"> 
-                                                    <PointOfSaleIcon color="primary" />
-                                                </InputAdornment>)
-                                            }}
-                                        />
-                                    </FormControl>
-                                </Grid>
-
-                                <Grid item xs={12}>
-                                    <Fab type="submit" variant="extended" size="small" color="primary" aria-label="recharge"
-                                    sx={{px: 6}}>
-                                    Recharge
-                                    </Fab>                             
-                                </Grid>
-                            </Grid>
-                        </form>
+                        <Form />
                     </Grid>
                   </Grid>
                 </Item>

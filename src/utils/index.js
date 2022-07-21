@@ -4,6 +4,8 @@ import SlideThree from '../assets/images/slide3.jpg'
 import SlideFour from '../assets/images/slide4.jpg'
 import SlideFive from '../assets/images/slide5.jpg'
 import SlideSix from '../assets/images/slide6.jpg'
+import currency from "currency.js"
+
 
 
 export const sliderItems = [
@@ -57,6 +59,29 @@ export const sliderItems = [
 
 ]
 
+export const paymentTypes = [
+  {
+    value: 'GCash',
+    label: 'GCash',
+  },
+  {
+    value: 'PayMaya',
+    label: 'PayMaya',
+  },
+  {
+    value: 'CoinPH',
+    label: 'CoinPH',
+  },
+  {
+    value: 'UPI',
+    label: 'UPI',
+  },
+  {
+    value: 'Bank Transfer',
+    label: 'Bank Transfer',
+  },
+];
+
 const getCurrencyByLocale = (locale) => {
     let currency = "";
     if (locale === "fil-PH") {
@@ -70,6 +95,6 @@ export const formatMoney = (amount, locale='fil-PH') => {
     const formattedAmount = new Intl.NumberFormat(
       locale, 
       { style: 'currency', currency: getCurrencyByLocale(locale)}
-    ).format(amount);
+    ).format(currency(amount));
     return formattedAmount
 }
