@@ -3,22 +3,27 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 
 import Loading from '../pages/loading';
 
-const HomeLayout  = React.lazy(() => import('../layouts/HomeLayout'));
-const AppLayout   = React.lazy(() => import('../layouts/AppLayout'));
-const AdminLayout = React.lazy(() => import('../layouts/AdminLayout'));
+const HomeLayout      = React.lazy(() => import('../layouts/HomeLayout'));
+const AppLayout       = React.lazy(() => import('../layouts/AppLayout'));
+const AdminLayout     = React.lazy(() => import('../layouts/AdminLayout'));
 
-const Home = React.lazy(() => import("../pages"));
-const AppHome  = React.lazy(() => import("../pages/home"));
-const Games = React.lazy(() => import("../pages/games"));
-const Login = React.lazy(() => import("../pages/login"));
-const Register = React.lazy(() => import("../pages/register"));
-const ForgetPassword = React.lazy(() => import("../pages/passwords"));
-const Admins = React.lazy(() => import("../pages/admins"));
-const Dashboard = React.lazy(() => import("../pages/admins/Dashboard"));
-const Wallet = React.lazy(() => import("../pages/wallets"));
-const Recharge = React.lazy(() => import("../pages/recharge"));
-const Withdraw = React.lazy(() => import("../pages/withdraw"));
-const NotFound = React.lazy(() => import("../pages/notfound"));
+const Home            = React.lazy(() => import("../pages"));
+const AppHome         = React.lazy(() => import("../pages/home"));
+const AboutUs         = React.lazy(() => import("../pages/about"));
+const CustomerService = React.lazy(() => import("../pages/supports"));
+const InviteFriends   = React.lazy(() => import("../pages/invites"));
+const Settings        = React.lazy(() => import("../pages/settings"));
+const Games           = React.lazy(() => import("../pages/games"));
+const Login           = React.lazy(() => import("../pages/login"));
+const Register        = React.lazy(() => import("../pages/register"));
+const ForgetPassword  = React.lazy(() => import("../pages/passwords"));
+const Admins          = React.lazy(() => import("../pages/admins"));
+const Dashboard       = React.lazy(() => import("../pages/admins/dashboard"));
+const Wallet          = React.lazy(() => import("../pages/wallets"));
+const GameRules       = React.lazy(() => import("../pages/rules"));
+const Recharge        = React.lazy(() => import("../pages/recharge"));
+const Withdraw        = React.lazy(() => import("../pages/withdraw"));
+const NotFound        = React.lazy(() => import("../pages/notfound"));
 
 
 
@@ -39,15 +44,15 @@ export default function AppRouter() {
                     {/* App Layout Routes */}
                     <Route path="/app" element={<AppLayout />}>
                         <Route index element={<AppHome />} />
-                        <Route path="about-us" element={<AppHome />} />
-                        <Route path="customer-service" element={<AppHome />} />
-                        <Route path="game-rules" element={<Games />} />
+                        <Route path="about-us" element={<AboutUs />} />
+                        <Route path="customer-service" element={<CustomerService />} />
+                        <Route path="game-rules" element={<GameRules />} />
                         <Route path="withdraw" element={<Withdraw />} />
                         <Route path="recharge" element={<Recharge />} />
                         <Route path="games" element={<Games />} />
-                        <Route path="invites" element={<Games />} />
+                        <Route path="invites" element={<InviteFriends />} />
                         <Route path="wallets" element={<Wallet />} />
-                        <Route path="settings" element={<AppHome />} />
+                        <Route path="settings" element={<Settings />} />
                     </Route>
 
                     {/* Admin Layout Routes */}
@@ -57,8 +62,6 @@ export default function AppRouter() {
                         <Route path="games" element={<Dashboard />} />
                         <Route path="bets" element={<Dashboard />} />
                         <Route path="payments" element={<Dashboard />} />
-                        <Route path="news" element={<Dashboard />} />
-                        <Route path="supports" element={<Dashboard />} />
                         <Route path="settings" element={<Dashboard />} />
                         <Route path="logout" element={<Dashboard />} />
                     </Route>

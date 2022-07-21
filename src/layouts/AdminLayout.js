@@ -22,8 +22,6 @@ import GroupIcon from '@mui/icons-material/Group';
 import SportsEsportsIcon from '@mui/icons-material/SportsEsports';
 import FeaturedPlayListIcon from '@mui/icons-material/FeaturedPlayList';
 import PaidIcon from '@mui/icons-material/Paid';
-import AnnouncementIcon from '@mui/icons-material/Announcement';
-import SupportIcon from '@mui/icons-material/Support';
 import SettingsIcon from '@mui/icons-material/Settings';
 import LogoutIcon from '@mui/icons-material/Logout';
 import BottomNavBar from '../components/Navigation/BottomNavBar';
@@ -49,8 +47,6 @@ const sideBarListItem = {
       ],
 
       thirdtItems:[
-        {name: 'Manage News', icon: <AnnouncementIcon />, path: '/admins/news'},
-        {name: 'Manage Supports', icon: <SupportIcon />, path: '/admins/supports'},
         {name: 'Settings', icon: <SettingsIcon />, path: '/admins/settings'},
         {name: 'Logout', icon: <LogoutIcon />, path: '/admins/logout'},
       ],
