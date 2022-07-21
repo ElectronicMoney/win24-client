@@ -12,6 +12,7 @@ const AppHome  = React.lazy(() => import("../pages/home"));
 const Games = React.lazy(() => import("../pages/games"));
 const Login = React.lazy(() => import("../pages/login"));
 const Register = React.lazy(() => import("../pages/register"));
+const ForgetPassword = React.lazy(() => import("../pages/passwords"));
 const Admins = React.lazy(() => import("../pages/admins"));
 const Dashboard = React.lazy(() => import("../pages/admins/Dashboard"));
 const Wallet = React.lazy(() => import("../pages/wallets"));
@@ -31,6 +32,7 @@ export default function AppRouter() {
                         <Route index element={<Home />} />
                         <Route path="login" element={<Login />} />
                         <Route path="register" element={<Register />} />
+                        <Route path="forget-passwords" element={<ForgetPassword />} />
                         <Route path="admins" element={<Admins />} />
                     </Route>
 

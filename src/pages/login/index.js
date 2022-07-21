@@ -1,11 +1,14 @@
 import * as React from 'react';
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
+import { CardActions } from '@mui/material';
 import CardMedia from '@mui/material/CardMedia';
 import Typography from '@mui/material/Typography';
 import { styled } from '@mui/material/styles';
 import {ErrorBoundary} from '../../errors/ErrorBandary'
+import Button from "../../components/Inputs/Button"
 import Logo  from '../../assets/images/logo.png'
+import { Link } from 'react-router-dom';
 import Form from "./Form"
 
 
@@ -36,6 +39,25 @@ export default function Register() {
                         </Typography>
                         <Form />
                     </CardContent>
+                    <CardActions>
+                        <Typography variant="p" component="p" sx={{textAlign:"center", padding:"10px"}}>
+                            <Button size="small" variant="outlined" color="secondary" to="/forget-passwords" component={Link}
+                            sx={{mr: 1}}
+                            >
+                                Forget Password!
+                            </Button>
+                            <Button size="small" 
+                            variant="outlined" 
+                            color="primary" 
+                            to="/register" 
+                            component={Link}
+                            sx={{px:5}}
+                            >
+                                Register!
+                            </Button>
+                        </Typography>
+                    </CardActions>
+
                 </Card>
             </Div>
       </ErrorBoundary>

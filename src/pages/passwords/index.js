@@ -1,9 +1,9 @@
 import * as React from 'react';
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
+import { CardActions } from '@mui/material';
 import CardMedia from '@mui/material/CardMedia';
 import Typography from '@mui/material/Typography';
-import { CardActions } from '@mui/material';
 import { styled } from '@mui/material/styles';
 import {ErrorBoundary} from '../../errors/ErrorBandary'
 import Button from "../../components/Inputs/Button"
@@ -12,19 +12,17 @@ import { Link } from 'react-router-dom';
 import Form from "./Form"
 
 
-
 const Div = styled("div")(() => ({
     display: 'flex',
     height: '100vh',
     width: '100%',
     justifyContent: 'center',
     alignItems: 'center',
-  }));
+}));
   
 
-
 export default function Register() {
-    
+
     return ( 
       <ErrorBoundary>
             <Div>
@@ -37,20 +35,32 @@ export default function Register() {
                     />
                     <CardContent>
                         <Typography gutterBottom variant="h5" component="div">
-                            Register with Maganda Bet!
+                            Recover Your Password!
                         </Typography>
                         <Form />
                     </CardContent>
                     <CardActions>
-                        <Typography variant="p" component="p" sx={{textAlign:"center"}}>
-                            <strong style={{ padding: "10px"}}>You already have an Account?</strong>
-                            <Button size="small" variant="outlined" color="primary" to="/login" component={Link}>
+                        <Typography variant="p" component="p" sx={{textAlign:"center", padding:"10px"}}>
+                            <Button size="small" variant="outlined" color="secondary" to="/login" component={Link}
+                            sx={{mr: 1}}
+                            >
                                 Login!
+                            </Button>
+                            <Button size="small" 
+                            variant="outlined" 
+                            color="primary" 
+                            to="/register" 
+                            component={Link}
+                            sx={{px:5}}
+                            >
+                                Register!
                             </Button>
                         </Typography>
                     </CardActions>
+
                 </Card>
             </Div>
       </ErrorBoundary>
      );
 }
+
