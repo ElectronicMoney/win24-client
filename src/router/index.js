@@ -17,7 +17,8 @@ const Games           = React.lazy(() => import("../pages/games"));
 const Login           = React.lazy(() => import("../pages/login"));
 const Register        = React.lazy(() => import("../pages/register"));
 const ForgetPassword  = React.lazy(() => import("../pages/passwords"));
-const Admins          = React.lazy(() => import("../pages/admins"));
+const AdminLogin          = React.lazy(() => import("../pages/admins/login"));
+const Users          = React.lazy(() => import("../pages/admins/users"));
 const Dashboard       = React.lazy(() => import("../pages/admins/dashboard"));
 const Wallet          = React.lazy(() => import("../pages/wallets"));
 const GameRules       = React.lazy(() => import("../pages/rules"));
@@ -38,7 +39,7 @@ export default function AppRouter() {
                         <Route path="login" element={<Login />} />
                         <Route path="register" element={<Register />} />
                         <Route path="forget-passwords" element={<ForgetPassword />} />
-                        <Route path="admins" element={<Admins />} />
+                        <Route path="admins" element={<AdminLogin />} />
                     </Route>
 
                     {/* App Layout Routes */}
@@ -58,7 +59,7 @@ export default function AppRouter() {
                     {/* Admin Layout Routes */}
                     <Route path="admins" element={<AdminLayout />}>
                         <Route path="dashboard" element={<Dashboard />} />
-                        <Route path="users" element={<Dashboard />} />
+                        <Route path="users" element={<Users />} />
                         <Route path="games" element={<Dashboard />} />
                         <Route path="bets" element={<Dashboard />} />
                         <Route path="payments" element={<Dashboard />} />

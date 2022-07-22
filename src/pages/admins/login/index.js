@@ -5,9 +5,9 @@ import { CardActions } from '@mui/material';
 import CardMedia from '@mui/material/CardMedia';
 import Typography from '@mui/material/Typography';
 import { styled } from '@mui/material/styles';
-import {ErrorBoundary} from '../../errors/ErrorBandary'
-import Button from "../../components/Inputs/Button"
-import Logo  from '../../assets/images/logo.png'
+import {ErrorBoundary} from '../../../errors/ErrorBandary'
+import Button from "../../../components/Inputs/Button"
+import Logo  from '../../../assets/images/logo.png'
 import { Link } from 'react-router-dom';
 import LoginForm from "./LoginForm"
 

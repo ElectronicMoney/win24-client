@@ -82,6 +82,26 @@ export const paymentTypes = [
   },
 ];
 
+
+export const roles = [
+  {
+    value: 'Admin',
+    label: 'Admin',
+  },
+  {
+    value: 'Staff',
+    label: 'Staff',
+  },
+  {
+    value: 'Agent',
+    label: 'Agent',
+  },
+  {
+    value: 'Player',
+    label: 'Player',
+  },
+];
+
 const getCurrencyByLocale = (locale) => {
     let currency = "";
     if (locale === "fil-PH") {

@@ -4,11 +4,11 @@ import BarChartIcon from '@mui/icons-material/BarChart';
 import PaymentsIcon from '@mui/icons-material/Payments';
 import CreditCardIcon from '@mui/icons-material/CreditCard';
 import SportsEsportsIcon from '@mui/icons-material/SportsEsports';
-import CustomCard from '../../components/Surfaces/CustomCard';
-import ChartCard from '../../components/Surfaces/ChartCard';
-import BarChart from '../../components/Charts/BarChart';
-import LineChart from '../../components/Charts/LineChart';
-import AreaChart from '../../components/Charts/AreaChart';
+import CustomCard from '../../../components/Surfaces/CustomCard';
+import ChartCard from '../../../components/Surfaces/ChartCard';
+import BarChart from '../../../components/Charts/BarChart';
+import LineChart from '../../../components/Charts/LineChart';
+import AreaChart from '../../../components/Charts/AreaChart';
 
   
 
