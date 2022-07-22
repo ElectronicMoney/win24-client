@@ -26,9 +26,18 @@ import SettingsIcon from '@mui/icons-material/Settings';
 import LogoutIcon from '@mui/icons-material/Logout';
 import BottomNavBar from '../components/Navigation/BottomNavBar';
 import { Link, Outlet } from "react-router-dom";
+import IconBreadcrumbs from '../components/Navigation/Breadcrumbs';
+import { Paper } from '@mui/material';
 
 
 
+const Item = styled(Paper)(({ theme }) => ({
+    backgroundColor: theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
+    ...theme.typography.body2,
+    padding: theme.spacing(1),
+    color: theme.palette.text.secondary,
+    marginBottom: "2rem"
+  }));
 
 const drawerWidth = 240;
 
@@ -244,6 +253,11 @@ export default function AdminLayout(props) {
 
       <Box component="main" sx={{ flexGrow: 1, p: 3}}>
         <DrawerHeader />
+         
+        <Item elevation={4}>
+            <IconBreadcrumbs />
+        </Item>
+       
         {props.children}
         <Outlet />
       </Box>

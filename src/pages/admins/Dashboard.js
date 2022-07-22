@@ -1,205 +1,99 @@
 import React from 'react';
-import { styled } from '@mui/material/styles';
 import Grid from '@mui/material/Grid';
-import Paper from '@mui/material/Paper';
-import Typography from '@mui/material/Typography';
+import BarChartIcon from '@mui/icons-material/BarChart';
+import PaymentsIcon from '@mui/icons-material/Payments';
+import CreditCardIcon from '@mui/icons-material/CreditCard';
+import SportsEsportsIcon from '@mui/icons-material/SportsEsports';
+import CustomCard from '../../components/Surfaces/CustomCard';
+import ChartCard from '../../components/Surfaces/ChartCard';
+import BarChart from '../../components/Charts/BarChart';
+import LineChart from '../../components/Charts/LineChart';
+import AreaChart from '../../components/Charts/AreaChart';
 
-
-
-const Item = styled(Paper)(({ theme }) => ({
-    backgroundColor: theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
-    ...theme.typography.body2,
-    padding: theme.spacing(1),
-    color: theme.palette.text.secondary,
-  }));
   
 
 export default function Dashboard() {
     return ( 
         <React.Fragment>
-            <Grid container spacing={2}>
-
-                <Grid item xs={12}>
-                    <Item elevation={3}>
-                        <Typography component={"h1"}>Welcome To MagandaBet!</Typography>
-                    </Item>
-                </Grid>
-
-                <Grid item xs={12} md ={6} lg={4}>
-                    <Item elevation={3}>
-                        <Typography paragraph>
-                            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
-                            tempor incididunt ut labore et dolore magna aliqua. Rhoncus dolor purus non
-                            enim praesent elementum facilisis leo vel. Risus at ultrices mi tempus
-                            imperdiet. Semper risus in hendrerit gravida rutrum quisque non tellus.
-                            Convallis convallis tellus id interdum velit laoreet id donec ultrices.
-                            Odio morbi quis commodo odio aenean sed adipiscing. Amet nisl suscipit
-                            adipiscing bibendum est ultricies integer quis. Cursus euismod quis viverra
-                            nibh cras. Metus vulputate eu scelerisque felis imperdiet proin fermentum
-                            leo. Mauris commodo quis imperdiet massa tincidunt. Cras tincidunt lobortis
-                            feugiat vivamus at augue. At augue eget arcu dictum varius duis at
-                            consectetur lorem. Velit sed ullamcorper morbi tincidunt. Lorem donec massa
-                            sapien faucibus et molestie ac.Odio morbi quis commodo odio aenean sed adipiscing. 
-                        </Typography>
-                    </Item>
-                </Grid>
-
-                <Grid item xs={12} md ={6} lg={4}>
-                    <Item elevation={3}>
-                        <Typography paragraph>
-                            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
-                            tempor incididunt ut labore et dolore magna aliqua. Rhoncus dolor purus non
-                            enim praesent elementum facilisis leo vel. Risus at ultrices mi tempus
-                            imperdiet. Semper risus in hendrerit gravida rutrum quisque non tellus.
-                            Convallis convallis tellus id interdum velit laoreet id donec ultrices.
-                            Odio morbi quis commodo odio aenean sed adipiscing. Amet nisl suscipit
-                            adipiscing bibendum est ultricies integer quis. Cursus euismod quis viverra
-                            nibh cras. Metus vulputate eu scelerisque felis imperdiet proin fermentum
-                            leo. Mauris commodo quis imperdiet massa tincidunt. Cras tincidunt lobortis
-                            feugiat vivamus at augue. At augue eget arcu dictum varius duis at
-                            consectetur lorem. Velit sed ullamcorper morbi tincidunt. Lorem donec massa
-                            sapien faucibus et molestie ac.Odio morbi quis commodo odio aenean sed adipiscing. 
-                        </Typography>
-                    </Item>
-
-                </Grid>
+            <Grid container spacing={4}>
 
                 <Grid item xs={12} md={6} lg={4}>
-                    <Item elevation={3}>
-                        <Typography paragraph>
-                            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
-                            tempor incididunt ut labore et dolore magna aliqua. Rhoncus dolor purus non
-                            enim praesent elementum facilisis leo vel. Risus at ultrices mi tempus
-                            imperdiet. Semper risus in hendrerit gravida rutrum quisque non tellus.
-                            Convallis convallis tellus id interdum velit laoreet id donec ultrices.
-                            Odio morbi quis commodo odio aenean sed adipiscing. Amet nisl suscipit
-                            adipiscing bibendum est ultricies integer quis. Cursus euismod quis viverra
-                            nibh cras. Metus vulputate eu scelerisque felis imperdiet proin fermentum
-                            leo. Mauris commodo quis imperdiet massa tincidunt. Cras tincidunt lobortis
-                            feugiat vivamus at augue. At augue eget arcu dictum varius duis at
-                            consectetur lorem. Velit sed ullamcorper morbi tincidunt. Lorem donec massa
-                            sapien faucibus et molestie ac.Odio morbi quis commodo odio aenean sed adipiscing. 
-                        </Typography>
-                    </Item>
-
-                </Grid>
-
-                <Grid item xs={12} md={6} lg={4}>
-                    <Item elevation={3}>
-                        <Typography paragraph>
-                            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
-                            tempor incididunt ut labore et dolore magna aliqua. Rhoncus dolor purus non
-                            enim praesent elementum facilisis leo vel. Risus at ultrices mi tempus
-                            imperdiet. Semper risus in hendrerit gravida rutrum quisque non tellus.
-                            Convallis convallis tellus id interdum velit laoreet id donec ultrices.
-                            Odio morbi quis commodo odio aenean sed adipiscing. Amet nisl suscipit
-                            adipiscing bibendum est ultricies integer quis. Cursus euismod quis viverra
-                            nibh cras. Metus vulputate eu scelerisque felis imperdiet proin fermentum
-                            leo. Mauris commodo quis imperdiet massa tincidunt. Cras tincidunt lobortis
-                            feugiat vivamus at augue. At augue eget arcu dictum varius duis at
-                            consectetur lorem. Velit sed ullamcorper morbi tincidunt. Lorem donec massa
-                            sapien faucibus et molestie ac.Odio morbi quis commodo odio aenean sed adipiscing. 
-                        </Typography>
-                    </Item>
+                    <ChartCard
+                    color="#1a237e" 
+                    icon={BarChart} 
+                    title="Today's Recharge"
+                    subTitle="(+15%) increase in today recharge."
+                    content="updated 5 hours ago"
+                    />
                 </Grid>
 
 
                 <Grid item xs={12} md ={6} lg={4}>
-                    <Item elevation={3}>
-                        <Typography paragraph>
-                            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
-                            tempor incididunt ut labore et dolore magna aliqua. Rhoncus dolor purus non
-                            enim praesent elementum facilisis leo vel. Risus at ultrices mi tempus
-                            imperdiet. Semper risus in hendrerit gravida rutrum quisque non tellus.
-                            Convallis convallis tellus id interdum velit laoreet id donec ultrices.
-                            Odio morbi quis commodo odio aenean sed adipiscing. Amet nisl suscipit
-                            adipiscing bibendum est ultricies integer quis. Cursus euismod quis viverra
-                            nibh cras. Metus vulputate eu scelerisque felis imperdiet proin fermentum
-                            leo. Mauris commodo quis imperdiet massa tincidunt. Cras tincidunt lobortis
-                            feugiat vivamus at augue. At augue eget arcu dictum varius duis at
-                            consectetur lorem. Velit sed ullamcorper morbi tincidunt. Lorem donec massa
-                            sapien faucibus et molestie ac.Odio morbi quis commodo odio aenean sed adipiscing. 
-                        </Typography>
-                    </Item>
+                    <ChartCard
+                    color="#4a148c" 
+                    icon={LineChart} 
+                    title="Today's Withdrawal"
+                    subTitle="(+5%) increase in today withdrawals."
+                    content="updated 30 min ago"
+                    />
 
                 </Grid>
 
                 <Grid item xs={12} md={6} lg={4}>
-                    <Item elevation={3}>
-                        <Typography paragraph>
-                            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
-                            tempor incididunt ut labore et dolore magna aliqua. Rhoncus dolor purus non
-                            enim praesent elementum facilisis leo vel. Risus at ultrices mi tempus
-                            imperdiet. Semper risus in hendrerit gravida rutrum quisque non tellus.
-                            Convallis convallis tellus id interdum velit laoreet id donec ultrices.
-                            Odio morbi quis commodo odio aenean sed adipiscing. Amet nisl suscipit
-                            adipiscing bibendum est ultricies integer quis. Cursus euismod quis viverra
-                            nibh cras. Metus vulputate eu scelerisque felis imperdiet proin fermentum
-                            leo. Mauris commodo quis imperdiet massa tincidunt. Cras tincidunt lobortis
-                            feugiat vivamus at augue. At augue eget arcu dictum varius duis at
-                            consectetur lorem. Velit sed ullamcorper morbi tincidunt. Lorem donec massa
-                            sapien faucibus et molestie ac.Odio morbi quis commodo odio aenean sed adipiscing. 
-                        </Typography>
-                    </Item>
+                    <ChartCard
+                    color="#212121" 
+                    icon={AreaChart} 
+                    title="Today's Bets"
+                    subTitle="(+20%) increase in today bets."
+                    content=" Just updated"
+                    />
 
                 </Grid>
 
-                <Grid item xs={12} md={6} lg={4}>
-                    <Item elevation={3}>
-                        <Typography paragraph>
-                            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
-                            tempor incididunt ut labore et dolore magna aliqua. Rhoncus dolor purus non
-                            enim praesent elementum facilisis leo vel. Risus at ultrices mi tempus
-                            imperdiet. Semper risus in hendrerit gravida rutrum quisque non tellus.
-                            Convallis convallis tellus id interdum velit laoreet id donec ultrices.
-                            Odio morbi quis commodo odio aenean sed adipiscing. Amet nisl suscipit
-                            adipiscing bibendum est ultricies integer quis. Cursus euismod quis viverra
-                            nibh cras. Metus vulputate eu scelerisque felis imperdiet proin fermentum
-                            leo. Mauris commodo quis imperdiet massa tincidunt. Cras tincidunt lobortis
-                            feugiat vivamus at augue. At augue eget arcu dictum varius duis at
-                            consectetur lorem. Velit sed ullamcorper morbi tincidunt. Lorem donec massa
-                            sapien faucibus et molestie ac.Odio morbi quis commodo odio aenean sed adipiscing. 
-                        </Typography>
-                    </Item>
+
+                <Grid item xs={12} md ={6} lg={3}>
+                    <CustomCard 
+                    color="#4a148c" 
+                    icon={BarChartIcon} 
+                    title="Today's Users"
+                    subTitle="215"
+                    main="+5%"
+                    content="than yesterday"
+                    />
+                </Grid>
+                
+                <Grid item xs={12} md ={6} lg={3}>
+                    <CustomCard 
+                    color="green" 
+                    icon={PaymentsIcon} 
+                    title="Recharge"
+                    subTitle="412"
+                    main="+65%"
+                    content="Than last month"
+                    />
+                </Grid>
+                
+                <Grid item xs={12} md ={6} lg={3}>
+                    <CustomCard 
+                    color="#b71c1c" 
+                    icon={CreditCardIcon} 
+                    title="Withdrawals"
+                    subTitle="12"
+                    main="+5%"
+                    content="Than last week"
+                    />
+                </Grid>
+                
+                <Grid item xs={12} md ={6} lg={3}>
+                    <CustomCard 
+                    color="#212121" 
+                    icon={SportsEsportsIcon} 
+                    title="Today's Bets"
+                    subTitle="215"
+                    content=" Just updated"
+                    />
                 </Grid>
 
-                <Grid item xs={12} md={6} lg={4}>
-                    <Item elevation={3}>
-                        <Typography paragraph>
-                            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
-                            tempor incididunt ut labore et dolore magna aliqua. Rhoncus dolor purus non
-                            enim praesent elementum facilisis leo vel. Risus at ultrices mi tempus
-                            imperdiet. Semper risus in hendrerit gravida rutrum quisque non tellus.
-                            Convallis convallis tellus id interdum velit laoreet id donec ultrices.
-                            Odio morbi quis commodo odio aenean sed adipiscing. Amet nisl suscipit
-                            adipiscing bibendum est ultricies integer quis. Cursus euismod quis viverra
-                            nibh cras. Metus vulputate eu scelerisque felis imperdiet proin fermentum
-                            leo. Mauris commodo quis imperdiet massa tincidunt. Cras tincidunt lobortis
-                            feugiat vivamus at augue. At augue eget arcu dictum varius duis at
-                            consectetur lorem. Velit sed ullamcorper morbi tincidunt. Lorem donec massa
-                            sapien faucibus et molestie ac.Odio morbi quis commodo odio aenean sed adipiscing. 
-                        </Typography>
-                    </Item>
-                </Grid>
-
-                <Grid item xs={12} md={6} lg={4}>
-                    <Item elevation={3}>
-                        <Typography paragraph>
-                            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
-                            tempor incididunt ut labore et dolore magna aliqua. Rhoncus dolor purus non
-                            enim praesent elementum facilisis leo vel. Risus at ultrices mi tempus
-                            imperdiet. Semper risus in hendrerit gravida rutrum quisque non tellus.
-                            Convallis convallis tellus id interdum velit laoreet id donec ultrices.
-                            Odio morbi quis commodo odio aenean sed adipiscing. Amet nisl suscipit
-                            adipiscing bibendum est ultricies integer quis. Cursus euismod quis viverra
-                            nibh cras. Metus vulputate eu scelerisque felis imperdiet proin fermentum
-                            leo. Mauris commodo quis imperdiet massa tincidunt. Cras tincidunt lobortis
-                            feugiat vivamus at augue. At augue eget arcu dictum varius duis at
-                            consectetur lorem. Velit sed ullamcorper morbi tincidunt. Lorem donec massa
-                            sapien faucibus et molestie ac.Odio morbi quis commodo odio aenean sed adipiscing. 
-                        </Typography>
-                    </Item>
-                </Grid>
             </Grid>
         </React.Fragment>
     );
