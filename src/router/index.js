@@ -25,6 +25,8 @@ const GameRules       = React.lazy(() => import("../pages/rules"));
 const Recharge        = React.lazy(() => import("../pages/recharge"));
 const Withdraw        = React.lazy(() => import("../pages/withdraw"));
 const NotFound        = React.lazy(() => import("../pages/notfound"));
+const Counter         = React.lazy(() => import("../pages/counter"));
+
 
 
 
@@ -68,6 +70,7 @@ export default function AppRouter() {
                     </Route>
                     {/* Not Found Page */}
                     <Route path="*" element={<NotFound />} />
+                    <Route path="/counter" element={<Counter />} />
                 </Routes>
             </React.Suspense>
         </Router>

@@ -1,21 +1,25 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import { ThemeProvider } from '@mui/material/styles';
-import theme from "./theme"
-import App from './App';
-import AppProvider from './store';
+import AppProvider from './store/contextStore';
 import * as serviceWorkerRegistration from './serviceWorkerRegistration';
 import reportWebVitals from './reportWebVitals';
+import { Provider } from 'react-redux'
+import { store } from "./store"
+import theme from "./theme"
+import App from './App';
+
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
-    <ThemeProvider theme={theme}>
-      <AppProvider>
-        {/* <Home /> */}
-        <App />
-      </AppProvider>
-    </ThemeProvider>
+      <Provider store={store}>
+          <ThemeProvider theme={theme}>
+            <AppProvider>
+              <App />
+            </AppProvider>
+          </ThemeProvider>
+      </Provider>
   </React.StrictMode>
 );
 

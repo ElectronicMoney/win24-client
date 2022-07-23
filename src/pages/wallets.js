@@ -7,8 +7,8 @@ import AccountBalanceWalletIcon from '@mui/icons-material/AccountBalanceWallet';
 import ListItemText from '@mui/material/ListItemText';
 import Fab from '@mui/material/Fab';
 import { Link } from "react-router-dom";
-import { formatMoney } from '../../utils';
-import Table from '../../components/DataDisplay/Table.js'
+import { formatMoney } from '../utils';
+import Table from '../components/DataDisplay/Table.js'
 
 
 const Item = styled(Paper)(({ theme }) => ({
