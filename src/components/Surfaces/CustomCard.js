@@ -30,10 +30,6 @@ const Item = styled(Paper)(({ theme, color }) => ({
     display: "flex",
     justifyContent: "center",
     alignItems: "center",
-    "&:hover": {
-        animation: `${moveUp} 1s ease`,
-        top: "-60px"
-    }
 }));
 
 
@@ -43,10 +39,21 @@ function CustomCard({color, title, subTitle, main, content, icon:CardIcon}) {
     <React.Fragment>
         <Grid container spacing={2} sx={{mt:2}}>
             <Grid item xs={12}>
-                <Paper elevation={4} sx={{p:2}}>
+                <Paper elevation={4}
+                
+                sx={{
+                    p:2,
+                    "&:hover": {
+                    "& #card": {
+                        animation: `${moveUp} 1s ease`,
+                        top: "-60px"
+                        }
+                    }
+                }}
+                >
                     <Grid container spacing={2}>
                         <Grid item xs={4}>
-                            <Item elevation={4} color={color}>
+                            <Item elevation={24} color={color} id="card">
                                 <CardIcon sx={{color:"#fff",fontSize:"4rem"}}  />
                             </Item>
                         </Grid>

@@ -7,6 +7,8 @@ import SlideSix from '../assets/images/slide6.jpg'
 import currency from "currency.js"
 
 
+// export const API_URL = 'https://magandabet.com/api/v1/';
+export const API_URL = 'https://jsonplaceholder.typicode.com/';
 
 export const sliderItems = [
   {

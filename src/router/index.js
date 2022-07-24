@@ -17,8 +17,8 @@ const Games           = React.lazy(() => import("../pages/games"));
 const Login           = React.lazy(() => import("../pages/login"));
 const Register        = React.lazy(() => import("../pages/register"));
 const ForgetPassword  = React.lazy(() => import("../pages/passwords"));
-const AdminLogin          = React.lazy(() => import("../pages/admins/login"));
-const Users          = React.lazy(() => import("../pages/admins/users"));
+const AdminLogin      = React.lazy(() => import("../pages/admins/login"));
+const Users           = React.lazy(() => import("../pages/admins/users"));
 const Dashboard       = React.lazy(() => import("../pages/admins/dashboard"));
 const Wallet          = React.lazy(() => import("../pages/wallets"));
 const GameRules       = React.lazy(() => import("../pages/rules"));
@@ -26,6 +26,7 @@ const Recharge        = React.lazy(() => import("../pages/recharge"));
 const Withdraw        = React.lazy(() => import("../pages/withdraw"));
 const NotFound        = React.lazy(() => import("../pages/notfound"));
 const Counter         = React.lazy(() => import("../pages/counter"));
+const Posts           = React.lazy(() => import("../features/posts"));
 
 
 
@@ -71,6 +72,7 @@ export default function AppRouter() {
                     {/* Not Found Page */}
                     <Route path="*" element={<NotFound />} />
                     <Route path="/counter" element={<Counter />} />
+                    <Route path="/posts" element={<Posts />} />
                 </Routes>
             </React.Suspense>
         </Router>

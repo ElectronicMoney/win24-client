@@ -26,10 +26,6 @@ const Item = styled(Paper)(({ theme, color }) => ({
     background: `linear-gradient(${color}, ${color})`,
     width: "100%",
     height:"25vh",
-    "&:hover": {
-        animation: `${moveUp} 1s ease`,
-        top: "-80px"
-    }
 }));
 
 
@@ -39,23 +35,32 @@ function ChartCard({color, title, subTitle, content, icon:CardIcon}) {
     <React.Fragment>
         <Grid container spacing={2} sx={{pt:"40px"}}>
             <Grid item xs={12}>
-                <Paper elevation={4} sx={{p:2}}>
+                <Paper elevation={4} sx={{
+                    p:2,
+                    "&:hover": {
+                    "& #chart": {
+                        animation: `${moveUp} 1s ease`,
+                            top: "-80px"
+                        }
+                    }
+                }}
+                >
                     <Grid container spacing={2}>
                         <Grid item xs={12}>
-                            <Item elevation={4} color={color}>
+                            <Item elevation={12} color={color} id="chart">
                                 <CardIcon sx={{color:"#fff",fontSize:"4rem"}}  />
                             </Item>
                         </Grid>
                    
-                    <Grid item xs={12}>
-                        <Divider />
-                         
-                        <Typography variant="h6" component="h5" sx={{mb: 5}}>
-                            <strong style={{color:"green"}}>{title}</strong><br />
-                            <span> {subTitle} </span>
-                        </Typography>
-                        <Typography variant="p" component="p">{content}</Typography>
-                    </Grid>
+                        <Grid item xs={12}>
+                            <Divider />
+                            
+                            <Typography variant="h6" component="h5" sx={{mb: 5}}>
+                                <strong style={{color:"green"}}>{title}</strong><br />
+                                <span> {subTitle} </span>
+                            </Typography>
+                            <Typography variant="p" component="p">{content}</Typography>
+                        </Grid>
                     </Grid>
                 </Paper>
             </Grid>

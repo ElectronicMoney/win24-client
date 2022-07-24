@@ -1,5 +1,5 @@
 import React, { useReducer } from 'react';
-import { rootReducer, initialState } from '../reducers/contextRootReducer';
+import { rootReducer, initialState } from '../reducers';
 import { AppContext } from '../contexts'
 import { 
     incrementCounter, 
