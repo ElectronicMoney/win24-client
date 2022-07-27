@@ -25,6 +25,11 @@ import {ErrorBoundary} from '../errors/ErrorBandary'
 import BottomNavBar from '../components/Navigation/BottomNavBar';
 import Carousel from '../components/Navigation/Carousel'
 import {sliderItems} from '../utils'
+import { deleteAuthUser } from '../features/auth/authSlice';
+import { useNavigate } from 'react-router-dom'
+import { useDispatch } from 'react-redux'
+import { useLogoutApiMutation } from '../services/authApi';
+
 
 // List of objects
 const sideBarListItem = {
@@ -64,6 +69,30 @@ const CarouselBox = () => (
 export default function AppLayout(props) {
 
   const location = useLocation()
+
+  const dispatch = useDispatch()
+  const navigate = useNavigate()
+
+  const [logout, {isSuccess}] = useLogoutApiMutation()
+
+  const logoutAuthUser = () => {
+    logout()
+  }
+
+    React.useEffect(() => {
+
+    if(isSuccess) {
+      dispatch(deleteAuthUser())
+      // Send them back to the page they tried to visit when they were
+      // redirected to the login page. Use { replace: true } so we don't create
+      // another entry in the history stack for the login page.  This means that
+      // when they get to the protected page and click the back button, they
+      // won't end up back on the login page, which is also really nice for the
+      // user experience.
+      navigate("login", { replace: true });
+    }
+    
+  })
 
   return (
     <React.Fragment>
@@ -105,14 +134,27 @@ export default function AppLayout(props) {
         <List>
           {sideBarListItem.thirdtItems.map((item) => (
             <ListItem key={item.name} disablePadding sx={{ display: 'block' }}>
-              <ListItemButton
-                to={item.path} component={Link}
-              >
-                <ListItemIcon>
-                  {item.icon}
-                </ListItemIcon>
-                <ListItemText primary={item.name} />
-              </ListItemButton>
+                {
+                  item.name === "Logout" ? (
+                    <ListItemButton
+                      onClick={() => logoutAuthUser()}
+                    >
+                      <ListItemIcon>
+                        {item.icon}
+                      </ListItemIcon>
+                      <ListItemText primary={item.name} />
+                    </ListItemButton>
+                  ): (
+                    <ListItemButton
+                      to={item.path} component={Link}
+                    >
+                      <ListItemIcon>
+                        {item.icon}
+                      </ListItemIcon>
+                      <ListItemText primary={item.name} />
+                    </ListItemButton>
+                  )
+                }
             </ListItem>
           ))}
         </List>

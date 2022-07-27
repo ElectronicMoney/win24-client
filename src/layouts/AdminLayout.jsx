@@ -28,8 +28,10 @@ import BottomNavBar from '../components/Navigation/BottomNavBar';
 import { Link, Outlet } from "react-router-dom";
 import IconBreadcrumbs from '../components/Navigation/Breadcrumbs';
 import { Paper } from '@mui/material';
-
-
+import { deleteAuthUser } from '../features/auth/authSlice';
+import { useNavigate } from 'react-router-dom'
+import { useDispatch } from 'react-redux'
+import { useLogoutApiMutation } from '../services/authApi';
 
 const Item = styled(Paper)(({ theme }) => ({
     backgroundColor: theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
@@ -139,6 +141,34 @@ export default function AdminLayout(props) {
     setOpen(false);
   };
 
+
+  const dispatch = useDispatch()
+  const navigate = useNavigate()
+
+  const [logout, {isSuccess}] = useLogoutApiMutation()
+
+  const logoutAuthUser = () => {
+    logout()
+  }
+
+
+  React.useEffect(() => {
+
+    if(isSuccess) {
+      dispatch(deleteAuthUser())
+      // Send them back to the page they tried to visit when they were
+      // redirected to the login page. Use { replace: true } so we don't create
+      // another entry in the history stack for the login page.  This means that
+      // when they get to the protected page and click the back button, they
+      // won't end up back on the login page, which is also really nice for the
+      // user experience.
+      navigate("admin", { replace: true });
+    }
+    
+  })
+
+
+
   return (
     <React.Fragment>
     <Box sx={{ display: 'flex' }}>
@@ -226,7 +256,30 @@ export default function AdminLayout(props) {
         <List>
           {sideBarListItem.thirdtItems.map((item) => (
             <ListItem key={item.name} disablePadding sx={{ display: 'block' }}>
-              <ListItemButton
+              
+              {
+                item.name === "Logout" ? (
+                  <ListItemButton
+                sx={{
+                  minHeight: 48,
+                  justifyContent: open ? 'initial' : 'center',
+                  px: 2.5,
+                }}
+                onClick={() => logoutAuthUser()}
+              >
+                <ListItemIcon
+                  sx={{
+                    minWidth: 0,
+                    mr: open ? 3 : 'auto',
+                    justifyContent: 'center',
+                  }}
+                >
+                  {item.icon}
+                </ListItemIcon>
+                <ListItemText primary={item.name} sx={{ opacity: open ? 1 : 0 }} />
+              </ListItemButton>
+                ): (
+                  <ListItemButton
                 sx={{
                   minHeight: 48,
                   justifyContent: open ? 'initial' : 'center',
@@ -245,6 +298,9 @@ export default function AdminLayout(props) {
                 </ListItemIcon>
                 <ListItemText primary={item.name} sx={{ opacity: open ? 1 : 0 }} />
               </ListItemButton>
+                )
+              }
+
             </ListItem>
           ))}
         </List>
