@@ -8,7 +8,7 @@ import currency from "currency.js"
 
 
 // export const API_URL = 'https://magandabet.com/api/v1/';
-export const API_URL = 'https://jsonplaceholder.typicode.com/';
+export const API_URL = 'http://127.0.0.1:8080/api/v1/';
 
 export const sliderItems = [
   {
@@ -119,4 +119,12 @@ export const formatMoney = (amount, locale='fil-PH') => {
       { style: 'currency', currency: getCurrencyByLocale(locale)}
     ).format(currency(amount));
     return formattedAmount
+}
+
+
+export const formatDate = (date, locale='fil-PH') => {
+  const dateTime = new Date(date);
+  return new Intl.DateTimeFormat(
+  locale, { dateStyle: 'short', timeStyle: 'short' }
+  ).format(dateTime);
 }
