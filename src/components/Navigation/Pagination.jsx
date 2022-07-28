@@ -7,6 +7,7 @@ export default function CustomPagination(props) {
   return (
     <Stack spacing={2}>
       <Pagination
+        size="small"
         count={ Math.ceil(props.total/props.size) } 
         page={props.page} 
         onChange={props.onChange}

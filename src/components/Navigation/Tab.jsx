@@ -5,8 +5,6 @@ import AppBar from '@mui/material/AppBar';
 import Tabs from '@mui/material/Tabs';
 import Tab from '@mui/material/Tab';
 import Box from '@mui/material/Box';
-import Table from "../DataDisplay/Table"
-import Pagination from './Pagination';
 import { Paper } from '@mui/material';
 
 function TabPanel(props) {
@@ -42,17 +40,13 @@ function a11yProps(index) {
   };
 }
 
-export default function FullWidthTabs(props) {
+export default function FullWidthTabs({games, charts, bets}) {
   const theme = useTheme();
   const [value, setValue] = React.useState(0);
 
   const handleChange = (event, newValue) => {
     setValue(newValue);
   };
-
-//   const handleChangeIndex = (index) => {
-//     setValue(index);
-//   };
 
   return (
     <Box sx={{ bgcolor: 'background.paper', width: "100%" }}>
@@ -66,13 +60,11 @@ export default function FullWidthTabs(props) {
           aria-label="full width tabs example"
         >
           <Tab label="Game History" {...a11yProps(0)} />
-          <Tab label="Chart Tren" {...a11yProps(1)} />
+          <Tab label="Game Chart" {...a11yProps(1)} />
           <Tab label="Bet History" {...a11yProps(2)} />
         </Tabs>
       </AppBar>
         <TabPanel value={value} index={0} dir={theme.direction}>
-            <Table games={props.games || []} isGames={true} />
-           
             <Paper elevation={3}
                 sx={{
                     display:"flex", 
@@ -82,12 +74,11 @@ export default function FullWidthTabs(props) {
                     p:2
                 }}
             >
-                <Pagination />
+              {games()}
             </Paper>
         </TabPanel>
+
         <TabPanel value={value} index={1} dir={theme.direction}>
-            <Table games={props.games || []} />
-
             <Paper elevation={3}
                 sx={{
                     display:"flex", 
@@ -97,12 +88,11 @@ export default function FullWidthTabs(props) {
                     p:2
                 }}
             >
-                <Pagination />
+              {charts()}
             </Paper>
         </TabPanel>
-        <TabPanel value={value} index={2} dir={theme.direction}>
-          <Table bets={props.bets || []}  isBet={true} />
 
+        <TabPanel value={value} index={2} dir={theme.direction}>
             <Paper elevation={3}
                 sx={{
                     display:"flex", 
@@ -112,7 +102,7 @@ export default function FullWidthTabs(props) {
                     p:2
                 }}
             >
-                <Pagination />
+              {bets()}
             </Paper>
         </TabPanel>
     </Box>

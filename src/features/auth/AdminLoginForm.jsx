@@ -16,6 +16,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { useAuthApiMutation } from '../../services/authApi';
 import { setAuthUser } from './authSlice';
 import { adminLoginSchema } from "./schema"
+import CircularProgress from "../../components/Feedback/CircularProgress"
   
 
 export default function Form() {
@@ -161,7 +162,7 @@ export default function Form() {
 
             <Fab type="submit" variant="extended" size="large" color="primary" aria-label="recharge"
             sx={{px: 6}}>
-              { isLoading ? "Laoding...": "Login!"}
+              { isLoading ? <CircularProgress />: "Login!"}
             </Fab>                           
         </form>
       </React.Fragment>

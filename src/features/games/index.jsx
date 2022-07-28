@@ -18,12 +18,14 @@ import AddIcon from '@mui/icons-material/Add';
 import RemoveIcon from '@mui/icons-material/Remove';
 import { Link } from "react-router-dom";
 import kickAudio from '../../assets/audios/kick3.mp3'
-import Tab from '../../components/Navigation/Tab'
 import { formatMoney } from '../../utils';
 import Bg from "../../assets/images/3.png"
 import { AppContext } from '../../contexts';
 import Dialogue from "../../components/Feedback/Dialogue"
-
+import BetHistory from './BetHistory';
+import GameHistory from './GameHistory';
+import GameChart from './GameChart';
+import Tab from '../../components/Navigation/Tab';
 
 
 const Item = styled(Paper)(({ theme }) => ({
@@ -131,6 +133,7 @@ export default function Games() {
       multiplier: 1,
       betAmount: 1,
     });
+
 
     const [display, setDisplay] = React.useState({
      color: "#4a148c",
@@ -316,26 +319,40 @@ export default function Games() {
       dialogue.openDialogue()
     }
 
-    const games = [
-        { period: 2022071011032, winning_number: 2, winning_size: "SMALL", winning_color: "RED"},
-        { period: 2022071011031, winning_number: 5, winning_size: "BIG", winning_color: "VIOLET,GREEN"},
-        { period: 2022071011030, winning_number: 8, winning_size: "BIG", winning_color: "GREEN"},
-        { period: 2022071011029, winning_number: 3, winning_size: "SMALL", winning_color: "RED"},
-        { period: 2022071011028, winning_number: 2, winning_size: "SMALL", winning_color: "RED"},
-        { period: 2022071011027, winning_number: 4, winning_size: "SMALL", winning_color: "RED"},
-        { period: 2022071011026, winning_number: 8, winning_size: "BIG", winning_color: "GREEN"},
-        { period: 2022071011025, winning_number: 0, winning_size: "SMALL", winning_color: "VIOLET,RED"},
-        { period: 2022071011024, winning_number: 3, winning_size: "SMALL", winning_color: "RED"},
-        { period: 2022071011023, winning_number: 3, winning_size: "SMALL", winning_color: "RED"},
-    ];
+    // const games = [
+    //     { period: 2022071011032, winning_number: 2, winning_size: "SMALL", winning_color: "RED"},
+    //     { period: 2022071011031, winning_number: 5, winning_size: "BIG", winning_color: "VIOLET,GREEN"},
+    //     { period: 2022071011030, winning_number: 8, winning_size: "BIG", winning_color: "GREEN"},
+    //     { period: 2022071011029, winning_number: 3, winning_size: "SMALL", winning_color: "RED"},
+    //     { period: 2022071011028, winning_number: 2, winning_size: "SMALL", winning_color: "RED"},
+    //     { period: 2022071011027, winning_number: 4, winning_size: "SMALL", winning_color: "RED"},
+    //     { period: 2022071011026, winning_number: 8, winning_size: "BIG", winning_color: "GREEN"},
+    //     { period: 2022071011025, winning_number: 0, winning_size: "SMALL", winning_color: "VIOLET,RED"},
+    //     { period: 2022071011024, winning_number: 3, winning_size: "SMALL", winning_color: "RED"},
+    //     { period: 2022071011023, winning_number: 3, winning_size: "SMALL", winning_color: "RED"},
+    // ];
 
-    const bets = [
-       { created_at: 2022071011032, bet_amount: 200.00, status: "PENDING"},
-       { created_at: 2022071011032, bet_amount: 250.00, status: "WIN"},
-       { created_at: 2022071011032, bet_amount: 100.00, status: "WIN"},
-       { created_at: 2022071011032, bet_amount: 1500.00, status: "LOSS"},
-       { created_at: 2022071011032, bet_amount: 3000.00, status: "LOSS"},
-    ]
+    // const bets = [
+    //    { created_at: 2022071011032, bet_amount: 200.00, status: "PENDING"},
+    //    { created_at: 2022071011032, bet_amount: 250.00, status: "WIN"},
+    //    { created_at: 2022071011032, bet_amount: 100.00, status: "WIN"},
+    //    { created_at: 2022071011032, bet_amount: 1500.00, status: "LOSS"},
+    //    { created_at: 2022071011032, bet_amount: 3000.00, status: "LOSS"},
+    // ]
+
+
+    const renderGameHistory = ()=> {
+      return <GameHistory />
+    }
+
+    const renderBetHistory = ()=> {
+      return <BetHistory />
+    }
+
+
+    const renderGameChart = ()=> {
+      return <GameChart />
+    }
 
 
   const placeBet = () => {
@@ -836,7 +853,11 @@ export default function Games() {
           </Item>
 
            <div style={{marginTop:20}}>
-              <Tab games={games} bets={bets} />
+                <Tab 
+                  games={renderGameHistory}
+                  charts={renderGameChart}
+                  bets={renderBetHistory}
+                />
             </div>
 
             <Dialogue 

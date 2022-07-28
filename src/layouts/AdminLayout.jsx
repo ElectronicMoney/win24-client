@@ -46,7 +46,7 @@ const drawerWidth = 240;
 // List of objects
 const sideBarListItem = {
       firstItems:[
-        {name: 'Home', icon: <HomeIcon />, path: '/app'},
+        {name: 'Home', icon: <HomeIcon />, path: '/admin/dashboard'},
         {name: 'Dashboard', icon: <DashboardIcon />, path: '/admin/dashboard'},
         {name: 'Manage Users', icon: <GroupIcon />, path: '/admin/users'},
       ],

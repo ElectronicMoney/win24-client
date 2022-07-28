@@ -9,7 +9,7 @@ import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 import Alert from '@mui/material/Alert';
 import { Box } from '@mui/system';
-import { formatMoney } from '../../utils';
+import { formatDate, formatMoney } from '../../utils';
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
   [`&.${tableCellClasses.head}`]: {
@@ -201,16 +201,18 @@ const GamesTable = ({games}) => {
             </TableHead>
             <TableBody>
               {games.map((game) => (
-                <StyledTableRow key={game.period}>
-                  <StyledTableCell>
-                    {game.period}
-                  </StyledTableCell>
-                  <StyledTableCell align="right"> 
-                    <FormatNumber color={game.winning_color} number={game.winning_number} /> 
-                  </StyledTableCell>
-                  <StyledTableCell align="right">{game.winning_size}</StyledTableCell>
-                  <StyledTableCell align="right"> <CreateCircle color={game.winning_color} /> </StyledTableCell>
-                </StyledTableRow>
+                  game.winning_size ? (
+                      <StyledTableRow key={game.id}>
+                      <StyledTableCell>
+                        {formatDate(game.created_at)}
+                      </StyledTableCell>
+                      <StyledTableCell align="right"> 
+                        <FormatNumber color={game.winning_color} number={game.winning_number} /> 
+                      </StyledTableCell>
+                      <StyledTableCell align="right">{game.winning_size}</StyledTableCell>
+                      <StyledTableCell align="right"> <CreateCircle color={game.winning_color} /> </StyledTableCell>
+                    </StyledTableRow>
+                  ): ""
               ))}
             </TableBody>
           </Table>
@@ -238,14 +240,17 @@ const ChartTable = ({games}) => {
             </TableHead>
             <TableBody>
               {games.map((game, index) => (
-                <StyledTableRow key={game.period}>
+                game.winning_size ? (
+                  <StyledTableRow key={game.id}>
                   <StyledTableCell>
-                    {game.period}
+                    {formatDate(game.created_at)}
                   </StyledTableCell>
                   <StyledTableCell align="right"> 
                     <FormatChartData game={game} key={index} />
                   </StyledTableCell>
                 </StyledTableRow>
+                ): ""
+                
               ))}
             </TableBody>
           </Table>
@@ -276,10 +281,10 @@ const BetsTable = ({bets}) => {
               {bets.map((bet, index) => (
                 <StyledTableRow key={index}>
                   <StyledTableCell>
-                    {bet.created_at}
+                    {formatDate(bet.created_at)}
                   </StyledTableCell>
                   <StyledTableCell align="right">
-                    <FormatStatus status={bet.status}n> {formatMoney(bet.bet_amount)}
+                    <FormatStatus status={bet.status}> {formatMoney(bet.bet_amount)}
                     </FormatStatus>
                     </StyledTableCell>
                   <StyledTableCell align="right"> 
