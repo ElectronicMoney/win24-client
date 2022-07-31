@@ -15,11 +15,9 @@ function BetHistory() {
         setPage(value);
     };
 
-    const { 
-        data, 
-        error, 
-        isLoading, 
-    } = useGetBetsQuery(page)
+    const { data, error, isLoading } = useGetBetsQuery(page, {
+        pollingInterval: 3000,
+    })
 
 
     return ( 

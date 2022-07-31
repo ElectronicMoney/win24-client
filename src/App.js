@@ -17,7 +17,7 @@ function App() {
   React.useEffect(() => {
 
     setInterval(() => {
-      // Run in the background every 1o minutes or 36000000 mili seconds
+      // Run in the background every 1o minutes or 36000000 
       if(auth.isAuthenticated){
 
         refreshToken()

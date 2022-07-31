@@ -17,8 +17,9 @@ import ToggleButtonGroup from '@mui/material/ToggleButtonGroup';
 import AddIcon from '@mui/icons-material/Add';
 import RemoveIcon from '@mui/icons-material/Remove';
 import { Link } from "react-router-dom";
+import { useSelector } from 'react-redux';
 import kickAudio from '../../assets/audios/kick3.mp3'
-import { formatMoney } from '../../utils';
+import { formatMoney, SSE_URL } from '../../utils';
 import Bg from "../../assets/images/3.png"
 import { AppContext } from '../../contexts';
 import Dialogue from "../../components/Feedback/Dialogue"
@@ -26,6 +27,9 @@ import BetHistory from './BetHistory';
 import GameHistory from './GameHistory';
 import GameChart from './GameChart';
 import Tab from '../../components/Navigation/Tab';
+import { useCreateBetMutation } from '../../services/betsApi';
+import CountDownTimer from './CountDownTimer';
+import CountDownTimmer from "../../components/DataDisplay/CountDownTimmer"
 
 
 const Item = styled(Paper)(({ theme }) => ({
@@ -163,7 +167,53 @@ export default function Games() {
         1000: false,
     });
 
+    const [open, setOpen] = React.useState(false);
 
+    const [gameResult, setGameResult] = React.useState(null);
+
+
+    const auth = useSelector(state => state.auth)
+
+    const gameResultCallback = React.useCallback((data) => {
+         setGameResult(data)
+        // eslint-disable-next-line
+    }, [])
+
+
+    React.useEffect(() => {
+        const sse = new EventSource(`${SSE_URL}?uuid=${auth.accessToken}`, { withCredentials: true });
+    
+        sse.addEventListener('game_message', (e) => {
+            const data = JSON.parse(e.data)
+            gameResultCallback(data)
+        });
+          
+        // user_wallet_balance
+        // active_game_date"
+        // sse.onmessage = e => getRealtimeData(e);
+        // sse.onerror = () => {
+        //     // error log here 
+            
+        //     sse.close();
+        // }
+        return () => {
+            sse.close();
+        };
+
+        // eslint-disable-next-line
+    }, []);
+
+    const handleClickOpen = () => {
+      setOpen(true);
+    };
+
+    const handleClose = () => {
+      setOpen(false);
+    };
+
+    const [createBet, {isLoading, isError, isSuccess, error, data:myBet}] = useCreateBetMutation()
+
+    
     const updateAmountStatus = (value) => {
         let newStatus = {
         1: false,
@@ -319,28 +369,6 @@ export default function Games() {
       dialogue.openDialogue()
     }
 
-    // const games = [
-    //     { period: 2022071011032, winning_number: 2, winning_size: "SMALL", winning_color: "RED"},
-    //     { period: 2022071011031, winning_number: 5, winning_size: "BIG", winning_color: "VIOLET,GREEN"},
-    //     { period: 2022071011030, winning_number: 8, winning_size: "BIG", winning_color: "GREEN"},
-    //     { period: 2022071011029, winning_number: 3, winning_size: "SMALL", winning_color: "RED"},
-    //     { period: 2022071011028, winning_number: 2, winning_size: "SMALL", winning_color: "RED"},
-    //     { period: 2022071011027, winning_number: 4, winning_size: "SMALL", winning_color: "RED"},
-    //     { period: 2022071011026, winning_number: 8, winning_size: "BIG", winning_color: "GREEN"},
-    //     { period: 2022071011025, winning_number: 0, winning_size: "SMALL", winning_color: "VIOLET,RED"},
-    //     { period: 2022071011024, winning_number: 3, winning_size: "SMALL", winning_color: "RED"},
-    //     { period: 2022071011023, winning_number: 3, winning_size: "SMALL", winning_color: "RED"},
-    // ];
-
-    // const bets = [
-    //    { created_at: 2022071011032, bet_amount: 200.00, status: "PENDING"},
-    //    { created_at: 2022071011032, bet_amount: 250.00, status: "WIN"},
-    //    { created_at: 2022071011032, bet_amount: 100.00, status: "WIN"},
-    //    { created_at: 2022071011032, bet_amount: 1500.00, status: "LOSS"},
-    //    { created_at: 2022071011032, bet_amount: 3000.00, status: "LOSS"},
-    // ]
-
-
     const renderGameHistory = ()=> {
       return <GameHistory />
     }
@@ -355,167 +383,198 @@ export default function Games() {
     }
 
 
-  const placeBet = () => {
-    console.log(bet)
-  }
+    const placeBet = () => {
+      console.log(bet)
+      createBet(bet)
+    }
+
+    if(isLoading) {
+      console.log("Loading...")
+    }
+
+    if(isSuccess) {
+      console.log(myBet)
+    }
+
+    if(isError) {
+      console.log(error)
+    }
 
 
-  function ToggleButtons() {
-    const [alignment, setAlignment] = React.useState('left');
 
-    const handleAlignment = (event, newAlignment) => {
-      setAlignment(newAlignment);
-    };
+    const Renderer = ({ hours, minutes, seconds }) => {
+      return (
+          <Typography component={"h2"}>
+            <SpanTimmer> {hours} </SpanTimmer>                        
+            <SpanTimmer>{minutes}</SpanTimmer>                                                
+            <SpanTimmer>:</SpanTimmer>                        
+            <SpanTimmer>
+              {seconds.toString().length > 1 ? seconds.toString()[0]: 0}
+            </SpanTimmer>  
+            <SpanTimmer>
+              {seconds.toString().length > 1 ? seconds.toString()[1]: seconds}
+            </SpanTimmer>  
+          </Typography>                     
+      )
+    }
 
-    return (
-      <ToggleButtonGroup
-        value={alignment}
-        exclusive
-        onChange={handleAlignment}
-        aria-label="text alignment"
-        size="small"
-        color="primary"
-      >
-        <ToggleButton value={1} aria-label="left aligned" 
-        onClick={(e) => handleAmountChange(e)}
-        selected={amountStatus[1]}
+
+    function ToggleButtons() {
+      const [alignment, setAlignment] = React.useState('left');
+
+      const handleAlignment = (event, newAlignment) => {
+        setAlignment(newAlignment);
+      };
+
+      return (
+        <ToggleButtonGroup
+          value={alignment}
+          exclusive
+          onChange={handleAlignment}
+          aria-label="text alignment"
+          size="small"
+          color="primary"
         >
-          1
-        </ToggleButton>
-        <ToggleButton value={10}  aria-label="centered" selected={amountStatus[10]}
-        onClick={(e) => handleAmountChange(e)}
-        >
-          10
-        </ToggleButton>
-        <ToggleButton value={50}  aria-label="justified"
-        onClick={(e) => handleAmountChange(e)}
-        selected={amountStatus[50]}
-        >
-        50
-        </ToggleButton>
-        <ToggleButton value={100}  aria-label="justified"
+          <ToggleButton value={1} aria-label="left aligned" 
           onClick={(e) => handleAmountChange(e)}
-          selected={amountStatus[100]}
-        >
-        100
-        </ToggleButton>
-        <ToggleButton value={1000}  aria-label="justified"
-           onClick={(e) => handleAmountChange(e)}
-           selected={amountStatus[1000]}
-        >
-        1,000
-        </ToggleButton>
-        <ToggleButton value={10000}  aria-label="justified"
-         onClick={(e) => handleAmountChange(e)}
-         selected={amountStatus[10000]}
-        >
-        10,000
-        </ToggleButton>
-            
-      </ToggleButtonGroup>
-    );
-  }
+          selected={amountStatus[1]}
+          >
+            1
+          </ToggleButton>
+          <ToggleButton value={10}  aria-label="centered" selected={amountStatus[10]}
+          onClick={(e) => handleAmountChange(e)}
+          >
+            10
+          </ToggleButton>
+          <ToggleButton value={50}  aria-label="justified"
+          onClick={(e) => handleAmountChange(e)}
+          selected={amountStatus[50]}
+          >
+          50
+          </ToggleButton>
+          <ToggleButton value={100}  aria-label="justified"
+            onClick={(e) => handleAmountChange(e)}
+            selected={amountStatus[100]}
+          >
+          100
+          </ToggleButton>
+          <ToggleButton value={1000}  aria-label="justified"
+            onClick={(e) => handleAmountChange(e)}
+            selected={amountStatus[1000]}
+          >
+          1,000
+          </ToggleButton>
+          <ToggleButton value={10000}  aria-label="justified"
+          onClick={(e) => handleAmountChange(e)}
+          selected={amountStatus[10000]}
+          >
+          10,000
+          </ToggleButton>
+              
+        </ToggleButtonGroup>
+      );
+    }
 
 
-  function ToggleButtonsMultiply() {
-    const [alignment, setAlignment] = React.useState('left');
+    function ToggleButtonsMultiply() {
+      const [alignment, setAlignment] = React.useState('left');
 
-    const handleAlignment = (event, newAlignment) => {
-      setAlignment(newAlignment);
-    };
+      const handleAlignment = (event, newAlignment) => {
+        setAlignment(newAlignment);
+      };
 
-    return (
-      <ToggleButtonGroup
-        value={alignment}
-        exclusive
-        onChange={handleAlignment}
-        aria-label="text alignment"
-        size="small"
-        color="primary"
-      >
-        <ToggleButton value={1} aria-label="left aligned"
-         onClick={e => handleMultiplierChange(e)}
-          selected={multiplierStatus[1]}
-         >
-          X1
-        </ToggleButton>
-        <ToggleButton value={2} aria-label="left aligned"
-         onClick={e => handleMultiplierChange(e)}
-          selected={multiplierStatus[2]}
+      return (
+        <ToggleButtonGroup
+          value={alignment}
+          exclusive
+          onChange={handleAlignment}
+          aria-label="text alignment"
+          size="small"
+          color="primary"
         >
-          X2
-        </ToggleButton>
-        <ToggleButton value={5}  aria-label="centered"
-         onClick={e => handleMultiplierChange(e)}
-          selected={multiplierStatus[5]}
-        >
-          X5
-        </ToggleButton>
-        <ToggleButton value={10} aria-label="justified"
-          selected={multiplierStatus[10]}
-         onClick={e => handleMultiplierChange(e)}
-        >
-        X10
-        </ToggleButton>
-        <ToggleButton value={20}  aria-label="justified"
-         onClick={e => handleMultiplierChange(e)}
-          selected={multiplierStatus[20]}
-        >
-        X20
-        </ToggleButton>
-        <ToggleButton value={50}  aria-label="justified"
-         onClick={e => handleMultiplierChange(e)}
-         selected={multiplierStatus[50]}
-        >
-        X50
-        </ToggleButton>
-        <ToggleButton value={100}  aria-label="justified"
-         onClick={e => handleMultiplierChange(e)}
-          selected={multiplierStatus[100]}
-        >
-          X100
-        </ToggleButton>
-        <ToggleButton value={1000}  aria-label="justified"
-         onClick={e => handleMultiplierChange(e)}
-          selected={multiplierStatus[1000]}
-        >
-          X1000
-        </ToggleButton>
-            
-      </ToggleButtonGroup>
-    );
-  }
+          <ToggleButton value={1} aria-label="left aligned"
+          onClick={e => handleMultiplierChange(e)}
+            selected={multiplierStatus[1]}
+          >
+            X1
+          </ToggleButton>
+          <ToggleButton value={2} aria-label="left aligned"
+          onClick={e => handleMultiplierChange(e)}
+            selected={multiplierStatus[2]}
+          >
+            X2
+          </ToggleButton>
+          <ToggleButton value={5}  aria-label="centered"
+          onClick={e => handleMultiplierChange(e)}
+            selected={multiplierStatus[5]}
+          >
+            X5
+          </ToggleButton>
+          <ToggleButton value={10} aria-label="justified"
+            selected={multiplierStatus[10]}
+          onClick={e => handleMultiplierChange(e)}
+          >
+          X10
+          </ToggleButton>
+          <ToggleButton value={20}  aria-label="justified"
+          onClick={e => handleMultiplierChange(e)}
+            selected={multiplierStatus[20]}
+          >
+          X20
+          </ToggleButton>
+          <ToggleButton value={50}  aria-label="justified"
+          onClick={e => handleMultiplierChange(e)}
+          selected={multiplierStatus[50]}
+          >
+          X50
+          </ToggleButton>
+          <ToggleButton value={100}  aria-label="justified"
+          onClick={e => handleMultiplierChange(e)}
+            selected={multiplierStatus[100]}
+          >
+            X100
+          </ToggleButton>
+          <ToggleButton value={1000}  aria-label="justified"
+          onClick={e => handleMultiplierChange(e)}
+            selected={multiplierStatus[1000]}
+          >
+            X1000
+          </ToggleButton>
+              
+        </ToggleButtonGroup>
+      );
+    }
 
-  const dialogActions = () => {
-    return (
-        <Grid container spacing={2} sx={{my:2}}>
-          <Grid item xs={6} >
-              <Fab 
-                variant="extended" 
-                size="small" 
-                color="error" 
-                aria-label="bet"
-                sx={{px:3}}
-                onClick={() => dialogue.closeDialogue()}
-                >
-                  Cancel Bet
-                </Fab>
-          </Grid>
-          <Grid item xs={6} >
-              <Fab 
-                variant="extended" 
-                size="small" 
-                color="primary" 
-                aria-label="bet"
-                sx={{px:5}}
-                onClick={() => placeBet()}
-                >
-                  Place Bet
-                </Fab>
-          </Grid>
-      </Grid>
-    )
-  }
+    const dialogActions = () => {
+      return (
+          <Grid container spacing={2} sx={{my:2}}>
+            <Grid item xs={6} >
+                <Fab 
+                  variant="extended" 
+                  size="small" 
+                  color="error" 
+                  aria-label="bet"
+                  sx={{px:3}}
+                  onClick={() => dialogue.closeDialogue()}
+                  >
+                    Cancel Bet
+                  </Fab>
+            </Grid>
+            <Grid item xs={6} >
+                <Fab 
+                  variant="extended" 
+                  size="small" 
+                  color="primary" 
+                  aria-label="bet"
+                  sx={{px:5}}
+                  onClick={() => placeBet()}
+                  >
+                    Place Bet
+                  </Fab>
+            </Grid>
+        </Grid>
+      )
+    }
 
 
     function ColorGamePad() {
@@ -730,134 +789,158 @@ export default function Games() {
         );
     }
 
-    
+
 
     return ( 
         <React.Fragment>
-          <Grid container spacing={2} sx={{mb:5}}>
-              <Grid item xs={12} md={4}>
-                <Item elevation={3}>
-                  <Grid container spacing={2}>
-
-                    <Grid item xs={7}>
-                       <AccountBalanceWalletIcon color="primary"
-                          sx={{fontSize: "46px"}}
-                        /> 
-                        <ListItemText primary="Total Wallet Balance:"/> 
-                    </Grid>
-
-                    <Grid item xs={5} sx={{textAlign: "right"}}>
-                        <Typography variant="h5" component={"h2"} sx={{fontWeight: 600, color:"green", ml:2}}>
-                          {formatMoney(25000.50)}
-                        </Typography>
-                    </Grid>
-
-                    <Grid item xs={6}>
-                        <Fab variant="extended" size="small" color="warning" aria-label="withdraw"
-                        sx={{px: 4}}  to="/app/withdraw" component={Link}>
-                          Withdraw
-                        </Fab>
-                    </Grid>
-
-                    <Grid item xs={6} sx={{textAlign: "right"}}>
-                         <Fab variant="extended" size="small" color="primary" aria-label="recharge"
-                         sx={{px: 4}} to="/app/recharge" component={Link}>
-                          Recharge
-                        </Fab>
-                    </Grid>
-
-                  </Grid>
-                </Item>
-               
-              </Grid>
-
-              <Grid item xs={12} md={4}>
+          
+            <Grid container spacing={2} sx={{mb:5}}>
+                <Grid item xs={12} md={4}>
                   <Item elevation={3}>
-                      <Typography variant="h5" component={"h5"} sx={{textAlign: "center", fontWeight:500, color:"green"}}>
-                        <AnnouncementIcon color="primary" /> LATEST ANNOUNCEMENT!
-                      </Typography>
-                      <Typography component={"div"}>
-                        
-                        <Marquee>
-                            Invite your friends and Get 5% of their initial deposit!
-                        </Marquee>
-                      </Typography>
+                    <Grid container spacing={2}>
+
+                      <Grid item xs={7}>
+                        <AccountBalanceWalletIcon color="primary"
+                            sx={{fontSize: "46px"}}
+                          /> 
+                          <ListItemText primary="Total Wallet Balance:"/> 
+                      </Grid>
+
+                      <Grid item xs={5} sx={{textAlign: "right"}}>
+                          {
+                             gameResult ? (
+                               <Typography 
+                                variant="h5" 
+                                component={"h2"} 
+                                sx={{fontWeight: 600, color:"green", ml:2}}
+                                >
+                                   { formatMoney(gameResult.user_wallet_balance) }
+                                                              
+                                </Typography>
+                             ) :""                        
+
+                          }
+                         
+                      </Grid>
+
+                      <Grid item xs={6}>
+                          <Fab variant="extended" size="small" color="warning" aria-label="withdraw"
+                          sx={{px: 4}}  to="/app/withdraw" component={Link}>
+                            Withdraw
+                          </Fab>
+                      </Grid>
+
+                      <Grid item xs={6} sx={{textAlign: "right"}}>
+                          <Fab variant="extended" size="small" color="primary" aria-label="recharge"
+                          sx={{px: 4}} to="/app/recharge" component={Link}>
+                            Recharge
+                          </Fab>
+                      </Grid>
+
+                    </Grid>
                   </Item>
-              </Grid>
-
-              <Grid item xs={12} md={4}>
-                <Item elevation={3} 
-                sx={{
-                  backgroundImage: `linear-gradient(to left top, rgba(125, 22, 116, 0.90), rgba(41, 125, 22, 0.75)), url(${Bg})`,
-                  // backgroundSize: 'cover',
-                  backgroundPosition: 'center',
-                  backgroundRepeat: "no-repeat",
-                  width: `100%`,
-                  color: "#fff",
-                  fontWeight: 600,
-                }}
-                >
-                  <Grid container spacing={2}>
-
-                    <Grid item xs={7}>
-                        <Typography variant="p" component={"p"}>
-                          3 Minutes
-                        </Typography>
-                    </Grid>
-
-                    <Grid item xs={5} sx={{textAlign: "right"}}>
-                        <Typography component={"p"}>
-                          Left Time To Buy
-                        </Typography>
-                    </Grid>
-
-                    <Grid item xs={6}>
-                        <Typography component={"h2"}>
-                          202245958686
-                        </Typography>
-                    </Grid>
-
-                    <Grid item xs={6} sx={{textAlign: "right"}}>
-                         <Typography component={"h2"}>                       
-                          <SpanTimmer>0</SpanTimmer>                        
-                          <SpanTimmer>2</SpanTimmer>                                                
-                          <SpanTimmer>:</SpanTimmer>                        
-                          <SpanTimmer>5</SpanTimmer>                        
-                          <SpanTimmer>8</SpanTimmer>                        
-                        </Typography>
-                    </Grid>
-
-                  </Grid>
-                </Item>
-              </Grid>
-          </Grid>
-          <Item elevation={3}>
-              <Grid container spacing={2}>
-               
-                <Grid container item columnSpacing={2} rowSpacing={4}>
-                    <ColorGamePad />
+                
                 </Grid>
 
-                <Grid container item columnSpacing={2} rowSpacing={4}>
-                    <ColorGameNumberPadOne />
+                <Grid item xs={12} md={4}>
+                    <Item elevation={3}>
+                        <Typography variant="h5" component={"h5"} sx={{textAlign: "center", fontWeight:500, color:"green"}}>
+                          <AnnouncementIcon color="primary" /> LATEST ANNOUNCEMENT!
+                        </Typography>
+                        <Typography component={"div"}>
+                          
+                          <Marquee>
+                              Invite your friends and Get 5% of their initial deposit!
+                          </Marquee>
+                        </Typography>
+                    </Item>
                 </Grid>
 
-                <Grid container item columnSpacing={2} rowSpacing={4}>
-                    <ColorGameNumberPadTwo />
-                </Grid>
+                <Grid item xs={12} md={4}>
+                  <Item elevation={3} 
+                  sx={{
+                    backgroundImage: `linear-gradient(to left top, rgba(125, 22, 116, 0.90), rgba(41, 125, 22, 0.75)), url(${Bg})`,
+                    // backgroundSize: 'cover',
+                    backgroundPosition: 'center',
+                    backgroundRepeat: "no-repeat",
+                    width: `100%`,
+                    color: "#fff",
+                    fontWeight: 600,
+                  }}
+                  >
+                      <Grid container spacing={2}>
 
-                <Grid container item columnSpacing={2} rowSpacing={4}>
-                    <ColorGameNumberPadSize />
+                        <Grid item xs={7}>
+                            <Typography variant="p" component={"p"}>
+                              3 Minutes
+                            </Typography>
+                        </Grid>
+
+                        <Grid item xs={5} sx={{textAlign: "right"}}>
+                            <Typography component={"p"}>
+                              Left Time To Buy
+                            </Typography>
+                        </Grid>
+
+                        <Grid item xs={6}>
+                            <Typography component={"h2"}>
+                              202245958686
+                            </Typography>
+                        </Grid>
+
+                        <Grid item xs={6} sx={{textAlign: "right"}}>
+                          {
+                            gameResult ? (
+                              <CountDownTimmer
+                                date={gameResult.active_game_date}
+                                dateIncrement={180000}
+                                renderer={Renderer}
+                                onTickCondition={handleClickOpen}
+                                // onComplete={getCurrentGame}
+                              /> 
+
+                            ): ""
+                          }
+                        </Grid>
+
+                      </Grid>
+                  </Item>
                 </Grid>
             </Grid>
-          </Item>
+            <Item elevation={3}>
+                <Grid item xs={12}>
+                  <CountDownTimer 
+                    handleClose={handleClose}
+                    open={open}
+                  />
+                </Grid>           
 
-           <div style={{marginTop:20}}>
-                <Tab 
-                  games={renderGameHistory}
-                  charts={renderGameChart}
-                  bets={renderBetHistory}
-                />
+
+                <Grid container spacing={2}>    
+                  <Grid container item columnSpacing={2} rowSpacing={4}>
+                      <ColorGamePad />
+                  </Grid>
+
+                  <Grid container item columnSpacing={2} rowSpacing={4}>
+                      <ColorGameNumberPadOne />
+                  </Grid>
+
+                  <Grid container item columnSpacing={2} rowSpacing={4}>
+                      <ColorGameNumberPadTwo />
+                  </Grid>
+
+                  <Grid container item columnSpacing={2} rowSpacing={4}>
+                      <ColorGameNumberPadSize />
+                  </Grid>
+                </Grid>
+            </Item>
+
+            <div style={{marginTop:20}}>
+                  <Tab 
+                    games={renderGameHistory}
+                    charts={renderGameChart}
+                    bets={renderBetHistory}
+                  />
             </div>
 
             <Dialogue 
@@ -893,7 +976,7 @@ export default function Games() {
                       </Button>
                 </Grid>
 
-                 <Grid item xs={12} >
+                <Grid item xs={12} >
                     <ToggleButtonsMultiply />
                 </Grid>
 
@@ -906,7 +989,6 @@ export default function Games() {
                 </Grid>
               </Grid>
             </Dialogue>
-
         </React.Fragment>
     );
 }

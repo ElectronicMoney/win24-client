@@ -15,11 +15,9 @@ function GameChart() {
         setPage(value);
     };
 
-    const { 
-        data, 
-        error, 
-        isLoading, 
-    } = useGetGamesQuery(page)
+    const { data, error, isLoading} = useGetGamesQuery(page, {
+        pollingInterval: 3000,
+    })
 
 
     return ( 
