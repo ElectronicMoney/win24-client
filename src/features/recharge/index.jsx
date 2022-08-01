@@ -3,22 +3,17 @@ import { styled } from '@mui/material/styles';
 import Grid from '@mui/material/Grid';
 import Paper from '@mui/material/Paper';
 import Typography from '@mui/material/Typography';
-import AccountBalanceWalletIcon from '@mui/icons-material/AccountBalanceWallet';
-import AccountBoxIcon from '@mui/icons-material/AccountBox';
-import ContactPhoneIcon from '@mui/icons-material/ContactPhone';
-import SportsEsportsIcon from '@mui/icons-material/SportsEsports';
-import List from '@mui/material/List';
-import ListItem from '@mui/material/ListItem';
-import ListItemIcon from '@mui/material/ListItemIcon';
-import ListItemText from '@mui/material/ListItemText';
 import Skeleton from '@mui/material/Skeleton';
 import Stack from '@mui/material/Stack';
 import { Alert } from '@mui/material';
-import { formatMoney } from '../../utils';
+import { ErrorBoundary } from "../../errors/ErrorBandary"
+import LinearProgress from "../../components/Feedback/LinearProgress"
 import Table from '../../components/DataDisplay/Table'
 import Form from "./Form"
 import Pagination from '../../components/Navigation/Pagination';
 import { useGetRechargesQuery } from '../../services/rechargesApi';
+const AccountBox = React.lazy(() => import("../../containers/AccountBox"));
+
 
 
 
@@ -45,76 +40,19 @@ export default function Recharge() {
         <React.Fragment>
             <Grid container spacing={2} >
 
-            <Grid item xs={12}>
-                <Item elevation={3}>
-                  <Grid container spacing={2}>
-                    <Grid item xs={12}>
-                      <List>
-                        <ListItem
-                         secondaryAction={
-                            <Typography variant="h5" component={"h2"}>
-                              {"Emeka Augutsine"}
-                            </Typography>
-                          }
-                        >
-                          <ListItemIcon>
-                              <AccountBoxIcon color="primary" /> 
-                          </ListItemIcon>
-                          <ListItemText primary="Name:" /> 
-                        </ListItem>
+                <Grid item xs={12}>
+                  <ErrorBoundary>
+                      <React.Suspense fallback={<LinearProgress />}>
+                          <AccountBox />
+                      </React.Suspense>
+                  </ErrorBoundary>
 
-                        <ListItem
-                          secondaryAction={
-                              <Typography variant="h5" component={"h2"}>
-                                {"+6398075775"}
-                              </Typography>
-                            }
-                          >
-                            <ListItemIcon>
-                                <ContactPhoneIcon color="primary" /> 
-                            </ListItemIcon>
-                            <ListItemText primary="Number:" /> 
-                          </ListItem>
-
-                        <ListItem
-                         secondaryAction={
-                            <Typography variant="h5" component={"h2"}>
-                              {"84857575"}
-                            </Typography>
-                          }
-                        >
-                          <ListItemIcon>
-                              <SportsEsportsIcon color="primary" /> 
-                          </ListItemIcon>
-                          <ListItemText primary="Game ID:" /> 
-                        </ListItem>
-
-
-                        <ListItem
-                         secondaryAction={
-                            <Typography variant="h5" component={"h2"} sx={{fontWeight: 600, color:"green"}}>
-                              {formatMoney(25000.50)}
-                            </Typography>
-                          }
-                        >
-                          <ListItemIcon>
-                              <AccountBalanceWalletIcon color="primary" /> 
-                          </ListItemIcon>
-                          <ListItemText primary="Wallet Balance:" /> 
-                        </ListItem>
-                      </List>
-                    </Grid>
-                  </Grid>
-                </Item>
-
-                <Item elevation={3} sx={{mt:5}}>
-                   <Grid container spacing={2}>
-                      <Grid item xs={12}>
-                          <Form />
-                      </Grid>
-                   </Grid>
-                </Item>
-               
+                <Grid item xs={12}>
+                    <Item elevation={3}>
+                        <Form />
+                    </Item>
+                </Grid>
+                
               </Grid>
 
                 <Grid item xs={12}>

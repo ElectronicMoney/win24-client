@@ -6,12 +6,12 @@ import PaymentsIcon from '@mui/icons-material/Payments';
 import CreditCardIcon from '@mui/icons-material/CreditCard';
 import SportsEsportsIcon from '@mui/icons-material/SportsEsports';
 import { Fab, Paper } from '@mui/material';
+import CloseIcon from '@mui/icons-material/Close';
 import Button from '@mui/material/Button';
 import AddBoxIcon from '@mui/icons-material/AddBox';
 import { purple } from '@mui/material/colors';
 import Pagination from '../../../components/Navigation/Pagination'
-import Dialogue from "../../../components/Feedback/Dialogue"
-import { AppContext } from '../../../contexts';
+import Dialogue from "../../../components/Feedback/Dialog"
 import CustomCard from '../../../components/Surfaces/CustomCard';
 import UsersTable  from '../../../components/DataDisplay/UsersTable';
 import SearchForm from "./SearchForm"
@@ -33,11 +33,25 @@ export default function Users() {
 
     const [page, setPage] = React.useState(1);
 
+    const [open, setOpen] = React.useState(false);
+
     const handleChange = (event, value) => {
         setPage(value);
     };
 
-    const { dialogue } = React.useContext(AppContext)
+    const handleClickOpen = () => {
+      setOpen(true);
+    };
+
+
+    const handleClose = (event, reason) => {
+      // "escapeKeyDown", "backdropClick"
+      if(reason !== 'backdropClick' && reason !== 'escapeKeyDown') {
+            // Set 'open' to false, however you would do that with your particular code.
+            setOpen(false);
+        }
+    };
+
 
     // Using a query hook automatically fetches data and returns query values
     const { 
@@ -56,14 +70,13 @@ export default function Users() {
         <Grid container spacing={2} sx={{my:2}}>
           <Grid item xs={12} sx={{textAlign:"right"}} >
               <Fab 
-                variant="extended" 
+                variant="circle" 
                 size="small" 
                 color="error" 
                 aria-label="bet"
-                sx={{px:3}}
-                onClick={() => dialogue.closeDialogue()}
+                onClick={() => handleClose()}
                 >
-                  Cancel
+                  <CloseIcon />
                 </Fab>
           </Grid>
       </Grid>
@@ -122,7 +135,7 @@ export default function Users() {
                         variant="contained" 
                         startIcon={<AddBoxIcon />} 
                         sx={{px: 5}} 
-                        onClick={() => dialogue.openDialogue()}
+                        onClick={() => handleClickOpen()}
                         >
                             Create New User
                         </Button>
@@ -175,6 +188,8 @@ export default function Users() {
                         color={purple[900]}
                         title="Create New User"
                         dialogActions={dialogActions}
+                        open={open}
+                        handleClose={handleClose}
                         >
                         <UserForm />
                     </Dialogue>

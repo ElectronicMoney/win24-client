@@ -55,7 +55,8 @@ export default function CountDownTimer({open, handleClose}) {
         fullWidth={true}
         maxWidth="sm"
         open={open}
-        onClose={handleClose}
+        onClose={(event, reason) => handleClose(event, reason)}
+        disableEscapeKeyDown
       >
         <DialogContent sx={{   
           

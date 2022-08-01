@@ -4,30 +4,28 @@ import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
 import DialogTitle from '@mui/material/DialogTitle';
 import { purple } from '@mui/material/colors';
-import { AppContext } from '../../contexts';
 
 
 export default function PaperDialog(props) {
 
-  const { dialogue } = React.useContext(AppContext)
-
 
 
   const descriptionElementRef = React.useRef(null);
+  
   React.useEffect(() => {
-    if (dialogue.open) {
+    if (props.open) {
       const { current: descriptionElement } = descriptionElementRef;
       if (descriptionElement !== null) {
         descriptionElement.focus();
       }
     }
-  }, [dialogue.open]);
+  }, [props.open]);
 
   return (
     <div>
       <Dialog
-        open={dialogue.open}
-        onClose={dialogue.closeDialogue}
+        open={props.open}
+        onClose={(event, reason) => props.handleClose(event, reason)}
         scroll={"paper"}
         aria-labelledby="scroll-dialog-title"
         aria-describedby="scroll-dialog-description"
