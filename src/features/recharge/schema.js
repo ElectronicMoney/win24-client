@@ -9,5 +9,5 @@ export const schema = object({
   (value) => currency(value)  >= 100,
   )
   .transform((currentValue) => currency(currentValue).toString()),
-  paymentType: string().required(),
+  method: string().required(),
 }).required();

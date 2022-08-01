@@ -10,6 +10,7 @@ import { gamesApi } from "../services/gamesApi"
 import { rechargesApi } from "../services/rechargesApi"
 import { withdrawalsApi } from "../services/withdrawalsApi"
 import { usersApi } from "../services/usersApi"
+import { accountsApi } from "../services/accountsApi"
 
 
 export const store = configureStore({
@@ -18,6 +19,7 @@ export const store = configureStore({
     auth: authSlice,
     gameResult: gameResultSlice,
     [authApi.reducerPath]: authApi.reducer,
+    [accountsApi.reducerPath]: accountsApi.reducer,
     [betsApi.reducerPath]: betsApi.reducer,
     [gamesApi.reducerPath]: gamesApi.reducer,
     [rechargesApi.reducerPath]: rechargesApi.reducer,
@@ -29,6 +31,7 @@ export const store = configureStore({
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware().concat(
       authApi.middleware, 
+      accountsApi.middleware, 
       betsApi.middleware, 
       gamesApi.middleware, 
       rechargesApi.middleware, 

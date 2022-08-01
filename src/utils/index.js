@@ -9,7 +9,7 @@ import currency from "currency.js"
 
 // export const API_URL = 'https://magandabet.com/api/v1/';
 export const API_URL = 'http://127.0.0.1:8080/api/v1/';
-export const SSE_URL = 'http://127.0.0.1:8080/api/sse/v1/games';
+export const SSE_URL = 'http://127.0.0.1:8080/api/sse/v1';
 
 
 export const sliderItems = [
@@ -63,7 +63,7 @@ export const sliderItems = [
 
 ]
 
-export const paymentTypes = [
+export const methods = [
   {
     value: 'GCash',
     label: 'GCash',
@@ -76,10 +76,7 @@ export const paymentTypes = [
     value: 'CoinPH',
     label: 'CoinPH',
   },
-  {
-    value: 'UPI',
-    label: 'UPI',
-  },
+
   {
     value: 'Bank Transfer',
     label: 'Bank Transfer',

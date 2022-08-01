@@ -4,10 +4,22 @@ import Grid from '@mui/material/Grid';
 import Paper from '@mui/material/Paper';
 import Typography from '@mui/material/Typography';
 import AccountBalanceWalletIcon from '@mui/icons-material/AccountBalanceWallet';
+import AccountBoxIcon from '@mui/icons-material/AccountBox';
+import ContactPhoneIcon from '@mui/icons-material/ContactPhone';
+import SportsEsportsIcon from '@mui/icons-material/SportsEsports';
+import List from '@mui/material/List';
+import ListItem from '@mui/material/ListItem';
+import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
+import Skeleton from '@mui/material/Skeleton';
+import Stack from '@mui/material/Stack';
+import { Alert } from '@mui/material';
 import { formatMoney } from '../../utils';
 import Table from '../../components/DataDisplay/Table'
 import Form from "./Form"
+import Pagination from '../../components/Navigation/Pagination';
+import { useGetRechargesQuery } from '../../services/rechargesApi';
+
 
 
 const Item = styled(Paper)(({ theme }) => ({
@@ -20,13 +32,14 @@ const Item = styled(Paper)(({ theme }) => ({
 
 export default function Recharge() {
 
-    const transactions = [
-       { id: 1, created_at: "2022-07-10 11:32", type: "GCash", amount: 200.00, status: "PENDING"},
-       { id: 2, created_at: "2022-07-10 11:32", type: "PayMaya", amount: 2500.00, status: "COMPLETD"},
-       { id: 3, created_at: "2022-07-10 11:32", type: "GCash", amount: 5000.00, status: "COMPLETD"},
-       { id: 4, created_at: "2022-07-10 11:32", type: "GCash", amount: 1500.00, status: "FAILED"},
-       { id: 5, created_at: "2022-07-10 11:32", type: "GCash", amount: 3000.00, status: "FAILED"},
-    ]
+    const [page, setPage] = React.useState(1);
+
+    const handleChange = (event, value) => {
+        setPage(value);
+    };
+
+
+    const { data, error, isLoading } = useGetRechargesQuery(page)
 
     return ( 
         <React.Fragment>
@@ -35,23 +48,71 @@ export default function Recharge() {
             <Grid item xs={12}>
                 <Item elevation={3}>
                   <Grid container spacing={2}>
-
-                    <Grid item xs={7}>
-                       <AccountBalanceWalletIcon color="primary"
-                          sx={{fontSize: "46px"}}
-                        /> 
-                        <ListItemText primary="Total Wallet Balance:"/> 
-                    </Grid>
-
-                    <Grid item xs={5} sx={{textAlign: "right"}}>
-                        <Typography variant="h5" component={"h2"} sx={{fontWeight: 600, color:"green", ml:2}}>
-                          {formatMoney(25000.50)}
-                        </Typography>
-                    </Grid>
                     <Grid item xs={12}>
-                        <Form />
+                      <List>
+                        <ListItem
+                         secondaryAction={
+                            <Typography variant="h5" component={"h2"}>
+                              {"Emeka Augutsine"}
+                            </Typography>
+                          }
+                        >
+                          <ListItemIcon>
+                              <AccountBoxIcon color="primary" /> 
+                          </ListItemIcon>
+                          <ListItemText primary="Name:" /> 
+                        </ListItem>
+
+                        <ListItem
+                          secondaryAction={
+                              <Typography variant="h5" component={"h2"}>
+                                {"+6398075775"}
+                              </Typography>
+                            }
+                          >
+                            <ListItemIcon>
+                                <ContactPhoneIcon color="primary" /> 
+                            </ListItemIcon>
+                            <ListItemText primary="Number:" /> 
+                          </ListItem>
+
+                        <ListItem
+                         secondaryAction={
+                            <Typography variant="h5" component={"h2"}>
+                              {"84857575"}
+                            </Typography>
+                          }
+                        >
+                          <ListItemIcon>
+                              <SportsEsportsIcon color="primary" /> 
+                          </ListItemIcon>
+                          <ListItemText primary="Game ID:" /> 
+                        </ListItem>
+
+
+                        <ListItem
+                         secondaryAction={
+                            <Typography variant="h5" component={"h2"} sx={{fontWeight: 600, color:"green"}}>
+                              {formatMoney(25000.50)}
+                            </Typography>
+                          }
+                        >
+                          <ListItemIcon>
+                              <AccountBalanceWalletIcon color="primary" /> 
+                          </ListItemIcon>
+                          <ListItemText primary="Wallet Balance:" /> 
+                        </ListItem>
+                      </List>
                     </Grid>
                   </Grid>
+                </Item>
+
+                <Item elevation={3} sx={{mt:5}}>
+                   <Grid container spacing={2}>
+                      <Grid item xs={12}>
+                          <Form />
+                      </Grid>
+                   </Grid>
                 </Item>
                
               </Grid>
@@ -63,9 +124,42 @@ export default function Recharge() {
                 </Grid>
 
                 <Grid item xs={12}>
-                     <Table isTransactions={true} transactions={transactions} />
+                  <Typography variant='div' component="div">
+                    {
+                      isLoading ? (
+                        <Stack spacing={1}>
+                            <Skeleton variant="text" />
+                            <Skeleton variant="text" />
+                            <Skeleton variant="text" />
+                            <Skeleton variant="rectangular" width={220} height={100} />
+                        </Stack>
+                      ): data ? (
+                        <>
+                          <Table isTransactions={true} transactions={data.items} />
+                          <Paper elevation={3}
+                              sx={{
+                                  display:"flex", 
+                                  alignItems:"center", 
+                                  justifyContent:"center", 
+                                  mt:5, 
+                                  p:2
+                              }}
+                              >
+                              <Pagination 
+                                  total={ data.total } 
+                                  size={ data.size } 
+                                  page={data.page} 
+                                  onChange={handleChange}
+                              />
+                          </Paper>
+                        </>
+                      ): (
+                        <Alert severity="error" sx={{ m: 2 }}>{error.data.error.message}</Alert>
+                      )
+                    }
+                     
+                  </Typography>
                 </Grid>
-
             </Grid>
         </React.Fragment>
     );

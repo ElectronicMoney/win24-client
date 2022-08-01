@@ -11,9 +11,11 @@ import PublicIcon from '@mui/icons-material/Public';
 import { useForm, Controller } from "react-hook-form";
 import { yupResolver } from '@hookform/resolvers/yup';
 import currency from 'currency.js';
+import CircularProgress from "../../components/Feedback/CircularProgress"
+import { Alert } from '@mui/material';
 import { schema } from "./schema"
-import { formatMoney } from '../../utils';
-import { paymentTypes } from '../../utils';
+import { formatMoney, methods } from '../../utils';
+import { useCreateWithdrawalMutation } from '../../services/withdrawalsApi';
 
 
 function RechargeForm() {
@@ -22,10 +24,10 @@ function RechargeForm() {
         mode: "all",
         defaultValues: {
             amount: "",
-            paymentType: "GCash",
-            accountName: "",
-            accountNumber: "",
-            bankName: ""
+            method: "GCash",
+            account_name: "",
+            account_number: "",
+            bank_name: ""
 
         },
         resolver: yupResolver(schema)
@@ -37,9 +39,12 @@ function RechargeForm() {
         }
     }
 
+    const [createRecharge, {isLoading, isError, isSuccess, error, data:withdraw}] = useCreateWithdrawalMutation()
+
+
 
     const onSubmit = data => {
-        console.log(data);
+        createRecharge(data);
     }
 
     return ( 
@@ -48,17 +53,17 @@ function RechargeForm() {
                 <Grid container spacing={2}>
                     <Grid item xs={6}>
                         <Controller
-                            name="paymentType"
+                            name="method"
                             control={control}
                             render={({ field }) => (<TextField  {...field}
-                                id="outlined-adornment-paymentType"
+                                id="outlined-adornment-method"
                                 label="Select Payment Type"
                                 select
-                                error={errors.paymentType ? true: false}
-                                helperText={errors.paymentType?.message}
+                                error={errors.method ? true: false}
+                                helperText={errors.method?.message}
                                 fullWidth
                             >
-                                {paymentTypes.map((option) => (
+                                {methods.map((option) => (
                                     <MenuItem key={option.value} value={option.value}>
                                     {option.label}
                                     </MenuItem>
@@ -92,15 +97,15 @@ function RechargeForm() {
 
                     <Grid item xs={6}>
                         <Controller
-                            name="accountName"
+                            name="account_name"
                             control={control}
                             render={({ field }) => (<TextField  
                                 {...field} 
-                                id="outlined-adornment-accountName"
+                                id="outlined-adornment-account_name"
                                 label="Account Name"
                                 placeholder="Account Name"
-                                error={errors.accountName ? true: false}
-                                helperText={errors.accountName?.message}
+                                error={errors.account_name ? true: false}
+                                helperText={errors.account_name?.message}
                                 fullWidth
                                 InputProps={{
                                 startAdornment: (
@@ -114,15 +119,15 @@ function RechargeForm() {
 
                     <Grid item xs={6}>
                         <Controller
-                            name="accountNumber"
+                            name="account_number"
                             control={control}
                             render={({ field }) => (<TextField  
                                 {...field} 
-                                id="outlined-adornment-accountNumber"
+                                id="outlined-adornment-account_number"
                                 label="Account Number"
                                 placeholder="Account Number"
-                                error={errors.accountNumber ? true: false}
-                                helperText={errors.accountNumber?.message}
+                                error={errors.account_number ? true: false}
+                                helperText={errors.account_number?.message}
                                 fullWidth
                                 InputProps={{
                                 startAdornment: (
@@ -136,15 +141,15 @@ function RechargeForm() {
 
                     <Grid item xs={6}>
                         <Controller
-                            name="bankName"
+                            name="bank_name"
                             control={control}
                             render={({ field }) => (<TextField  
                                 {...field} 
-                                id="outlined-adornment-bankName"
-                                label="Enter bankName"
+                                id="outlined-adornment-bank_name"
+                                label="Enter Bank Name"
                                 placeholder="Bank Name"
-                                error={errors.bankName ? true: false}
-                                helperText={errors.bankName?.message}
+                                error={errors.bank_name ? true: false}
+                                helperText={errors.bank_name?.message}
                                 fullWidth
                                 InputProps={{
                                 startAdornment: (
@@ -156,11 +161,27 @@ function RechargeForm() {
                     </Grid>
 
                     <Grid item xs={6}>
-                        <Fab type="submit" variant="extended" size="large" color="primary" aria-label="recharge"
+                        <Fab type="submit" variant="extended" size="large" color="primary" aria-label="withdraw"
                         sx={{px: 6}}>
-                        Withdraw
+                        
+                            { isLoading ? <CircularProgress />: "Withdraw!"}
+
                         </Fab>                             
                     </Grid>
+
+                    <Grid item xs={12}>
+                        {
+                            isSuccess && withdraw ? (
+                                <Alert severity="success" sx={{ mb: 2 }}>
+                                    Your Fund withdrawal has been received and currently under proccessing! 
+                                </Alert>
+                            ): isError? (
+                                <Alert severity="error" sx={{ mb: 2 }}>{error.data.error.message}</Alert>
+                            ): ""
+
+                        }
+                    </Grid>
+
                 </Grid>
             </form>
         </React.Fragment>

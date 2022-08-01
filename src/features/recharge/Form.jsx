@@ -8,9 +8,14 @@ import PointOfSaleIcon from '@mui/icons-material/PointOfSale';
 import { useForm, Controller } from "react-hook-form";
 import { yupResolver } from '@hookform/resolvers/yup';
 import currency from 'currency.js';
+import {ErrorBoundary} from "../../errors/ErrorBandary"
 import { schema } from "./schema"
-import { formatMoney } from '../../utils';
-import { paymentTypes } from '../../utils';
+import { formatMoney, methods } from '../../utils';
+import LinearProgress from "../../components/Feedback/LinearProgress"
+import CircularProgress from "../../components/Feedback/CircularProgress"
+import { Alert } from '@mui/material';
+import { useCreateRechargeMutation } from '../../services/rechargesApi';
+const Accounts = React.lazy(() => import("./Accounts"));
 
 
 function RechargeForm() {
@@ -19,7 +24,7 @@ function RechargeForm() {
         mode: "all",
         defaultValues: {
             amount: "",
-            paymentType: "GCash"
+            method: "GCash"
         },
         resolver: yupResolver(schema)
     });
@@ -31,8 +36,11 @@ function RechargeForm() {
     }
 
 
+    const [createRecharge, {isLoading, isError, isSuccess, error, data:recharge}] = useCreateRechargeMutation()
+
+
     const onSubmit = data => {
-        console.log(data);
+        createRecharge(data);
     }
 
     return ( 
@@ -41,17 +49,17 @@ function RechargeForm() {
                 <Grid container spacing={2}>
                     <Grid item xs={6}>
                         <Controller
-                            name="paymentType"
+                            name="method"
                             control={control}
                             render={({ field }) => (<TextField  {...field}
-                                id="outlined-adornment-paymentType"
+                                id="outlined-adornment-method"
                                 label="Select Payment Type"
                                 select
-                                error={errors.paymentType ? true: false}
-                                helperText={errors.paymentType?.message}
+                                error={errors.method ? true: false}
+                                helperText={errors.method?.message}
                                 fullWidth
                             >
-                                {paymentTypes.map((option) => (
+                                {methods.map((option) => (
                                     <MenuItem key={option.value} value={option.value}>
                                     {option.label}
                                     </MenuItem>
@@ -85,8 +93,24 @@ function RechargeForm() {
                     <Grid item xs={12}>
                         <Fab type="submit" variant="extended" size="small" color="primary" aria-label="recharge"
                         sx={{px: 6}}>
-                        Recharge
+                        { isLoading ? <CircularProgress />: "Recharge!"}
                         </Fab>                             
+                    </Grid>
+
+
+                    <Grid item xs={12}>
+                        {
+                            isSuccess && recharge ? (
+                                <ErrorBoundary>
+                                    <React.Suspense fallback={<LinearProgress />}>
+                                        <Accounts />
+                                    </React.Suspense>
+                                </ErrorBoundary>
+                            ): isError? (
+                                <Alert severity="error" sx={{ mb: 2 }}>{error.data.error.message}</Alert>
+                            ): ""
+
+                        }
                     </Grid>
                 </Grid>
             </form>

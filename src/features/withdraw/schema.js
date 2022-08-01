@@ -9,9 +9,9 @@ export const schema = object({
   )
   .required("The Amount is Required!")
   .transform((currentValue) => currency(currentValue).toString()),
-  paymentType: string().required(),
-  accountName: string().required("The Account Name is Required!"),
-  accountNumber: string().required("The Account Number is Required!"),
-  bankName: string().required("The Bank Name is Required!")
+  method: string().required(),
+  account_name: string().required("The Account Name is Required!"),
+  account_number: string().required("The Account Number is Required!"),
+  bank_name: string().required("The Bank Name is Required!")
 
 }).required();

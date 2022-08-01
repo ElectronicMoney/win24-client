@@ -6,8 +6,14 @@ import Typography from '@mui/material/Typography';
 import Fab from '@mui/material/Fab';
 import Button from '@mui/material/Button';
 import ButtonGroup from '@mui/material/ButtonGroup';
-import ListItemText from '@mui/material/ListItemText';
 import AccountBalanceWalletIcon from '@mui/icons-material/AccountBalanceWallet';
+import AccountBoxIcon from '@mui/icons-material/AccountBox';
+import ContactPhoneIcon from '@mui/icons-material/ContactPhone';
+import SportsEsportsIcon from '@mui/icons-material/SportsEsports';
+import List from '@mui/material/List';
+import ListItem from '@mui/material/ListItem';
+import ListItemIcon from '@mui/material/ListItemIcon';
+import ListItemText from '@mui/material/ListItemText';
 import { purple, red, green, lime } from '@mui/material/colors';
 import Marquee from "react-fast-marquee";
 import AnnouncementIcon from '@mui/icons-material/Announcement';
@@ -181,7 +187,7 @@ export default function Games() {
 
 
     React.useEffect(() => {
-        const sse = new EventSource(`${SSE_URL}?uuid=${auth.accessToken}`, { withCredentials: true });
+        const sse = new EventSource(`${SSE_URL}/games?uuid=${auth.accessToken}`, { withCredentials: true });
     
         sse.addEventListener('game_message', (e) => {
             const data = JSON.parse(e.data)
@@ -796,31 +802,71 @@ export default function Games() {
           
             <Grid container spacing={2} sx={{mb:5}}>
                 <Grid item xs={12} md={4}>
-                  <Item elevation={3}>
+
+                  {
+                    gameResult ? (
+                      <Item elevation={3}>
                     <Grid container spacing={2}>
+                      <Grid item xs={12}>
+                        <List>
+                          <ListItem
+                          secondaryAction={
+                              <Typography variant="h5" component={"h2"}>
+                                {gameResult.name}
+                              </Typography>
+                            }
+                          >
+                            <ListItemIcon>
+                                <AccountBoxIcon color="primary" /> 
+                            </ListItemIcon>
+                            <ListItemText primary="Name:" /> 
+                          </ListItem>
 
-                      <Grid item xs={7}>
-                        <AccountBalanceWalletIcon color="primary"
-                            sx={{fontSize: "46px"}}
-                          /> 
-                          <ListItemText primary="Total Wallet Balance:"/> 
-                      </Grid>
 
-                      <Grid item xs={5} sx={{textAlign: "right"}}>
-                          {
-                             gameResult ? (
-                               <Typography 
-                                variant="h5" 
-                                component={"h2"} 
-                                sx={{fontWeight: 600, color:"green", ml:2}}
-                                >
-                                   { formatMoney(gameResult.user_wallet_balance) }
-                                                              
-                                </Typography>
-                             ) :""                        
+                          <ListItem
+                          secondaryAction={
+                              <Typography variant="h5" component={"h2"}>
+                                {gameResult.username}
+                              </Typography>
+                            }
+                          >
+                            <ListItemIcon>
+                                <ContactPhoneIcon color="primary" /> 
+                            </ListItemIcon>
+                            <ListItemText primary="Number:" /> 
+                          </ListItem>
 
-                          }
-                         
+                          <ListItem
+                          secondaryAction={
+                              <Typography variant="h5" component={"h2"}>
+                                {gameResult.game_id}
+                              </Typography>
+                            }
+                          >
+                            <ListItemIcon>
+                                <SportsEsportsIcon color="primary" /> 
+                            </ListItemIcon>
+                            <ListItemText primary="Game ID:" /> 
+                          </ListItem>
+
+
+                          <ListItem
+                          secondaryAction={
+                              <Typography 
+                                  variant="h5" 
+                                  component={"h2"} 
+                                  sx={{fontWeight: 600, color:"green", ml:2}}
+                                  >
+                                    { formatMoney(gameResult.user_wallet_balance) }                                
+                              </Typography>
+                            }
+                          >
+                            <ListItemIcon>
+                                <AccountBalanceWalletIcon color="primary" /> 
+                            </ListItemIcon>
+                            <ListItemText primary="Wallet Balance:" /> 
+                          </ListItem>
+                        </List>
                       </Grid>
 
                       <Grid item xs={6}>
@@ -836,9 +882,10 @@ export default function Games() {
                             Recharge
                           </Fab>
                       </Grid>
-
                     </Grid>
                   </Item>
+                    ): ""
+                  }
                 
                 </Grid>
 

@@ -102,7 +102,7 @@ const FormatSpan = styled("span")(({color, bg}) => ({
 const FormatStatus = (props) => {
   if (props.status === "PENDING") {
     return <FormatSpan color="#333" bg="#cfd8dc">{props.children}</FormatSpan>
-  } else if (props.status === "WIN" || props.status === "COMPLETD") {
+  } else if (props.status === "WIN" || props.status === "COMPLETED") {
     return <FormatSpan color="#33691e" bg="#c5e1a5">{props.children}</FormatSpan>
   } else {
     return <FormatSpan color="#b71c1c" bg="#ef9a9a">{props.children}</FormatSpan>
@@ -315,7 +315,7 @@ const TransactionTable = ({transactions}) => {
               <TableRow>
                 <StyledTableCell>Date</StyledTableCell>
                 <StyledTableCell align="right">ID</StyledTableCell>
-                <StyledTableCell align="right">Type</StyledTableCell>
+                <StyledTableCell align="right">Method</StyledTableCell>
                 <StyledTableCell align="right">Amount</StyledTableCell>
                 <StyledTableCell align="right">Status</StyledTableCell>
               </TableRow>
@@ -324,10 +324,10 @@ const TransactionTable = ({transactions}) => {
               {transactions.map((transaction, index) => (
                 <StyledTableRow key={index}>
                   <StyledTableCell>
-                    {transaction.created_at}
+                    {formatDate(transaction.created_at)}
                   </StyledTableCell>
                   <StyledTableCell align="right">{transaction.id}</StyledTableCell>
-                  <StyledTableCell align="right"> <strong>{transaction.type}</strong></StyledTableCell>
+                  <StyledTableCell align="right"> <strong>{transaction.method}</strong></StyledTableCell>
                   <StyledTableCell align="right">
                     <FormatStatus status={transaction.status}> {formatMoney(transaction.amount)}
                     </FormatStatus>
