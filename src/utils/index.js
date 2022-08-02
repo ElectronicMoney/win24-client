@@ -127,3 +127,17 @@ export const formatDate = (date, locale='fil-PH') => {
   locale, { dateStyle: 'short', timeStyle: 'short' }
   ).format(dateTime);
 }
+
+export const getRole = (isAdmin, isStaff, isAgent) => {
+  let role = ""
+  if(isAdmin) {
+    role = "Admin"
+  } else if (isStaff) {
+    role = "Staff"
+  }else if (isAgent) {
+    role = "Agent"
+  }else {
+    role = "Player"
+  }
+  return role
+}

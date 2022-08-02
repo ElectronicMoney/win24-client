@@ -14,6 +14,9 @@ import Fab from '@mui/material/Fab';
 import { userSchema } from "./schema"
 import {roles } from "../../../utils"
 import { MenuItem } from '@mui/material';
+import { Alert } from '@mui/material';
+import CircularProgress from "../../../components/Feedback/CircularProgress"
+import { useRegisterMutation } from '../../../services/authApi';
   
 
 export default function Form() {
@@ -22,6 +25,9 @@ export default function Form() {
     password: '',
     showPassword: false,
   });
+
+  const [register, {isLoading, isError, isSuccess, error, data}] = useRegisterMutation()
+
 
   const handleClickShowPassword = () => {
     setValues({
@@ -47,11 +53,12 @@ export default function Form() {
         resolver: yupResolver(userSchema)
     });
 
+
     const onSubmit = data => {
-        console.log(data);
+      register(data);
     }
 
-      
+  
     return ( 
       <React.Fragment>
         <form onSubmit={handleSubmit(onSubmit)}>
@@ -198,10 +205,29 @@ export default function Form() {
                 </FormControl>)}
             />
 
-            <Fab type="submit" variant="extended" size="large" color="primary" aria-label="recharge"
-            sx={{px: 6}}>
-            Create New User!
-            </Fab>                             
+          
+            {
+              isSuccess && data ? (
+                <Alert severity="success" sx={{ mb: 2 }}>
+                  "The New User Account have been Created Successfully!"
+                </Alert>
+              ): isError? (
+                <Alert severity="error" sx={{ mb: 2 }}>
+                  {error.data.error.message}
+                </Alert>
+              ): null
+            }
+
+            <Fab 
+              type="submit" 
+              variant="extended" 
+              size="large" 
+              color="primary" 
+              aria-label="recharge"
+              sx={{px: 6}}
+            >
+            { isLoading ? <CircularProgress />: "Create New User!"}
+            </Fab>                            
         </form>
       </React.Fragment>
      );

@@ -1,31 +1,21 @@
 import React from 'react';
-import { styled } from '@mui/material/styles';
 import Grid from '@mui/material/Grid';
 import BarChartIcon from '@mui/icons-material/BarChart';
 import PaymentsIcon from '@mui/icons-material/Payments';
 import CreditCardIcon from '@mui/icons-material/CreditCard';
 import SportsEsportsIcon from '@mui/icons-material/SportsEsports';
-import { Fab, Paper } from '@mui/material';
-import CloseIcon from '@mui/icons-material/Close';
-import Button from '@mui/material/Button';
-import AddBoxIcon from '@mui/icons-material/AddBox';
-import { purple } from '@mui/material/colors';
-import Pagination from '../../../components/Navigation/Pagination'
-import Dialogue from "../../../components/Feedback/Dialog"
-import CustomCard from '../../../components/Surfaces/CustomCard';
-import UsersTable  from '../../../components/DataDisplay/UsersTable';
-import SearchForm from "./SearchForm"
-import UserForm from "./UserForm"
+import { Paper } from '@mui/material';
 import { useGetUsersQuery } from '../../../services/usersApi';
-
-
-const Item = styled(Paper)(({ theme }) => ({
-    backgroundColor: theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
-    ...theme.typography.body2,
-    padding: theme.spacing(1),
-    color: theme.palette.text.secondary,
-    marginBottom: "2rem"
-  }));
+import Pagination from '../../../components/Navigation/Pagination'
+import CustomCard from '../../../components/Surfaces/CustomCard';
+import UsersTable  from '../../../containers/UsersTable';
+import SearchForm from "./SearchForm"
+import CreateUserForm from "./CreateUserForm"
+import EditUserForm from "./EditUserForm"
+import DeleteUser from "./DeleteUser"
+import ActivateUser from "./ActivateUser"
+import BanUser from "./BanUser"
+import ViewUser from './ViewUser';
 
 
 
@@ -33,23 +23,8 @@ export default function Users() {
 
     const [page, setPage] = React.useState(1);
 
-    const [open, setOpen] = React.useState(false);
-
     const handleChange = (event, value) => {
         setPage(value);
-    };
-
-    const handleClickOpen = () => {
-      setOpen(true);
-    };
-
-
-    const handleClose = (event, reason) => {
-      // "escapeKeyDown", "backdropClick"
-      if(reason !== 'backdropClick' && reason !== 'escapeKeyDown') {
-            // Set 'open' to false, however you would do that with your particular code.
-            setOpen(false);
-        }
     };
 
 
@@ -64,24 +39,6 @@ export default function Users() {
     // Individual hooks are also accessible under the generated endpoints:
     // const { data, error, isLoading } = pokemonApi.endpoints.getPokemonByName.useQuery('bulbasaur')
 
-
-    const dialogActions = () => {
-    return (
-        <Grid container spacing={2} sx={{my:2}}>
-          <Grid item xs={12} sx={{textAlign:"right"}} >
-              <Fab 
-                variant="circle" 
-                size="small" 
-                color="error" 
-                aria-label="bet"
-                onClick={() => handleClose()}
-                >
-                  <CloseIcon />
-                </Fab>
-          </Grid>
-      </Grid>
-    )
-  }
 
     return ( 
         <React.Fragment>
@@ -128,26 +85,7 @@ export default function Users() {
                     content=" Just updated"
                     />
                 </Grid>
-                <Grid item xs={12} md ={3}>
-                    <Item elevation={4}>
-                        <Button 
-                        fullWidth 
-                        variant="contained" 
-                        startIcon={<AddBoxIcon />} 
-                        sx={{px: 5}} 
-                        onClick={() => handleClickOpen()}
-                        >
-                            Create New User
-                        </Button>
-                    </Item>
-                  </Grid>
-
-                  <Grid item xs={12} md ={9}>
-                    <Item elevation={4}>
-                        <SearchForm />
-                    </Item>
-                  </Grid>
-
+                
                 <Grid item xs={12}>
                   
                   {
@@ -156,7 +94,16 @@ export default function Users() {
                     ) : isLoading ? (
                         <div>Loading...</div>
                     ) :isSuccess ? (
-                        <UsersTable users={data.items}/>
+                        <UsersTable 
+                        users={data.items} 
+                        searchForm={SearchForm} 
+                        createUserForm={CreateUserForm} 
+                        editUserForm={EditUserForm}
+                        deleteUser={DeleteUser}
+                        activateUser={ActivateUser}
+                        banUser={BanUser}
+                        viewUser={ViewUser}
+                        />
                     ): null
                   }
 
@@ -182,19 +129,6 @@ export default function Users() {
                         }
                     </Paper>
                 </Grid>
-
-                <Grid item xs={12}>
-                    <Dialogue 
-                        color={purple[900]}
-                        title="Create New User"
-                        dialogActions={dialogActions}
-                        open={open}
-                        handleClose={handleClose}
-                        >
-                        <UserForm />
-                    </Dialogue>
-                </Grid>
-
             </Grid>
         </React.Fragment>
     );

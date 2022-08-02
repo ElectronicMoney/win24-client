@@ -20,9 +20,22 @@ import MoreVertIcon from '@mui/icons-material/MoreVert';
 import AdminPanelSettingsIcon from '@mui/icons-material/AdminPanelSettings';
 import VerifiedUserIcon from '@mui/icons-material/VerifiedUser';
 import PersonIcon from '@mui/icons-material/Person';
-import { formatMoney, formatDate } from '../../utils';
+import { Fab, Grid } from '@mui/material';
+import CloseIcon from '@mui/icons-material/Close';
+import { purple } from '@mui/material/colors';
+import Button from '@mui/material/Button';
+import AddBoxIcon from '@mui/icons-material/AddBox';
+import { formatMoney, formatDate, getRole } from '../utils';
+import Dialog from "../components/Feedback/Dialog"
 
 
+const Item = styled(Paper)(({ theme }) => ({
+    backgroundColor: theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
+    ...theme.typography.body2,
+    padding: theme.spacing(1),
+    color: theme.palette.text.secondary,
+    marginBottom: "2rem"
+  }));
 
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
@@ -134,9 +147,78 @@ const FormatRole = ({isAdmin, isStaff}) => {
 
 
 
-export default function UsersTable({users}) {
+export default function UsersTable({
+  searchForm:SearchForm, 
+  createUserForm:CreateUserForm,
+  editUserForm:EditUserForm,
+  deleteUser:DeleteUser,
+  activateUser:ActivateUser,
+  banUser:BanUser,
+  viewUser:ViewUser,
+  users
+}) {
 
-    const CustomizedMenus = ({userId}) => {
+  const [open, setOpen] = React.useState(false);
+
+  const [payload, setPayload] = React.useState({
+    action: "",
+    user: {
+          id: 0,
+          gameId: 0,
+          name: "", 
+          username: "", 
+          role: "",
+          referredBy: "",
+          walletBalance: 0,
+          createdAt: "",
+          updatedAt: ""
+    }
+  });
+
+  const handleOpen = () => {
+    setOpen(true);
+  };
+
+
+  const handleClose = (event, reason) => {
+    // "escapeKeyDown", "backdropClick"
+    if(reason !== 'backdropClick' && reason !== 'escapeKeyDown') {
+          // Set 'open' to false, however you would do that with your particular code.
+          setOpen(false);
+      }
+      // Clernce oncloe
+      setPayload({
+        action: "",
+        user: {
+          id: 0,
+          gameId: 0,
+          name: "", 
+          username: "", 
+          role: "",
+          referredBy: "",
+          walletBalance: 0,
+          createdAt: "",
+          updatedAt: ""
+        }
+      })
+  };
+
+  const dialogActions = () => {
+      return (
+        <Fab 
+          variant="circle" 
+          size="small" 
+          color="error" 
+          aria-label="bet"
+          onClick={() => handleClose()}
+          >
+            <CloseIcon />
+          </Fab>
+      )
+  }
+
+
+    const CustomizedMenus = ({user}) => {
         const [anchorEl, setAnchorEl] = React.useState(null);
         const open = Boolean(anchorEl);
         const handleClick = (event) => {
@@ -146,13 +228,27 @@ export default function UsersTable({users}) {
         const handleClose = (event) => {
           setAnchorEl(null);
 
-          const data = {
-            action: event.target.innerText,
-            userId:userId
+          if(event.target.innerText) {
+            setPayload({
+              action: event.target.innerText,
+              user: {
+                id: user.id, 
+                gameId: user.game_id, 
+                name: user.name, 
+                username: user.username, 
+                role: getRole(user.is_admin, user.is_staff, user.is_agent),
+                referredBy: user.referred_by,
+                walletBalance: user.wallet_balance,
+                createdAt: user.created_at,
+                updatedAt: user.updated_at
+              }
+            }) 
+            // Open dialog
+            handleOpen()
+
           }
-          console.log(data)
-          
         };
+
 
         return (
             <div>
@@ -182,7 +278,7 @@ export default function UsersTable({users}) {
                   </MenuItem>
                   <MenuItem onClick={handleClose} disableRipple>
                       <EditIcon color="primary" />
-                      Edit User
+                      Edith User
                   </MenuItem>
                   <MenuItem onClick={handleClose} disableRipple>
                       <DeleteIcon color="primary" />
@@ -204,6 +300,28 @@ export default function UsersTable({users}) {
 
   return (
     <React.Fragment>
+        <Grid container spacing={4}>
+            <Grid item xs={12} md ={3}>
+              <Item elevation={4}>
+                  <Button 
+                  fullWidth 
+                  variant="contained" 
+                  startIcon={<AddBoxIcon />} 
+                  sx={{px: 5}} 
+                  onClick={() => handleOpen()}
+                  >
+                    Create New User
+                  </Button>
+              </Item>
+            </Grid>
+
+            <Grid item xs={12} md ={9}>
+              <Item elevation={4}>
+                  <SearchForm />
+              </Item>
+            </Grid>
+        </Grid>
+
         <TableContainer component={Paper}>
         <Table sx={{ minWidth: 700 }} aria-label="customized table">
             <TableHead>
@@ -235,13 +353,48 @@ export default function UsersTable({users}) {
                 <StyledTableCell align="left">{formatMoney(user.wallet_balance)}</StyledTableCell>
                 <StyledTableCell align="left">{formatDate(user.created_at)}</StyledTableCell>
                 <StyledTableCell align="left">
-                  <CustomizedMenus userId={user.id} />
+                  <CustomizedMenus user={user} />
                 </StyledTableCell>
               </StyledTableRow>
             ))}
             </TableBody>
         </Table>
         </TableContainer>
+
+        <Dialog 
+          color={purple[900]}
+          title={
+            payload.action === "View User" ? "View User":
+            payload.action === "Delete User" ? "Delete User": 
+            payload.action === "Ban User" ? "Ban User": 
+            payload.action === "Activate User" ? "Activate User": 
+            payload.action === "Edith User" ? "Edith User": "Create New User"
+          }
+          dialogActions={dialogActions}
+          open={open}
+          handleClose={handleClose}
+        >
+          {
+            payload.action === "View User" ? (
+              <ViewUser user={payload.user} />
+            ) : payload.action === "Edith User" ? (
+              <EditUserForm 
+                userId={payload.user.id}
+                name={payload.user.name}
+                username={payload.user.username}
+                role={payload.user.role}
+              />
+            ):  payload.action === "Delete User" ? (
+              <DeleteUser userId={payload.user.id} />
+            ): payload.action === "Activate User" ? (
+              <ActivateUser userId={payload.user.id} />
+            ): payload.action === "Ban User" ? (
+              <BanUser userId={payload.user.id} />
+            ): (
+              <CreateUserForm />
+            )
+          }
+        </Dialog>
         
     </React.Fragment>
 
