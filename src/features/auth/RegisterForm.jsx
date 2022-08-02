@@ -11,7 +11,11 @@ import ContactPhoneIcon from '@mui/icons-material/ContactPhone';
 import { useForm, Controller } from "react-hook-form";
 import { yupResolver } from '@hookform/resolvers/yup';
 import Fab from '@mui/material/Fab';
+import { Alert } from '@mui/material';
 import { registerSchema } from "./schema"
+import CircularProgress from "../../components/Feedback/CircularProgress"
+import { useRegisterMutation } from '../../services/authApi';
+
   
 
 export default function Form() {
@@ -32,6 +36,8 @@ export default function Form() {
     event.preventDefault();
   };
 
+  const [register, {isLoading, isError, isSuccess, error, data}] = useRegisterMutation()
+
 
   const { handleSubmit, control, formState:{ errors } } = useForm({
         mode: "all",
@@ -45,7 +51,7 @@ export default function Form() {
     });
 
     const onSubmit = data => {
-        console.log(data);
+        register(data)
     }
 
       
@@ -168,9 +174,27 @@ export default function Form() {
               </FormControl>)
             }/>
 
-            <Fab type="submit" variant="extended" size="large" color="primary" aria-label="recharge"
-            sx={{px: 6}}>
-            Register!
+            {
+              isSuccess && data ? (
+                <Alert severity="success" sx={{ mb: 2 }}>
+                  "Your Account Registrtion is Successful!"
+                </Alert>
+              ): isError? (
+                <Alert severity="error" sx={{ mb: 2 }}>
+                  {error.data.error.message}
+                </Alert>
+              ): null
+            }
+
+            <Fab 
+              type="submit" 
+              variant="extended" 
+              size="large" 
+              color="primary" 
+              aria-label="recharge"
+              sx={{px: 6}}
+            >
+            { isLoading ? <CircularProgress />: "Register!"}
             </Fab>                             
         </form>
       </React.Fragment>

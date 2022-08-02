@@ -34,6 +34,19 @@ export const authApi = createApi({
       invalidatesTags: [{ type: 'AuthApi'}],
     }),
 
+    register: build.mutation({
+      query(body) {
+        return {
+          url: `register`,
+          method: 'POST',
+          body,
+        }
+      },
+      // Invalidates all User-type queries providing the `LIST` id - after all, depending of the sort order,
+      // that newly created user could show up in any lists.
+      invalidatesTags: [{ type: 'AuthApi'}],
+    }),
+
 
       logoutApi: build.mutation({
       query() {
@@ -57,6 +70,7 @@ export const authApi = createApi({
 
 export const {
   useAuthApiMutation,
+  useRegisterMutation,
   useRefreshTokenApiMutation,
   useLogoutApiMutation,
   useGetProfileQuery,

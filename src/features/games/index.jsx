@@ -295,7 +295,7 @@ export default function Games() {
                   />
                 </Grid>           
 
-                <Grid item xs={12} md={4}>
+                <Grid item xs={12} >
                   {
                     gameResult ? <GamePad gameId={gameResult.active_game_id} /> : null
                   }
