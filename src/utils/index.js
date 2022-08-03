@@ -8,7 +8,7 @@ import currency from "currency.js"
 
 
 // export const API_URL = 'https://magandabet.com/api/v1/';
-export const API_URL = 'https://magandabet.com/api/v1/';
+export const API_URL = 'https://magandabet.com/api/v1';
 export const SSE_URL = 'https://magandabet.com/api/sse/v1';
 
 
