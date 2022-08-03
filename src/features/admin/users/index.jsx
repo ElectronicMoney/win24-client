@@ -8,7 +8,7 @@ import { Paper } from '@mui/material';
 import { useGetUsersQuery } from '../../../services/usersApi';
 import Pagination from '../../../components/Navigation/Pagination'
 import CustomCard from '../../../components/Surfaces/CustomCard';
-import UsersTable  from '../../../containers/UsersTable';
+import UsersTable  from './UsersTable';
 import SearchForm from "./SearchForm"
 import CreateUserForm from "./CreateUserForm"
 import EditUserForm from "./EditUserForm"

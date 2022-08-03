@@ -25,14 +25,14 @@ export const accountsApi = createApi({
     }),
     
     getAccount: build.query({
-      query: (id) => `accountsAps/${id}`,
+      query: (id) => `accounts/${id}`,
       providesTags: (result, error, id) => [{ type: 'Accounts', id }],
     }),
 
     createAccount: build.mutation({
       query(body) {
         return {
-          url: `accountsAps`,
+          url: `accounts`,
           method: 'POST',
           body,
         }
@@ -46,7 +46,7 @@ export const accountsApi = createApi({
       query(data) {
         const { id, ...body } = data
         return {
-          url: `accountsAps/${id}`,
+          url: `accounts/${id}`,
           method: 'PATCH',
           body,
         }
@@ -59,7 +59,7 @@ export const accountsApi = createApi({
     deleteAccount: build.mutation({
       query(id) {
         return {
-          url: `accountsAps/${id}`,
+          url: `accounts/${id}`,
           method: 'DELETE',
         }
       },

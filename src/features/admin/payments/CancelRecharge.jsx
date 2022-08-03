@@ -1,18 +1,18 @@
 import React from 'react';
 import { Alert } from '@mui/material';
 import Fab from '@mui/material/Fab';
-import { useUpdateUserMutation } from '../../../services/usersApi';
+import { useUpdateRechargeMutation } from '../../../services/rechargesApi';
 import CircularProgress from "../../../components/Feedback/CircularProgress"
 
 
 
-function ActivateUser({userId}) {
+function CancelRecharge({rechargeId}) {
 
-    const userIdMemo = React.useMemo(() => {
-        return userId
-    },[userId])
+    const rechargeIdMemo = React.useMemo(() => {
+        return rechargeId
+    },[rechargeId])
     
-    const [updateUser, {isLoading, isError, isSuccess, error, data}] = useUpdateUserMutation()
+    const [updateRecharge, {isLoading, isError, isSuccess, error, data}] = useUpdateRechargeMutation()
 
     return ( 
         <React.Fragment>
@@ -20,7 +20,7 @@ function ActivateUser({userId}) {
             {
               isSuccess && data ? (
                 <Alert severity="success" sx={{ mb: 2 }}>
-                  "The user Account has been Activated Successfully!"
+                  "The Recharge Payment has been Cancelled Successfully!"
                 </Alert>
               ): isError? (
                 <Alert severity="error" sx={{ mb: 2 }}>
@@ -28,7 +28,7 @@ function ActivateUser({userId}) {
                 </Alert>
               ): (
                 <Alert severity="warning" sx={{ my: 3 }}>
-                    Are You sure you want to Activate this user Account?
+                    Are You sure you want to Cancel this Recharge Payment?
                 </Alert>
               )
             }
@@ -39,12 +39,12 @@ function ActivateUser({userId}) {
             color="primary" 
             aria-label="banUser"
             sx={{px: 6}}
-            onClick={() => updateUser({id:userIdMemo, is_active:true}) }
+            onClick={() => updateRecharge({id:rechargeIdMemo, status:"CANCELLED"}) }
             >
-                { isLoading ? <CircularProgress />: "Activate User!"}
+                { isLoading ? <CircularProgress />: "Cancel Recharge!"}
             </Fab>                             
         </React.Fragment>
      );
 }
 
-export default ActivateUser;
+export default CancelRecharge;

@@ -9,6 +9,9 @@ const HomeLayout      = React.lazy(() => import('../layouts/HomeLayout'));
 const AppLayout       = React.lazy(() => import('../layouts/AppLayout'));
 const AdminLayout     = React.lazy(() => import('../layouts/AdminLayout'));
 
+const Users           = React.lazy(() => import("../pages/admin/users"));
+const Payments           = React.lazy(() => import("../pages/admin/payments"));
+
 const Home            = React.lazy(() => import("../pages"));
 const AppHome         = React.lazy(() => import("../pages/home"));
 const AboutUs         = React.lazy(() => import("../pages/about"));
@@ -20,7 +23,6 @@ const Login           = React.lazy(() => import("../pages/login"));
 const Register        = React.lazy(() => import("../pages/register"));
 const ForgetPassword  = React.lazy(() => import("../pages/passwords"));
 const AdminLogin      = React.lazy(() => import("../pages/admin/login"));
-const Users           = React.lazy(() => import("../pages/admin/users"));
 const Dashboard       = React.lazy(() => import("../pages/admin/dashboard"));
 const Wallet          = React.lazy(() => import("../pages/wallets"));
 const GameRules       = React.lazy(() => import("../pages/rules"));
@@ -75,7 +77,7 @@ export default function AppRouter() {
                         <Route path="users" element={<Users />} />
                         <Route path="games" element={<Dashboard />} />
                         <Route path="bets" element={<Dashboard />} />
-                        <Route path="payments" element={<Dashboard />} />
+                        <Route path="payments" element={<Payments />} />
                         <Route path="settings" element={<Dashboard />} />
                         <Route path="logout" element={<Dashboard />} />
                     </Route>

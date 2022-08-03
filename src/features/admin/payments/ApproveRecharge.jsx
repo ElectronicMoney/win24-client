@@ -1,18 +1,18 @@
 import React from 'react';
 import { Alert } from '@mui/material';
 import Fab from '@mui/material/Fab';
-import { useUpdateUserMutation } from '../../../services/usersApi';
+import { useUpdateRechargeMutation } from '../../../services/rechargesApi';
 import CircularProgress from "../../../components/Feedback/CircularProgress"
 
 
 
-function ActivateUser({userId}) {
+function ApproveRecharge({rechargeId}) {
 
-    const userIdMemo = React.useMemo(() => {
-        return userId
-    },[userId])
+    const rechargeIdMemo = React.useMemo(() => {
+        return rechargeId
+    },[rechargeId])
     
-    const [updateUser, {isLoading, isError, isSuccess, error, data}] = useUpdateUserMutation()
+    const [updateRecharge, {isLoading, isError, isSuccess, error, data}] = useUpdateRechargeMutation()
 
     return ( 
         <React.Fragment>
@@ -20,15 +20,15 @@ function ActivateUser({userId}) {
             {
               isSuccess && data ? (
                 <Alert severity="success" sx={{ mb: 2 }}>
-                  "The user Account has been Activated Successfully!"
+                  "The Recharge Payment has been Approved Successfully!"
                 </Alert>
               ): isError? (
                 <Alert severity="error" sx={{ mb: 2 }}>
                   {error.data.error.message}
                 </Alert>
               ): (
-                <Alert severity="warning" sx={{ my: 3 }}>
-                    Are You sure you want to Activate this user Account?
+                <Alert severity="info" sx={{ my: 3 }}>
+                    Are You sure you want to Approve this Recharge Payment?
                 </Alert>
               )
             }
@@ -39,12 +39,13 @@ function ActivateUser({userId}) {
             color="primary" 
             aria-label="banUser"
             sx={{px: 6}}
-            onClick={() => updateUser({id:userIdMemo, is_active:true}) }
+            onClick={() => updateRecharge({id:rechargeIdMemo, status:"COMPLETED"}) }
             >
-                { isLoading ? <CircularProgress />: "Activate User!"}
+                { isLoading ? <CircularProgress />: "Cancel Recharge!"}
             </Fab>                             
         </React.Fragment>
      );
 }
 
-export default ActivateUser;
+
+export default ApproveRecharge;

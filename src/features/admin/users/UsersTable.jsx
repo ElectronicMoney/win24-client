@@ -25,8 +25,8 @@ import CloseIcon from '@mui/icons-material/Close';
 import { purple } from '@mui/material/colors';
 import Button from '@mui/material/Button';
 import AddBoxIcon from '@mui/icons-material/AddBox';
-import { formatMoney, formatDate, getRole } from '../utils';
-import Dialog from "../components/Feedback/Dialog"
+import { formatMoney, formatDate, getRole } from '../../../utils';
+import Dialog from "../../../components/Feedback/Dialog"
 
 
 const Item = styled(Paper)(({ theme }) => ({
