@@ -122,10 +122,12 @@ export const formatMoney = (amount, locale='fil-PH') => {
 
 
 export const formatDate = (date, locale='fil-PH') => {
+  // const dateTime = new Date(date).toLocaleString(locale);
   const dateTime = new Date(date);
   return new Intl.DateTimeFormat(
   locale, { dateStyle: 'short', timeStyle: 'short' }
-  ).format(dateTime);
+  ).format(dateTime);  
+  return dateTime
 }
 
 export const getRole = (isAdmin, isStaff, isAgent) => {

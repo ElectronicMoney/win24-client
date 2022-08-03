@@ -25,7 +25,7 @@ const SpanTimmer = styled("span")(() => ({
 
 
 
-export default function CountDownTimer({open, handleClose}) {
+export default function CountDownTimer({open, handleClose }) {
 
 
   const Renderer = ({ minutes, seconds }) => {

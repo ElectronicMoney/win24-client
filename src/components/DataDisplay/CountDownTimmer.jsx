@@ -59,7 +59,7 @@ function CountDownTimmer({renderer:Renderer, date, dateIncrement, onMount, onTic
         // dateIncrement
         let increment = getDateIncrement || 0
         // Set the date we're counting down to
-        const countDownDate = new Date(getDate).getTime() + increment + 2000;
+        const countDownDate = new Date(getDate).getTime() + increment + 28800000;
 
         // const countDownDate = new Date("Jan 5, 2024 15:37:25").getTime();
 
