@@ -39,6 +39,7 @@ function BetForm({betData}) {
 
     const onSubmit = data => {
         const betInfo = {...betData, ...data}
+        // console.log(betInfo)
         createBet(betInfo);
     }
 

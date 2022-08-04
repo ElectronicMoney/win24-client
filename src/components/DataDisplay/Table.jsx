@@ -109,13 +109,19 @@ const FormatStatus = (props) => {
   }
 }
 
-const FormatStake = ({status, color, number, size}) => {
+const FormatStake = ({status, is_color, is_number, is_size, color, number, size}) => {
   if (status === "PENDING") {
-    return <FormatSpan color="#333" bg="#cfd8dc">{color ? color: number ? number: size}</FormatSpan>
+    return <FormatSpan color="#333" bg="#cfd8dc">
+      {is_color ? color :  is_number ? number: is_size ? size: ""}
+      </FormatSpan>
   } else if (status === "WIN" || status === "COMPLETED") {
-    return <FormatSpan color="#33691e" bg="#c5e1a5">{color ? color: number ? number: size}</FormatSpan>
+    return <FormatSpan color="#33691e" bg="#c5e1a5">
+      {is_color ? color :  is_number ? number: is_size ? size: ""}    
+    </FormatSpan>
   } else {
-    return <FormatSpan color="#b71c1c" bg="#ef9a9a">{color ? color: number ? number: size}</FormatSpan>
+    return <FormatSpan color="#b71c1c" bg="#ef9a9a">
+      {is_color ? color :  is_number ? number: is_size ? size: ""}
+    </FormatSpan>
   }
 }
 
@@ -299,7 +305,10 @@ const BetsTable = ({bets}) => {
                   </StyledTableCell>
                   <StyledTableCell align="right"> 
                     <FormatStake 
-                      status={bet.status} 
+                      status={bet.status}
+                      is_color={bet.is_color} 
+                      is_number={bet.is_number}
+                      is_size={bet.is_size}
                       color={bet.color} 
                       number={bet.number} 
                       size={bet.size}

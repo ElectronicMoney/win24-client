@@ -41,7 +41,7 @@ function ApproveRecharge({rechargeId}) {
             sx={{px: 6}}
             onClick={() => updateRecharge({id:rechargeIdMemo, status:"COMPLETED"}) }
             >
-                { isLoading ? <CircularProgress />: "Cancel Recharge!"}
+                { isLoading ? <CircularProgress />: "Approve Recharge!"}
             </Fab>                             
         </React.Fragment>
      );
