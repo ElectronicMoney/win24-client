@@ -109,6 +109,18 @@ const FormatStatus = (props) => {
   }
 }
 
+const FormatStake = ({status, color, number, size}) => {
+  if (status === "PENDING") {
+    return <FormatSpan color="#333" bg="#cfd8dc">{color ? color: number ? number: size}</FormatSpan>
+  } else if (status === "WIN" || status === "COMPLETED") {
+    return <FormatSpan color="#33691e" bg="#c5e1a5">{color ? color: number ? number: size}</FormatSpan>
+  } else {
+    return <FormatSpan color="#b71c1c" bg="#ef9a9a">{color ? color: number ? number: size}</FormatSpan>
+  }
+}
+
+
+
 
 const CreateCircle = (props) => {
   let colorDot = "red"
@@ -273,7 +285,9 @@ const BetsTable = ({bets}) => {
             <TableHead>
               <TableRow>
                 <StyledTableCell>Date</StyledTableCell>
+                <StyledTableCell align="right">My Stake</StyledTableCell>
                 <StyledTableCell align="right">Bet Amount</StyledTableCell>
+                <StyledTableCell align="right">Win Amount</StyledTableCell>
                 <StyledTableCell align="right">Status</StyledTableCell>
               </TableRow>
             </TableHead>
@@ -283,10 +297,25 @@ const BetsTable = ({bets}) => {
                   <StyledTableCell>
                     {formatDate(bet.created_at)}
                   </StyledTableCell>
+                  <StyledTableCell align="right"> 
+                    <FormatStake 
+                      status={bet.status} 
+                      color={bet.color} 
+                      number={bet.number} 
+                      size={bet.size}
+                    />
+                  </StyledTableCell>
+
                   <StyledTableCell align="right">
-                    <FormatStatus status={bet.status}> {formatMoney(bet.bet_amount)}
+                    <FormatStatus status={bet.status}> 
+                      {formatMoney(bet.bet_amount)}
                     </FormatStatus>
-                    </StyledTableCell>
+                  </StyledTableCell>
+                  <StyledTableCell align="right">
+                    <FormatStatus status={bet.status}> 
+                      {formatMoney(bet.win_amount)}
+                    </FormatStatus>
+                  </StyledTableCell>
                   <StyledTableCell align="right"> 
                     <FormatStatus status={bet.status}> {bet.status} </FormatStatus> 
                   </StyledTableCell>

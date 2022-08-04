@@ -27,6 +27,7 @@ import CountDownTimer from './CountDownTimer';
 import GamePad from "./GamePad"
 
 
+
 const Item = styled(Paper)(({ theme }) => ({
     backgroundColor: theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
     ...theme.typography.body2,
@@ -54,24 +55,11 @@ const SpanTimmer = styled("span")(() => ({
 export default function Games() {
 
     const [open, setOpen] = React.useState(false);
-
-    const handleClickOpen = () => {
-      setOpen(true);
-    };
-
-    const handleClose = (event, reason) => {
-      // "escapeKeyDown", "backdropClick"
-      if(reason !== 'backdropClick' && reason !== 'escapeKeyDown') {
-        // Set 'open' to false, however you would do that with your particular code.
-        setOpen(false);
-      }
-
-    };
-
-    
+        
     const [gameResult, setGameResult] = React.useState(null);
 
     const auth = useSelector(state => state.auth)
+
 
     const gameResultCallback = React.useCallback((data) => {
          setGameResult(data)
@@ -101,6 +89,22 @@ export default function Games() {
 
         // eslint-disable-next-line
     }, []);
+
+    
+
+    const handleClickOpen = () => {
+      setOpen(true);
+    };
+
+    const handleClose = (event, reason) => {
+      // "escapeKeyDown", "backdropClick"
+      if(reason !== 'backdropClick' && reason !== 'escapeKeyDown') {
+        // Set 'open' to false, however you would do that with your particular code.
+        setOpen(false);
+      }
+
+    };
+
 
 
     const renderGameHistory = ()=> {
@@ -277,7 +281,7 @@ export default function Games() {
                                 dateIncrement={180000}
                                 renderer={Renderer}
                                 onTickCondition={handleClickOpen}
-                                // onComplete={getCurrentGame}
+                                // onComplete={getCurrentGames}
                               /> 
 
                             ): null
