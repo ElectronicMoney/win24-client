@@ -89,7 +89,7 @@ const DoubleColorCircle = styled("span")(({color}) => ({
 }));
 
 const FormatSpan = styled("span")(({color, bg}) => ({
-    fontSize: "14px",
+    fontSize: "0.75rem",
     fontWeight: 500,
     background: `${bg}`,
     color: `${color}`,
@@ -317,12 +317,20 @@ const BetsTable = ({bets}) => {
 
                   <StyledTableCell align="right">
                     <FormatStatus status={bet.status}> 
-                      {formatMoney(bet.bet_amount)}
+                      {
+                      bet.status === "LOSS" ? (
+                        `-${formatMoney(bet.bet_amount)}`
+                      ): formatMoney(bet.bet_amount)
+                    }
                     </FormatStatus>
                   </StyledTableCell>
                   <StyledTableCell align="right">
                     <FormatStatus status={bet.status}> 
-                      {formatMoney(bet.win_amount)}
+                      {
+                          bet.status === "WIN" ? (
+                            `+${formatMoney(bet.win_amount)}`
+                        ): formatMoney(bet.win_amount)
+                      }
                     </FormatStatus>
                   </StyledTableCell>
                   <StyledTableCell align="right"> 
