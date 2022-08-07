@@ -14,7 +14,7 @@ import { formatDate, formatMoney } from '../../utils';
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
   [`&.${tableCellClasses.head}`]: {
     fontWeight: 600,
-    fontSize: 16,
+    fontSize: "1rem",
 
   },
   [`&.${tableCellClasses.body}`]: {

@@ -35,7 +35,9 @@ export default function Users() {
         isLoading, 
         isError, 
         isSuccess 
-    } = useGetUsersQuery(page)
+    } = useGetUsersQuery(page, {
+        pollingInterval: 3000,
+    })
     // Individual hooks are also accessible under the generated endpoints:
     // const { data, error, isLoading } = pokemonApi.endpoints.getPokemonByName.useQuery('bulbasaur')
 

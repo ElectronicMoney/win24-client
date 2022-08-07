@@ -58,8 +58,18 @@ function CountDownTimmer({renderer:Renderer, date, dateIncrement, onMount, onTic
         handleOnMount()
         // dateIncrement
         let increment = getDateIncrement || 0
+        // Get the browser timezone offset in minutes and convert it to miliseonds
+        /* The time-zone offset is the difference, in minutes, 
+         between UTC and local time. Note that this means that the offset is 
+         positive if the local timezone is behind UTC and negative if it is ahead. 
+         For example, if your time zone is UTC+10 (Australian Eastern Standard Time), 
+         -600 will be returned. Daylight savings time prevents this value from being 
+         a constant even for a given locale
+         */
+        let offset = new Date().getTimezoneOffset() * 60 * 1000
+        
         // Set the date we're counting down to
-        const countDownDate = new Date(getDate).getTime() + increment + 28800000;
+        const countDownDate = new Date(getDate).getTime() + increment - (offset);
 
         // const countDownDate = new Date("Jan 5, 2024 15:37:25").getTime();
 

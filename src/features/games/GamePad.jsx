@@ -99,9 +99,9 @@ function GamePad({gameId}) {
       is_color: false,
       is_number: false,
       is_size: false,
-      color: "",
+      color: null,
       number: null,
-      size: ""
+      size: null
     });
 
 
@@ -116,9 +116,9 @@ function GamePad({gameId}) {
           is_color: false,
           is_number: false,
           is_size: false,
-          color: "",
+          color: null,
           number: null,
-          size: ""
+          size: null
       }
 
       if (parseInt(data) === 0 || parseInt(data) === 5) {
