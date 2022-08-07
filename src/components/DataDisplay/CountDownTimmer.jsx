@@ -68,8 +68,13 @@ function CountDownTimmer({renderer:Renderer, date, dateIncrement, onMount, onTic
          */
         let offset = new Date().getTimezoneOffset() * 60 * 1000
         
+        // Have to split time funny for IOS and Safari NAN and timezone bug
+        let arr = getDate.split(/[- :]/)
+        const date = new Date(arr[0], arr[1]-1, arr[2], arr[3], arr[4], arr[5]);
+
         // Set the date we're counting down to
-        const countDownDate = new Date(getDate).getTime() + increment - (offset);
+        // const countDownDate = countDown + increment - (offset);
+        const countDownDate = new Date(date).getTime() + increment - (offset);
 
         // const countDownDate = new Date("Jan 5, 2024 15:37:25").getTime();
 
