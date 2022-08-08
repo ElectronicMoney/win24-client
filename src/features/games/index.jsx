@@ -5,9 +5,6 @@ import Paper from '@mui/material/Paper';
 import Typography from '@mui/material/Typography';
 import Fab from '@mui/material/Fab';
 import AccountBalanceWalletIcon from '@mui/icons-material/AccountBalanceWallet';
-import AccountBoxIcon from '@mui/icons-material/AccountBox';
-import ContactPhoneIcon from '@mui/icons-material/ContactPhone';
-import SportsEsportsIcon from '@mui/icons-material/SportsEsports';
 import List from '@mui/material/List';
 import ListItem from '@mui/material/ListItem';
 import ListItemIcon from '@mui/material/ListItemIcon';
@@ -147,47 +144,6 @@ export default function Games() {
                     <Grid container spacing={2}>
                       <Grid item xs={12}>
                         <List>
-                          <ListItem
-                          secondaryAction={
-                              <Typography variant="h5" component={"h2"}>
-                                {gameResult.name}
-                              </Typography>
-                            }
-                          >
-                            <ListItemIcon>
-                                <AccountBoxIcon color="primary" /> 
-                            </ListItemIcon>
-                            <ListItemText primary="Name:" /> 
-                          </ListItem>
-
-
-                          <ListItem
-                          secondaryAction={
-                              <Typography variant="h5" component={"h2"}>
-                                {gameResult.username}
-                              </Typography>
-                            }
-                          >
-                            <ListItemIcon>
-                                <ContactPhoneIcon color="primary" /> 
-                            </ListItemIcon>
-                            <ListItemText primary="Number:" /> 
-                          </ListItem>
-
-                          <ListItem
-                          secondaryAction={
-                              <Typography variant="h5" component={"h2"}>
-                                {gameResult.game_id}
-                              </Typography>
-                            }
-                          >
-                            <ListItemIcon>
-                                <SportsEsportsIcon color="primary" /> 
-                            </ListItemIcon>
-                            <ListItemText primary="Game ID:" /> 
-                          </ListItem>
-
-
                           <ListItem
                           secondaryAction={
                               <Typography 

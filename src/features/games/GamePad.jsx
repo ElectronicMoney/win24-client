@@ -462,7 +462,7 @@ function GamePad({gameId}) {
                   open={open}
                 >
               <Typography variant='h5' component="h5" 
-              sx={{mb:5}}
+              sx={{mb:2}}
               >
                 Enter the Amount you want to bet; then place your bet!
               </Typography>

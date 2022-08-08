@@ -70,9 +70,9 @@ function BetForm({betData}) {
                         />
                     </Grid>
 
-                    <Grid item xs={12} md={6} >
+                    <Grid item xs={12} md={6} sx={{textAlign:"center"}} >
                         <Fab type="submit" variant="extended" size="small" color="primary" aria-label="bet"
-                        sx={{px: 6, mt:5}}>
+                        sx={{px: 6, mt:2}}>
                         { isLoading ? <CircularProgress />: "Place Bet!"}
                         </Fab>                             
                     </Grid>
