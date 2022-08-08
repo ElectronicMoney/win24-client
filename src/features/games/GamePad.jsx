@@ -11,6 +11,9 @@ import { purple, red, green, lime } from '@mui/material/colors';
 import kickAudio from '../../assets/audios/kick3.mp3'
 import Dialog from "../../components/Feedback/Dialog"
 import BetForm from './BetForm'
+import { useDispatch, useSelector } from 'react-redux'
+import { setGameData } from './gameSlice';
+
 
 
 const Item = styled(Paper)(({ theme }) => ({
@@ -90,114 +93,93 @@ function GamePad({gameId}) {
     const [open, setOpen] = React.useState(false);
 
     const [display, setDisplay] = React.useState({
-     color: "#4a148c",
-     title: "Color Prediction Game"
+     color: "",
+     title: ""
     });
 
-    const [bet, setBet] = React.useState({
-      duration : 3,
-      is_color: false,
-      is_number: false,
-      is_size: false,
-      color: null,
-      number: null,
-      size: null
-    });
+    const dispatch = useDispatch()
+    const bet = useSelector(state => state.gameData)
 
-
-    const handleDisplay = (data) => {
-
-      let newColor = ""
-      let newTitle = ""
-
-      let newBet = {
-          duration : 3,
-          bet_amount: 1,
-          is_color: false,
-          is_number: false,
-          is_size: false,
-          color: null,
-          number: null,
-          size: null
-      }
-
-      if (parseInt(data) === 0 || parseInt(data) === 5) {
-        newColor = "#ab47bc"
-        newTitle = `Your Prediction is Number: ${data}`
-        newBet.is_number = true
-        newBet.number = parseInt(data)
-        setBet(newBet)
-      }
-      
-      if ( [1,3,7,9].includes( parseInt(data))) {
-        newColor = "#43a047"
-        newTitle = `Your Prediction is Number: ${data}`
-        newBet.is_number = true
-        newBet.number = parseInt(data)
-        setBet(newBet)
-      }
-
-      if ( [2,4,6,8].includes( parseInt(data))) {
-        newColor = "#e53935"
-        newTitle = `Your Prediction is Number: ${data}`
-        newBet.is_number = true
-        newBet.number = parseInt(data)
-        setBet(newBet)
-      }
-
-      if (data === "GREEN") {
-        newColor = "#43a047"
-        newTitle = `Your Prediction is Color: ${data}`
-        newBet.is_color = true
-        newBet.color = data
-        setBet(newBet)
-      }
-
-      if (data === "RED") {
-        newColor = "#e53935"
-        newTitle = `Your Prediction is Color: ${data}`
-        newBet.is_color = true
-        newBet.color = data
-        setBet(newBet)
-      }
-
-      if (data === "VIOLET") {
-        newColor = "#ab47bc"
-        newTitle = `Your Prediction is Color: ${data}`
-        newBet.is_color = true
-        newBet.color = data
-        setBet(newBet)
-      }
-
-
-      if (data === "BIG") {
-        newColor = "#43a047"
-        newTitle = `Your Prediction is Size: ${data}`
-        newBet.is_size = true
-        newBet.size = data
-        setBet(newBet)
-      }
-
-      if (data === "SMALL") {
-        newColor = "#827717"
-        newTitle = `Your Prediction is Size: ${data}`
-        newBet.is_size = true
-        newBet.size = data
-        setBet(newBet)
-      }
-
-      setDisplay({
-        color: newColor,
-        title: newTitle
-      })
-    }
 
     const handleClick = (event) => {
       const audio = new Audio(kickAudio);
       audio.play();
       const value = event.target.innerText
-      handleDisplay(value)
-      handleClickOpen()
+
+
+      if (value) {
+
+          if (parseInt(value) === 0 || parseInt(value) === 5) {
+            dispatch(setGameData({is_number:true, number:parseInt(value)}))
+            setDisplay(() => ({ 
+              color: "#ab47bc", 
+              title: `Your Prediction is Number: ${value}`
+            }))
+          }
+          
+          if ( [1,3,7,9].includes( parseInt(value))) {
+            dispatch(setGameData({is_number: true, number:parseInt(value)}))
+            setDisplay(() => ({ 
+              color: "#43a047", 
+              title: `Your Prediction is Number: ${value}`
+            }))
+
+          }
+
+          if ( [2,4,6,8].includes( parseInt(value))) {
+            dispatch(setGameData({is_number: true, number:parseInt(value)}))
+            setDisplay(() => ({ 
+              color: "#e53935", 
+              title: `Your Prediction is Number: ${value}`
+            }))
+          }
+
+          if (value === "GREEN") {
+            console.log("Yess GREEN")
+            dispatch(setGameData({is_color: true, color:value}))
+            setDisplay(() => ({ 
+              color: "#43a047", 
+              title: `Your Prediction is Color: ${value}`
+            }))
+          }
+
+          if (value === "RED") {
+            dispatch(setGameData({is_color: true, color:value}))
+            setDisplay(() => ({ 
+              color: "#e53935", 
+              title: `Your Prediction is Color: ${value}`
+            }))
+
+          }
+
+          if (value === "VIOLET") {
+            dispatch(setGameData({is_color: true, color:value}))
+            setDisplay(() => ({ 
+              color: "#ab47bc", 
+              title: `Your Prediction is Color: ${value}`
+            }))
+          }
+
+
+          if (value === "BIG") {
+            dispatch(setGameData({is_size: true, size:value}))
+            setDisplay(() => ({ 
+              color: "#43a047", 
+              title: `Your Prediction is Size: ${value}`
+            }))
+          }
+
+          if (value === "SMALL") {
+            dispatch(setGameData({is_size: true, size:value}))
+            setDisplay(() => ({ 
+              color: "#827717", 
+              title: `Your Prediction is Size: ${value}`
+            }))
+
+          }
+
+          handleClickOpen()
+      }
     }
 
     const handleClickOpen = () => {
@@ -213,6 +195,8 @@ function GamePad({gameId}) {
       }
 
     };
+    
+
 
 
     const dialogActions = () => {
@@ -245,8 +229,8 @@ function GamePad({gameId}) {
                     bg={green[800]}
                     hover={green[900]}
                     onClick={e=>handleClick(e)}
-                >
-                    Green
+                > 
+                <div><span>Green</span></div>
                 </CustomFab>
             </GameItem>
           </Grid>
@@ -260,7 +244,7 @@ function GamePad({gameId}) {
                     hover={purple[700]}
                     onClick={e=>handleClick(e)}
                     >
-                    Violet
+                    <div><span>Violet</span></div>
                 </CustomFab>
 
             </GameItem>
@@ -275,7 +259,8 @@ function GamePad({gameId}) {
                     red={red[800]}
                     hover={red[900]}
                     onClick={e=>handleClick(e)}>
-                    Red
+                    <div><span>Red</span></div>
+
                 </CustomFab>
             </GameItem>
           </Grid>
@@ -422,7 +407,7 @@ function GamePad({gameId}) {
                       borderBottomLeftRadius: "30px",
                     }}
                     >
-                    Big
+                    <div><span>Big</span></div>
                     </CustomButton>
 
                     <CustomButton
@@ -436,7 +421,7 @@ function GamePad({gameId}) {
                       borderBottomRightRadius: "30px",
                     }}
                     >
-                        Small
+                        <div><span>Small</span></div>
                     </CustomButton>
                 </ButtonGroup>
               </GameItem>
@@ -467,13 +452,15 @@ function GamePad({gameId}) {
                 </Grid>
             </Item>
 
-            <Dialog 
-              color={display.color}
-              title={display.title}
-              dialogActions={dialogActions}
-              handleClose={handleClose}
-              open={open}
-            >
+            {
+            bet ? (
+                <Dialog 
+                  color={display.color}
+                  title={display.title}
+                  dialogActions={dialogActions}
+                  handleClose={handleClose}
+                  open={open}
+                >
               <Typography variant='h5' component="h5" 
               sx={{mb:5}}
               >
@@ -481,6 +468,9 @@ function GamePad({gameId}) {
               </Typography>
               <BetForm  betData={{...bet, game_id:gameId}} />
             </Dialog>
+            ): null
+          
+          }
         </React.Fragment>
     );
 }

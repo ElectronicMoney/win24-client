@@ -19,7 +19,7 @@ const SpanTimmer = styled("span")(() => ({
   borderRadius: "10px",
   marginRight: "10px",
   marginLeft: "10px",
-  fontSize: "150px",
+  fontSize: "120px",
   fontWeight: 600
 }));
 
