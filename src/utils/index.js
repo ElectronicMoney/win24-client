@@ -12,7 +12,7 @@ import currency from "currency.js"
 // export const WS_URL = 'ws://127.0.0.1:8080/ws/v1';
 
 export const API_URL = 'https://magandabet.com/api/v1';
-export const SSE_URL = 'https://magandabet.com/api/sse/v1';
+export const SSE_URL = 'https://magandabet.com/sse/v1';
 export const WS_URL  = 'wss://magandabet.com/ws/sse/v1';
 
 
