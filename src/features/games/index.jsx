@@ -13,7 +13,7 @@ import Marquee from "react-fast-marquee";
 import AnnouncementIcon from '@mui/icons-material/Announcement';
 import { Link } from "react-router-dom";
 import { useSelector } from 'react-redux';
-import { formatMoney, SSE_URL } from '../../utils';
+import { formatMoney } from '../../utils';
 import Bg from "../../assets/images/3.png"
 import BetHistory from './BetHistory';
 import GameHistory from './GameHistory';
@@ -52,42 +52,8 @@ const SpanTimmer = styled("span")(() => ({
 export default function Games() {
 
     const [open, setOpen] = React.useState(false);
-        
-    const [gameResult, setGameResult] = React.useState(null);
-
-    const auth = useSelector(state => state.auth)
-
-
-    const gameResultCallback = React.useCallback((data) => {
-         setGameResult(data)
-        // eslint-disable-next-line
-    }, [])
-
-
-    React.useEffect(() => {
-        const sse = new EventSource(`${SSE_URL}/games?uuid=${auth.accessToken}`, { withCredentials: true });
-    
-        sse.addEventListener('game_message', (e) => {
-            const data = JSON.parse(e.data)
-            gameResultCallback(data)
-        });
-          
-        // user_wallet_balance
-        // active_game_date"
-        // sse.onmessage = e => getRealtimeData(e);
-        // sse.onerror = () => {
-        //     // error log here 
-            
-        //     sse.close();
-        // }
-        return () => {
-            sse.close();
-        };
-
-        // eslint-disable-next-line
-    }, []);
-
-    
+      
+    const activeGame = useSelector(state => state.sse.activeGame)
 
     const handleClickOpen = () => {
       setOpen(true);
@@ -101,7 +67,6 @@ export default function Games() {
       }
 
     };
-
 
 
     const renderGameHistory = ()=> {
@@ -139,7 +104,7 @@ export default function Games() {
                 <Grid item xs={12} md={4}>
 
                   {
-                    gameResult ? (
+                    activeGame ? (
                       <Item elevation={3}>
                     <Grid container spacing={2}>
                       <Grid item xs={12}>
@@ -151,7 +116,7 @@ export default function Games() {
                                   component={"h2"} 
                                   sx={{fontWeight: 600, color:"green", ml:2}}
                                   >
-                                    { formatMoney(gameResult.user_wallet_balance) }                                
+                                    { formatMoney(activeGame.user_wallet_balance) }                                
                               </Typography>
                             }
                           >
@@ -210,40 +175,42 @@ export default function Games() {
                   }}
                   >
                       <Grid container spacing={2}>
+                        {
+                          activeGame ? (
+                            <>
+                              <Grid item xs={7}>
+                                  <Typography variant="p" component={"p"}>
+                                    <strong>{activeGame.active_game_duration} </strong>
+                                    <strong>Minutes</strong> 
+                                  </Typography>
+                              </Grid>
 
-                        <Grid item xs={7}>
-                            <Typography variant="p" component={"p"}>
-                              3 Minutes
-                            </Typography>
-                        </Grid>
+                              <Grid item xs={5} sx={{textAlign: "right"}}>
+                                  <Typography component={"p"}>
+                                    Left Time To Buy
+                                  </Typography>
+                              </Grid>
 
-                        <Grid item xs={5} sx={{textAlign: "right"}}>
-                            <Typography component={"p"}>
-                              Left Time To Buy
-                            </Typography>
-                        </Grid>
+                              <Grid item xs={6}>
+                                  <Typography component={"h2"}>
+                                    <span>{activeGame.active_game_period} </span>
+                                  </Typography>
+                              </Grid>
 
-                        <Grid item xs={6}>
-                            <Typography component={"h2"}>
-                              202245958686
-                            </Typography>
-                        </Grid>
+                              <Grid item xs={6} sx={{textAlign: "right"}}>
+                                  <CountDownTimmer
+                                    date={activeGame.active_game_date}
+                                    dateIncrement={180000}
+                                    renderer={Renderer}
+                                    onTickCondition={handleClickOpen}
+                                    // onComplete={getCurrentGames}
+                                  /> 
+                              </Grid>
+                            </>
+                          ): null
+                        }
 
-                        <Grid item xs={6} sx={{textAlign: "right"}}>
-                          {
-                            gameResult ? (
-                              <CountDownTimmer
-                                date={gameResult.active_game_date}
-                                dateIncrement={180000}
-                                renderer={Renderer}
-                                onTickCondition={handleClickOpen}
-                                // onComplete={getCurrentGames}
-                              /> 
-
-                            ): null
-                          }
-                        </Grid>
-
+                      
                       </Grid>
                   </Item>
                 </Grid>
@@ -257,7 +224,7 @@ export default function Games() {
 
                 <Grid item xs={12} >
                   {
-                    gameResult ? <GamePad gameId={gameResult.active_game_id} /> : null
+                    activeGame ? <GamePad gameId={activeGame.active_game_id} /> : null
                   }
                 </Grid>
             </Grid>

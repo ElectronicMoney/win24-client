@@ -1,6 +1,8 @@
 import React from 'react';
 // import { useDispatch, useSelector } from 'react-redux'
 import AppRouter from './router'
+import SSEvent from './features/sse'
+
 // import { setAuthUser } from './features/auth/authSlice';
 // import { useRefreshTokenApiMutation } from './services/authApi';
 
@@ -33,9 +35,12 @@ function App() {
   //   dispatch(setAuthUser({accessToken: data.token}))
   // }
 
+
   return ( 
     <React.Fragment>
-      <AppRouter />
+      <SSEvent>
+        <AppRouter />
+      </SSEvent>
     </React.Fragment>
    );
 }

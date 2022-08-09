@@ -222,7 +222,7 @@ const GamesTable = ({games}) => {
                   game.winning_size ? (
                       <StyledTableRow key={game.id}>
                       <StyledTableCell>
-                        {formatDate(game.created_at)}
+                        {game.period}
                       </StyledTableCell>
                       <StyledTableCell align="right"> 
                         <FormatNumber color={game.winning_color} number={game.winning_number} /> 
@@ -261,7 +261,7 @@ const ChartTable = ({games}) => {
                 game.winning_size ? (
                   <StyledTableRow key={game.id}>
                   <StyledTableCell>
-                    {formatDate(game.created_at)}
+                    {game.period}
                   </StyledTableCell>
                   <StyledTableCell align="right"> 
                     <FormatChartData game={game} key={index} />

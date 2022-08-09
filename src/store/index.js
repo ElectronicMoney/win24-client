@@ -1,6 +1,7 @@
 import { configureStore } from '@reduxjs/toolkit'
 // Or from '@reduxjs/toolkit/query/react'
 import { setupListeners } from '@reduxjs/toolkit/query'
+import sseSlice from '../features/sse/sseSlice'
 import authSlice from '../features/auth/authSlice'
 import gameSlice from '../features/games/gameSlice'
 
@@ -16,6 +17,7 @@ import { accountsApi } from "../services/accountsApi"
 export const store = configureStore({
   reducer: {
     // Add the generated reducer as a specific top-level slice
+    sse:sseSlice,
     auth: authSlice,
     gameData:gameSlice,
     [authApi.reducerPath]: authApi.reducer,
