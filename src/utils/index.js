@@ -13,7 +13,7 @@ import currency from "currency.js"
 
 export const API_URL = 'https://magandabet.com/api/v1';
 export const SSE_URL = 'https://magandabet.com/sse/v1';
-export const WS_URL  = 'wss://magandabet.com/ws/sse/v1';
+export const WS_URL  = 'wss://magandabet.com/ws/v1';
 
 
 export const sliderItems = [
