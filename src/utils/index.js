@@ -11,9 +11,9 @@ import currency from "currency.js"
 // export const SSE_URL = 'http://127.0.0.1:8080/sse/v1';
 // export const WS_URL = 'ws://127.0.0.1:8080/ws/v1';
 
-export const API_URL = 'https://magandabet.com/api/v1';
-export const SSE_URL = 'https://magandabet.com/sse/v1';
-export const WS_URL  = 'wss://magandabet.com/ws/v1';
+export const API_URL = 'https://win24.vip/api/v1';
+export const SSE_URL = 'https://win24.vip/sse/v1';
+export const WS_URL  = 'wss://win24.vip/ws/v1';
 
 
 export const sliderItems = [

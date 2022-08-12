@@ -1,11 +1,9 @@
 import React from 'react';
-// import { useDispatch, useSelector } from 'react-redux'
 import AppRouter from './router'
-import SSEvent from './features/sse'
 
 // import { setAuthUser } from './features/auth/authSlice';
 // import { useRefreshTokenApiMutation } from './services/authApi';
-
+    
 
 function App() {
 
@@ -38,9 +36,7 @@ function App() {
 
   return ( 
     <React.Fragment>
-      <SSEvent>
         <AppRouter />
-      </SSEvent>
     </React.Fragment>
    );
 }

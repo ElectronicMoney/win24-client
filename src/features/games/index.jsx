@@ -13,7 +13,7 @@ import Marquee from "react-fast-marquee";
 import AnnouncementIcon from '@mui/icons-material/Announcement';
 import { Link } from "react-router-dom";
 import { useSelector } from 'react-redux';
-import { formatMoney } from '../../utils';
+import { formatMoney, SSE_URL } from '../../utils';
 import Bg from "../../assets/images/3.png"
 import BetHistory from './BetHistory';
 import GameHistory from './GameHistory';
@@ -52,8 +52,40 @@ const SpanTimmer = styled("span")(() => ({
 export default function Games() {
 
     const [open, setOpen] = React.useState(false);
+    const [activeGame, setActiveGame] = React.useState(null);
       
-    const activeGame = useSelector(state => state.sse.activeGame)
+    const auth = useSelector(state => state.auth)
+
+    const setActiveGameCallback = React.useCallback((data) => {
+      return setActiveGame(data)
+      // eslint-disable-next-line
+    }, [])
+
+    React.useEffect(() => {
+        const sse = new EventSource(`${SSE_URL}/stream?uuid=${auth.accessToken}`, { withCredentials: true });
+
+        sse.addEventListener('active_game', (e) => {
+            const data = JSON.parse(e.data)
+            // Set the active game
+            setActiveGameCallback(data)
+        });
+
+        
+        // sse.onmessage = e => {
+        //     console.log(e)
+        // }
+
+        // sse.onerror = () => {
+        //     // error log here 
+        //     sse.close();
+        // }
+
+        // return () => {
+        //     sse.close();
+        // };
+        // eslint-disable-next-line
+    }, []);
+
 
     const handleClickOpen = () => {
       setOpen(true);

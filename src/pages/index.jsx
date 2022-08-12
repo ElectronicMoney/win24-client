@@ -83,7 +83,7 @@ function Home() {
             <div>
                 <img src={Animate} alt='Title' loading="lazy" width={100}/>
                 <HeadingPrimary>
-                    <HeadingPrimaryMain>Maganda Bet</HeadingPrimaryMain>
+                    <HeadingPrimaryMain>Win24</HeadingPrimaryMain>
                     <HeadingPrimarySub>The Easiest way to earn money from your phone</HeadingPrimarySub> 
                 </HeadingPrimary>
                 <LoginButton 
