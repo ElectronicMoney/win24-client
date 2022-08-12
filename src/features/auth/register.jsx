@@ -37,7 +37,7 @@ export default function Register() {
                     />
                     <CardContent>
                         <Typography gutterBottom variant="h5" component="div">
-                            Register with Maganda Bet!
+                            Register Now with Win24!
                         </Typography>
                         <RegisterForm />
                     </CardContent>

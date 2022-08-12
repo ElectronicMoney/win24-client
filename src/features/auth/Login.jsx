@@ -35,8 +35,7 @@ export default function Register() {
                     />
                     <CardContent>
                         <Typography gutterBottom variant="h5" component="div">
-                            Maganda Bet Secure Login!
-                            
+                            Win24 Secure Login!
                         </Typography>
                         <Form />
                     </CardContent>
