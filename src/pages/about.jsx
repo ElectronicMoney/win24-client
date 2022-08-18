@@ -49,7 +49,7 @@ export default function Wallet() {
                     </Typography>
 
                     <Typography variant="h5" component="p">
-                        If you’ve just entered the exciting world of MagandaBet for the first time, then you’ll be able to net a 100% Bonus up to $250 on your first deposit, with our sign-up offer, and if you’re an old-timer, don’t think you’ll be left on the bench and forgotten about.
+                        If you’ve just entered the exciting world of Win24 for the first time, then you’ll be able to net a 100% Bonus up to $250 on your first deposit, with our sign-up offer, and if you’re an old-timer, don’t think you’ll be left on the bench and forgotten about.
                         You’ll have access to a whole host of great offers once you sign up, including the chance to earn Free Bets every day with our 5.00+ winner offer; price boosts on all the big events; a weekly shot at winning $10k in cash with our weekly predictor game, Perfect 10 and much more.
                         We’re winner oriented. We don’t believe in giving money back on losing bets but, instead, we reward our winners. That’s why you’ll see frequent promotions giving you the chance to double your winnings, plus free bets on winning wagers.
                     </Typography>
@@ -67,7 +67,7 @@ export default function Wallet() {
                     </Typography>
 
                     <Typography variant="h5" component="p">
-                        As a bettor at MagandaBet, you are truly valued. You’ll be able to contact us at any time and our 24/7 Customer Support Service or Live Online Chat Team will be here to assist you, whatever the question.
+                        As a bettor at Win24, you are truly valued. You’ll be able to contact us at any time and our 24/7 Customer Support Service or Live Online Chat Team will be here to assist you, whatever the question.
                     </Typography>
 
                     <Typography variant="h5" component="h3">
@@ -83,7 +83,7 @@ export default function Wallet() {
                     </Typography>
 
                     <Typography variant="h5" component="p">
-                        With Free Bets, Double Winnings, cash prizes and much more, you’d be crazy not to jump on board. What are you waiting for? Put on your orange jersey and make your MagandaBet debut today.
+                        With Free Bets, Double Winnings, cash prizes and much more, you’d be crazy not to jump on board. What are you waiting for? Put on your orange jersey and make your Win24 debut today.
                     </Typography>
                 </Item>
             </Grid>

@@ -319,7 +319,7 @@ const BetsTable = ({bets}) => {
                     <FormatStatus status={bet.status}> 
                       {
                       bet.status === "LOSS" ? (
-                        `-${formatMoney(bet.bet_amount)}`
+                        `${formatMoney(bet.bet_amount)}`
                       ): formatMoney(bet.bet_amount)
                     }
                     </FormatStatus>
@@ -328,7 +328,7 @@ const BetsTable = ({bets}) => {
                     <FormatStatus status={bet.status}> 
                       {
                           bet.status === "WIN" ? (
-                            `+${formatMoney(bet.win_amount)}`
+                            `${formatMoney(bet.win_amount)}`
                         ): formatMoney(bet.win_amount)
                       }
                     </FormatStatus>
