@@ -109,14 +109,14 @@ export const roles = [
 
 const getCurrencyByLocale = (locale) => {
     let currency = "";
-    if (locale === "fil-PH") {
-        currency ='PHP';
+    if (locale === "en_US") {
+        currency ='USD';
     }
     return currency
 }
 
 
-export const formatMoney = (amount, locale='fil-PH') => {
+export const formatMoney = (amount, locale='en_US') => {
     const formattedAmount = new Intl.NumberFormat(
       locale, 
       { style: 'currency', currency: getCurrencyByLocale(locale)}
@@ -125,7 +125,7 @@ export const formatMoney = (amount, locale='fil-PH') => {
 }
 
 
-export const formatDate = (date, locale='fil-PH') => {
+export const formatDate = (date, locale='en_US') => {
   // const dateTime = new Date(date).toLocaleString(locale);
   const dateTime = new Date(date);
   return new Intl.DateTimeFormat(
