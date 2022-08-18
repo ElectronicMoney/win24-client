@@ -4,8 +4,8 @@ import { formatMoney } from '../../utils';
 
 
 export const schema = object({
-  amount: string().test("amount", `The minimum amount you can Withdraw is ${formatMoney(100)}`, 
-  (value) => currency(value)  >= 100,
+  amount: string().test("amount", `The minimum amount you can Withdraw is ${formatMoney(10)}`, 
+  (value) => currency(value)  >= 10,
   )
   .required("The Amount is Required!")
   .transform((currentValue) => currency(currentValue).toString()),
