@@ -7,11 +7,11 @@ import Visibility from '@mui/icons-material/Visibility';
 import VisibilityOff from '@mui/icons-material/VisibilityOff';
 import AccountBoxIcon from '@mui/icons-material/AccountBox';
 import LockIcon from '@mui/icons-material/Lock';
-import ContactPhoneIcon from '@mui/icons-material/ContactPhone';
 import { useForm, Controller } from "react-hook-form";
 import { yupResolver } from '@hookform/resolvers/yup';
 import Fab from '@mui/material/Fab';
 import { Alert } from '@mui/material';
+import CountryMenu from '../../components/Navigation/CountryMenu';
 import { registerSchema } from "./schema"
 import CircularProgress from "../../components/Feedback/CircularProgress"
 import { useRegisterMutation } from '../../services/authApi';
@@ -24,6 +24,8 @@ export default function Form() {
     password: '',
     showPassword: false,
   });
+
+  const [dialcode, setDialcode] = React.useState("");
 
   const handleClickShowPassword = () => {
     setValues({
@@ -39,7 +41,7 @@ export default function Form() {
   const [register, {isLoading, isError, isSuccess, error, data}] = useRegisterMutation()
 
 
-  const { handleSubmit, control, formState:{ errors } } = useForm({
+  const { handleSubmit, control, formState:{ errors }, setValue } = useForm({
         mode: "all",
         defaultValues: {
             name: "",
@@ -50,8 +52,23 @@ export default function Form() {
         resolver: yupResolver(registerSchema)
     });
 
+    const handleUsernameOnBlur = (username) => {
+      if (username.charAt(0) === "0") {
+          return setValue("username", username.slice(1))
+        }
+    }
+
+    const getCountryDialCode = (dialCode) => {
+      setDialcode(dialCode)
+    }
+
     const onSubmit = data => {
-        register(data)
+      const new_data = {
+          ...data,
+          username: `${dialcode}${data.username}`
+      }
+      register(new_data)
+
     }
 
       
@@ -80,7 +97,8 @@ export default function Form() {
                   />
               </FormControl>)
             }/>
-                  
+                
+
             <Controller
               name="username"
               control={control}
@@ -93,11 +111,12 @@ export default function Form() {
                       placeholder="Phone Number"
                       error={errors.username ? true: false}
                       helperText={errors.username?.message}
+                      onBlur={() => handleUsernameOnBlur(field.value)}
                       fullWidth
                       InputProps={{
                       startAdornment: (
                       <InputAdornment position="start"> 
-                          <ContactPhoneIcon color="primary" />
+                          <CountryMenu getCountryDialCode={getCountryDialCode} />
                       </InputAdornment>)}}
                   />
               </FormControl>)

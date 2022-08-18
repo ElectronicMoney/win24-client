@@ -6,13 +6,13 @@ import IconButton from '@mui/material/IconButton';
 import Visibility from '@mui/icons-material/Visibility';
 import VisibilityOff from '@mui/icons-material/VisibilityOff';
 import LockIcon from '@mui/icons-material/Lock';
-import ContactPhoneIcon from '@mui/icons-material/ContactPhone';
 import { useForm, Controller } from "react-hook-form";
 import { yupResolver } from '@hookform/resolvers/yup';
 import Fab from '@mui/material/Fab';
 import { Alert } from '@mui/material';
 import { useLocation, useNavigate, Navigate } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
+import CountryMenu from '../../components/Navigation/CountryMenu';
 import { loginSchema } from "./schema"
 import { useAuthApiMutation } from '../../services/authApi';
 import { setAuthUser } from './authSlice';
@@ -26,6 +26,8 @@ export default function Form() {
     password: '',
     showPassword: false,
   });
+
+  const [dialcode, setDialcode] = React.useState("");
 
   const dispatch = useDispatch()
   const navigate = useNavigate()
@@ -53,17 +55,31 @@ export default function Form() {
   };
 
 
-  const { handleSubmit, control, formState:{ errors } } = useForm({
+  const { handleSubmit, control, formState:{ errors }, setValue } = useForm({
         mode: "all",
         defaultValues: {
             username: "",
             password: "",
         },
         resolver: yupResolver(loginSchema)
-    });
+  });
+
+  const handleUsernameOnBlur = (username) => {
+    if (username.charAt(0) === "0") {
+        return setValue("username", username.slice(1))
+      }
+  }
+
+  const getCountryDialCode = (dialCode) => {
+    setDialcode(dialCode)
+  }
 
     const onSubmit = data => {
-      login(data)
+      const new_data = {
+          ...data,
+          username: `${dialcode}${data.username}`
+      }
+      login(new_data)
     }
 
     React.useEffect(() => {
@@ -109,11 +125,12 @@ export default function Form() {
                       placeholder="Phone Number"
                       error={errors.username ? true: false}
                       helperText={errors.username?.message}
+                      onBlur={() => handleUsernameOnBlur(field.value)}
                       fullWidth
                       InputProps={{
                       startAdornment: (
                       <InputAdornment position="start"> 
-                          <ContactPhoneIcon color="primary" />
+                          <CountryMenu getCountryDialCode={getCountryDialCode} />
                       </InputAdornment>)}}
                   />
               </FormControl>)

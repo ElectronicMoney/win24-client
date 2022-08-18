@@ -67,12 +67,49 @@ export const usersApi = createApi({
       invalidatesTags: (result, error, id) => [{ type: 'Users', id }],
     }),
 
+    generateOtp: build.mutation({
+      query(data) {
+        const { username, ...body } = data
+        return {
+          url: `users_otp/${username}`,
+          method: 'PATCH',
+          body,
+        }
+      },
+    }),
+
+    resetPassword: build.mutation({
+      query(data) {
+        const { username, ...body } = data
+        return {
+          url: `users_reset_password/${username}`,
+          method: 'PATCH',
+          body,
+        }
+      },
+    }),
+
+    changePassword: build.mutation({
+      query(data) {
+        const { username, ...body } = data
+        return {
+          url: `users_change_password/123456`,
+          method: 'PATCH',
+          body,
+        }
+      },
+    }),
+
+
   }),
 })
 
 export const {
   useGetUsersQuery,
   useGetUserQuery,
+  useGenerateOtpMutation,
+  useResetPasswordMutation,
+  useChangePasswordMutation,
   useCreateUserMutation,
   useUpdateUserMutation,
   useDeleteUserMutation,
