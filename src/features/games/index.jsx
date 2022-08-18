@@ -219,7 +219,7 @@ export default function Games() {
 
                               <Grid item xs={5} sx={{textAlign: "right"}}>
                                   <Typography component={"p"}>
-                                    Left Time To Buy
+                                    Left Time To Bet
                                   </Typography>
                               </Grid>
 
