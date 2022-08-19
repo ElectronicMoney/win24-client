@@ -357,7 +357,7 @@ export default function WithdrawalsTable() {
           {
             payload.action === "View Withdrawal" ?(
               <ViewWithdrawal withdrawal={payload.withdrawal} />
-            ): payload.action === "Approve Withdrawalr" ? (
+            ): payload.action === "Approve Withdrawal" ? (
               <ApproveWithdrawal withdrawalId={payload.withdrawal.id} />
             ) : payload.action === "Cancel Withdrawal" ? (
               <CancelWithdrawal withdrawalId={payload.withdrawal.id}/>

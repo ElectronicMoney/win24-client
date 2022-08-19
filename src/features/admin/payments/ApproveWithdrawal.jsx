@@ -12,7 +12,7 @@ function ApprroveWithdrawal({withdrawalId}) {
         return withdrawalId
     },[withdrawalId])
     
-    const [updateRecharge, {isLoading, isError, isSuccess, error, data}] = useUpdateWithdrawalMutation()
+    const [updateWithdrawal, {isLoading, isError, isSuccess, error, data}] = useUpdateWithdrawalMutation()
 
     return ( 
         <React.Fragment>
@@ -39,9 +39,9 @@ function ApprroveWithdrawal({withdrawalId}) {
             color="primary" 
             aria-label="banUser"
             sx={{px: 6}}
-            onClick={() => updateRecharge({id:withdrawalIdMemo, status:"COMPLETED"}) }
+            onClick={() => updateWithdrawal({id:withdrawalIdMemo, status:"COMPLETED"}) }
             >
-                { isLoading ? <CircularProgress />: "Cancel Withdrawal!"}
+                { isLoading ? <CircularProgress />: "Approve Withdrawal!"}
             </Fab>                             
         </React.Fragment>
      );

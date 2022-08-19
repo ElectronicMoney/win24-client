@@ -1,18 +1,18 @@
 import React from 'react';
 import { Alert } from '@mui/material';
 import Fab from '@mui/material/Fab';
-import { useUpdateUserMutation } from '../../../services/usersApi';
+import { useUpdateWithdrawalMutation } from '../../../services/withdrawalsApi';
 import CircularProgress from "../../../components/Feedback/CircularProgress"
 
 
 
-function ActivateUser({userId}) {
+function CancelWithdrawal({withdrawalId}) {
 
-    const userIdMemo = React.useMemo(() => {
-        return userId
-    },[userId])
+    const withdrawalIdMemo = React.useMemo(() => {
+        return withdrawalId
+    },[withdrawalId])
     
-    const [updateUser, {isLoading, isError, isSuccess, error, data}] = useUpdateUserMutation()
+    const [updateWithdrawal, {isLoading, isError, isSuccess, error, data}] = useUpdateWithdrawalMutation()
 
     return ( 
         <React.Fragment>
@@ -20,7 +20,7 @@ function ActivateUser({userId}) {
             {
               isSuccess && data ? (
                 <Alert severity="success" sx={{ mb: 2 }}>
-                  "The user Account has been Activated Successfully!"
+                  "The user Withdrawal Payment has been Cancelled Successfully!"
                 </Alert>
               ): isError? (
                 <Alert severity="error" sx={{ mb: 2 }}>
@@ -28,7 +28,7 @@ function ActivateUser({userId}) {
                 </Alert>
               ): (
                 <Alert severity="warning" sx={{ my: 3 }}>
-                    Are You sure you want to Activate this user Account?
+                    Are You sure you want to Cancel this user Withdrawal payment?
                 </Alert>
               )
             }
@@ -39,12 +39,12 @@ function ActivateUser({userId}) {
             color="primary" 
             aria-label="banUser"
             sx={{px: 6}}
-            onClick={() => updateUser({id:userIdMemo, is_active:true}) }
+            onClick={() => updateWithdrawal({id:withdrawalIdMemo, status:"CANCELLED"}) }
             >
-                { isLoading ? <CircularProgress />: "Activate User!"}
+                { isLoading ? <CircularProgress />: "Cancel Withdrawal!"}
             </Fab>                             
         </React.Fragment>
      );
 }
 
-export default ActivateUser;
+export default CancelWithdrawal;

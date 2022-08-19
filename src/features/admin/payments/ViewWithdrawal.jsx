@@ -22,7 +22,7 @@ const Item = styled(Paper)(({ theme }) => ({
   }));
   
 
-function ViewUser({withdrawal}) {
+function ViewWithdrawal({withdrawal}) {
     return ( 
         <React.Fragment>
             <Item elevation={3}>
@@ -60,7 +60,7 @@ function ViewUser({withdrawal}) {
                             <ListItem
                                 secondaryAction={
                                 <Typography variant="h5" component={"h2"}>
-                                    { formatDate(withdrawal.method) }
+                                    { withdrawal.method }
                                 </Typography>
                                 }
                             >
@@ -131,4 +131,4 @@ function ViewUser({withdrawal}) {
      );
 }
 
-export default ViewUser;
+export default ViewWithdrawal;

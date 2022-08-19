@@ -60,7 +60,7 @@ function ViewRecharge({recharge}) {
                             <ListItem
                                 secondaryAction={
                                 <Typography variant="h5" component={"h2"}>
-                                    { formatDate(recharge.method) }
+                                    { recharge.method }
                                 </Typography>
                                 }
                             >

@@ -11,6 +11,7 @@ const AdminLayout     = React.lazy(() => import('../layouts/AdminLayout'));
 
 const Users           = React.lazy(() => import("../pages/admin/users"));
 const Payments           = React.lazy(() => import("../pages/admin/payments"));
+const SettingsAdminPage  = React.lazy(() => import("../pages/admin/settings"));
 
 const Home            = React.lazy(() => import("../pages"));
 const AppHome         = React.lazy(() => import("../pages/home"));
@@ -78,7 +79,7 @@ export default function AppRouter() {
                         <Route path="games" element={<Dashboard />} />
                         <Route path="bets" element={<Dashboard />} />
                         <Route path="payments" element={<Payments />} />
-                        <Route path="settings" element={<Dashboard />} />
+                        <Route path="settings" element={<SettingsAdminPage />} />
                         <Route path="logout" element={<Dashboard />} />
                     </Route>
                     {/* Not Found Page */}
